@@ -260,6 +260,14 @@ try {
   admin = (await json('POST', '/api/auth/login', { email: 'admin@clyvovet.com.br', senha: 'admin123' }, 200, null)).token;
   tutor = (await json('POST', '/api/auth/login', { email: 'gabriel@clyvovet.com.br', senha: 'tutor123' }, 200, null)).token;
   browser = await chromium.launch({ headless: process.env.QA_HEADED !== 'true', slowMo: process.env.QA_DEMO === 'true' ? 220 : 0 });
+  if (mode === 'desktop') {
+    const configuration = await browser.newContext({ viewport, recordVideo: { dir: path.join(out, 'configuration'), size: viewport } });
+    const screen = await configuration.newPage();
+    const source = await readFile('automation/run.mjs', 'utf8');
+    await screen.setContent('<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><style>body{font:24px system-ui;margin:42px;color:#153d38}pre{font:18px monospace;white-space:pre-wrap;background:#eef4f2;padding:22px}</style><h1>ClyvoVet — configuração da automação</h1><p>Playwright 1.62.1 · Chromium · Node assert · Java 17 · H2 descartável</p><p>Commit da aplicação: ' + revision + '</p><pre>npm install --ignore-scripts\nnpx playwright install --with-deps chromium\nnpm run prepare:app\nnpm test\n\nADMIN: admin@clyvovet.com.br / admin123\nTUTOR: gabriel@clyvovet.com.br / tutor123\nD=' + today + '\n\nFixtures QA independentes, excluídas ao final.\nSem mocks HTTP, sem Oracle, sem Supabase, sem produção.</pre><h2>Trecho do arquivo de testes efetivamente executado</h2><pre>' + escape(source.slice(source.indexOf("scenario('CT01'"), source.indexOf("scenario('CT02'"))) + '</pre></html>');
+    await delay(4500); await screen.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await delay(3500);
+    const video = screen.video(); await configuration.close(); report.configurationVideo = path.relative(out, await video.path());
+  }
   for (const c of cases) {
     const start = Date.now(); const events = []; const startCheck = checks.length;
     let context; let page; let result = { id: c.id, title: c.title, type: c.ui ? 'UI + HTTP' : 'HTTP', status: 'passed' };
@@ -273,6 +281,7 @@ try {
       }
       await c.fn({ page });
       if (page) await page.screenshot({ path: path.join(out, c.id + '.png'), fullPage: true });
+      if (page && process.env.QA_DEMO === 'true') await delay(1100);
       // Erros HTTP 401/403 são esperados nos cenários negativos; 5xx e 404 em recursos estáticos nunca são ignorados.
       assert.equal(events.filter(e => e.type === 'pageerror' || (e.type === 'http' && (e.status >= 500 || (e.status === 404 && /\.(css|js|png|svg|ico)$/.test(e.path))))).length, 0, JSON.stringify(events));
     } catch (e) {
@@ -297,6 +306,16 @@ finally {
   await writeFile(path.join(out, 'application.log'), appLog);
   const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.video ? '<a href="' + r.video + '">Vídeo real</a> · <a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e assertions em results.json') + '</td></tr>').join('');
   await writeFile(path.join(out, 'report.html'), '<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><title>ClyvoVet — Resultados reais</title><style>body{font:16px system-ui;margin:40px;color:#153d38}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;border-bottom:1px solid #ccc}code{overflow-wrap:anywhere}</style><h1>ClyvoVet — Automação Sprint 4</h1><p>Ferramenta: Playwright Chromium + Node assert. Viewport: ' + mode + '.</p><p>Commit da aplicação: <code>' + revision + '</code></p><p>Início: ' + startedAt + ' · Fim: ' + report.finishedAt + '</p><h2>' + report.passed + '/' + cases.length + ' aprovados · ' + report.failed + ' falhas</h2><p>Dados: usuários de demonstração; D=' + today + '; H2 descartável, recriado a cada processo; fixtures individuais excluídas ao final.</p><table><thead><tr><th>ID</th><th>Cenário</th><th>Camada</th><th>Resultado</th><th>ms</th><th>Evidência</th></tr></thead><tbody>' + rows + '</tbody></table><pre>' + escape(report.setupError ?? '') + '</pre></html>');
+  if (mode === 'desktop' && results.length === cases.length) {
+    const reportBrowser = await chromium.launch();
+    try {
+      const context = await reportBrowser.newContext({ viewport, recordVideo: { dir: path.join(out, 'summary'), size: viewport } });
+      const screen = await context.newPage(); await screen.goto('file://' + path.join(out, 'report.html'));
+      await delay(4500); await screen.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await delay(4500);
+      const video = screen.video(); await context.close(); report.summaryVideo = path.relative(out, await video.path());
+      await writeFile(path.join(out, 'results.json'), JSON.stringify(report, null, 2));
+    } finally { await reportBrowser.close(); }
+  }
   console.log('RESULTADO: ' + report.passed + '/' + cases.length + ' aprovados; ' + report.failed + ' falhas');
   if (report.failed || results.length !== cases.length) process.exitCode = 1;
 }

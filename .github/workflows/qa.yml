@@ -35,6 +35,11 @@ jobs:
           QA_VIEWPORT: ${{ matrix.viewport }}
           QA_DEMO: 'true'
         run: npm test
+      - name: Montar demonstração com configuração, execução e resultados reais
+        if: matrix.viewport == 'desktop'
+        run: |
+          command -v ffmpeg || sudo apt-get install -y ffmpeg
+          python3 scripts/make-video.py artifacts/desktop
       - name: Preservar relatório, requisições, capturas e gravações
         if: always()
         uses: actions/upload-artifact@v4
@@ -43,3 +48,26 @@ jobs:
           path: artifacts/${{ matrix.viewport }}/
           retention-days: 90
           if-no-files-found: warn
+  regressao-dotnet:
+    name: Regressão preexistente .NET — unitários e integração SQLite
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Obter fonte sem modificar o repositório da disciplina
+        run: |
+          git clone https://github.com/gabriel-g-dev/ClyvoVetApi.git .work/dotnet
+          git -C .work/dotnet checkout --detach 83b6dd76b55e471d5f5344f60a80f3617f3f9928
+      - name: Executar suítes existentes (não contam como novos testes de sistema)
+        run: |
+          dotnet test .work/dotnet/ClyvoVetApi.Tests.Unit --logger trx --results-directory artifacts/dotnet/unit
+          dotnet test .work/dotnet/ClyvoVetApi.Tests.Integration --logger trx --results-directory artifacts/dotnet/integration
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regressao-dotnet
+          path: artifacts/dotnet/
+          retention-days: 90
