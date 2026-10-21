@@ -12,7 +12,7 @@ const viewport = mode === 'mobile' ? { width: 390, height: 844 } : { width: 1440
 const out = path.resolve('artifacts', mode);
 await mkdir(out, { recursive: true });
 const startedAt = new Date().toISOString();
-const day = (offset = 0) => new Date(Date.now() + offset * 86400000).toISOString().slice(0, 10);
+const day = (offset = 0) => new Date(Date.parse(startedAt) + offset * 86400000).toISOString().slice(0, 10);
 const today = day();
 const revision = spawnSync('git', ['-C', '.work/java', 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim();
 assert.equal(revision, 'c686580b6ae21c0e828a9057f8d5a5b53c94e254', 'Commit da aplicação difere da baseline');
@@ -208,9 +208,9 @@ scenario('CT15', 'Baixa pela interface cria reforço e atualiza score', async ({
     await page.getByText(/Próxima dose agendada automaticamente/).waitFor();
     assert.equal(await page.locator('.score').innerText(), '100');
     assert.ok((await page.locator('main').innerText()).includes('EXCELENTE'));
-    const applied = await json('GET', '/api/vacinas/' + v.id); assert.equal(applied.status, 'A'); assert.equal(applied.dataAplicacao, today);
+    const applied = await json('GET', '/api/vacinas/' + v.id); assert.equal(applied.status, 'A'); assert.equal(applied.data, today);
     const doses = await json('GET', '/api/vacinas/pet/' + p.id);
-    assert.equal(doses.length, 2); const next = doses.find(x => x.status === 'P'); assert.equal(next.dataAplicacao, day(365));
+    assert.equal(doses.length, 2); const next = doses.find(x => x.status === 'P'); assert.equal(next.data, day(365));
   });
 });
 scenario('CT16', 'Reaplicação retorna 409 e mantém somente duas doses', async () => {
@@ -238,7 +238,7 @@ scenario('CT18', 'Data futura retorna 400 sem aplicar nem criar reforço', async
     const v = await vaccine(p.id, 'QA-CT18-dose', day(-20));
     const r = await call('POST', '/api/vacinas/' + v.id + '/aplicar', { dataAplicacao: day(1) });
     assert.equal(r.status, 400); assert.ok(JSON.stringify(r.body).includes('futuro'));
-    const unchanged = await json('GET', '/api/vacinas/' + v.id); assert.equal(unchanged.status, 'P'); assert.equal(unchanged.dataAplicacao, day(-20));
+    const unchanged = await json('GET', '/api/vacinas/' + v.id); assert.equal(unchanged.status, 'P'); assert.equal(unchanged.data, day(-20));
     assert.equal((await json('GET', '/api/vacinas/pet/' + p.id)).length, 1);
   });
 }, false);
