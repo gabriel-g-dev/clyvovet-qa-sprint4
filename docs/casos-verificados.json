@@ -1,0 +1,279 @@
+{
+  "date": "2026-10-23",
+  "method": "Releitura da UI nativa após salvar",
+  "totalCases": 27,
+  "totalSteps": 112,
+  "cases": [
+    {
+      "id": "CT01",
+      "azureId": 63,
+      "pbi": 24,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT02",
+      "azureId": 64,
+      "pbi": 24,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT03",
+      "azureId": 65,
+      "pbi": 24,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT04",
+      "azureId": 66,
+      "pbi": 24,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT05",
+      "azureId": 67,
+      "pbi": 25,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT06",
+      "azureId": 68,
+      "pbi": 26,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT07",
+      "azureId": 69,
+      "pbi": 25,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT08",
+      "azureId": 70,
+      "pbi": 25,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT09",
+      "azureId": 71,
+      "pbi": 24,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT10",
+      "azureId": 72,
+      "pbi": 24,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT11",
+      "azureId": 73,
+      "pbi": 24,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT12",
+      "azureId": 74,
+      "pbi": 17,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT13",
+      "azureId": 75,
+      "pbi": 24,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT14",
+      "azureId": 76,
+      "pbi": 26,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT15",
+      "azureId": 77,
+      "pbi": 27,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT16",
+      "azureId": 78,
+      "pbi": 27,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT17",
+      "azureId": 79,
+      "pbi": 27,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT18",
+      "azureId": 80,
+      "pbi": 27,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT19",
+      "azureId": 81,
+      "pbi": 18,
+      "steps": 3,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT20",
+      "azureId": 82,
+      "pbi": 16,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT21",
+      "azureId": 83,
+      "pbi": 33,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT22",
+      "azureId": 84,
+      "pbi": 28,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT23",
+      "azureId": 85,
+      "pbi": 30,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT24",
+      "azureId": 86,
+      "pbi": 31,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT25",
+      "azureId": 87,
+      "pbi": 31,
+      "steps": 5,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT26",
+      "azureId": 88,
+      "pbi": 16,
+      "steps": 8,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    },
+    {
+      "id": "CT27",
+      "azureId": 89,
+      "pbi": 14,
+      "steps": 4,
+      "descriptionMatches": true,
+      "nativeStepsMatch": true,
+      "testsLinkMatches": true,
+      "manualExecution": "Planejado"
+    }
+  ],
+  "differences": []
+}

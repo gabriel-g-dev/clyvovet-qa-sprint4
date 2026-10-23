@@ -9,6 +9,12 @@
     "test": "node automation/run.mjs",
     "test:mobile": "QA_VIEWPORT=mobile node automation/run.mjs"
   },
-  "devDependencies": { "playwright": "1.62.1" },
-  "engines": { "node": ">=22" }
+  "devDependencies": {
+    "ffmpeg-static": "5.2.0",
+    "ffprobe-static": "3.1.0",
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

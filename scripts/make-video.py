@@ -8,8 +8,9 @@ root = Path(sys.argv[1] if len(sys.argv) > 1 else 'artifacts/desktop').resolve()
 report = json.loads((root / 'results.json').read_text())
 assert report.get('continuousVideo') == 'demonstracao.mp4', 'Gravação contínua ausente'
 assert not report.get('recordingError'), report.get('recordingError')
+ffprobe = subprocess.check_output(['node', '--input-type=module', '-e', "import probe from 'ffprobe-static'; process.stdout.write(probe.path)"]).decode()
 probe = json.loads(subprocess.check_output([
-    'ffprobe', '-v', 'error', '-show_format', '-show_streams', '-of', 'json',
+    ffprobe, '-v', 'error', '-show_format', '-show_streams', '-of', 'json',
     str(root / 'demonstracao.mp4')
 ]))
 video = next(s for s in probe['streams'] if s['codec_type'] == 'video')

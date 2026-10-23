@@ -1,8 +1,8 @@
 # Plano manual — Sprint 4
 
-25 casos de sistema. Cada arquivo contém objetivo, pré-condições, entradas, saídas, passos e critério de aprovação. A execução manual permanece planejada; resultados automatizados são reportados separadamente.
+27 casos de sistema, com entradas, resultados e passos concretos. Execução manual planejada; resultados automatizados apresentados separadamente. CT26 e CT27 fecham lacunas do histórico clínico .NET e do agendamento local mobile.
 
-D é a data UTC capturada no início: não trocar a data do sistema durante a execução. Os IDs de fixtures são guardados das respostas, enquanto nomes e valores são predefinidos.
+D é a data UTC registrada no início; calcular deslocamentos antes do teste. IDs retornados são guardados pelo executor. Cada caso tem seu próprio ambiente/fixtures.
 
 - [CT01 — ADMIN autentica e abre o dashboard](CT01.md)
 - [CT02 — Senha incorreta não cria sessão](CT02.md)
@@ -29,3 +29,5 @@ D é a data UTC capturada no início: não trocar a data do sistema durante a ex
 - [CT23 — Mobile autentica, restaura sessão e protege logout](CT23.md)
 - [CT24 — Mobile mantém pets e isola dados entre duas contas](CT24.md)
 - [CT25 — Mobile mantém vacinas, calcula alerta e valida propriedade do pet](CT25.md)
+- [CT26 — .NET registra consulta, vacina e prescrição no histórico clínico](CT26.md)
+- [CT27 — Mobile valida campos e confirma agendamento local](CT27.md)

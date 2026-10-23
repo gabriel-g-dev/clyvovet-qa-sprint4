@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import ffmpeg from 'ffmpeg-static';
 
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -22,7 +23,7 @@ export async function startDemo(browser, out, report) {
   };
   await setScreen('ClyvoVet — preparação da execução', '<p>Iniciando gravação contínua do navegador.</p>');
   let log = '';
-  const recording = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'warning', '-y', '-f', 'x11grab', '-framerate', '20', '-video_size', '1600x1000', '-i', process.env.DISPLAY, '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', path.join(out, 'demonstracao.mp4')], { stdio: ['pipe', 'ignore', 'pipe'] });
+  const recording = spawn(ffmpeg, ['-hide_banner', '-loglevel', 'warning', '-y', '-f', 'x11grab', '-framerate', '20', '-video_size', '1600x1000', '-i', process.env.DISPLAY, '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', path.join(out, 'demonstracao.mp4')], { stdio: ['pipe', 'ignore', 'pipe'] });
   const recordingExit = new Promise(resolve => recording.once('exit', resolve));
   recording.stderr.on('data', d => { log += d; });
   const began = Date.now();
@@ -32,7 +33,7 @@ export async function startDemo(browser, out, report) {
   if (recording.exitCode !== null || !recording.pid) throw new Error('Não foi possível iniciar FFmpeg: ' + log);
   mark('Ferramenta, ambiente e preparação real');
   const prepareLog = await readFile('artifacts/prepare.log', 'utf8').catch(() => 'Preparação concluída antes da abertura do navegador; consulte o log do job.');
-  await setScreen('Preparação e dados controlados', '<p>Playwright 1.62.1 + Chromium + Node assert: automação da interface web Java e verificação HTTP real.</p><p>O navegador registra esta sessão sem cortes. Sem narração; roteiro próprio em docs/roteiro-narracao.md.</p><div class="columns"><div><h2>Comandos e isolamento</h2><pre>npm ci --ignore-scripts\nnpx playwright install --with-deps chromium\nnpm run prepare:app\nQA_HEADED=true QA_RECORD=true QA_DEMO=true npm test</pre><p>Java 17 / H2 em memória privado / 127.0.0.1:18080. Aplicação já iniciou e respondeu ao login. As fixtures são excluídas ao final de cada caso.</p><p>Commit real: <small>' + escape(report.revision) + '</small></p></div><div><h2>Massa da execução</h2><pre>ADMIN: admin@clyvovet.com.br / admin123\nTUTOR: gabriel@clyvovet.com.br / tutor123\nRex: tutor 1 | Mel: tutora 2\nD (UTC): ' + report.today + '\nQA-CT07: Cachorro / SRD / 2023-01-15 / 12.50\nDose QA: D-20 | reforço: D+365</pre><p>Dados públicos de demonstração. Não há produção, mocks HTTP, Oracle ou Supabase nesta suíte.</p><p>Arquivos: automation/run.mjs, scripts/prepare.sh e .github/workflows/qa.yml.</p></div></div>');
+  await setScreen('Preparação e dados controlados', '<p>Playwright 1.62.1 + Chromium + Node assert: automação da interface web Java e verificação HTTP real.</p><p>O navegador registra esta sessão sem cortes. Sem narração; roteiro próprio em docs/roteiro-narracao.md.</p><div class="columns"><div><h2>Comandos e isolamento</h2><pre>npm ci --ignore-scripts\nnpx playwright install chromium\nnode node_modules/ffmpeg-static/install.js\nnpm run prepare:app\nQA_HEADED=true QA_RECORD=true QA_DEMO=true npm test</pre><p>Java 17 / H2 em memória privado / 127.0.0.1:18080. Aplicação já iniciou e respondeu ao login. As fixtures são excluídas ao final de cada caso.</p><p>Commit real: <small>' + escape(report.revision) + '</small></p></div><div><h2>Massa da execução</h2><pre>ADMIN: admin@clyvovet.com.br / admin123\nTUTOR: gabriel@clyvovet.com.br / tutor123\nRex: tutor 1 | Mel: tutora 2\nD (UTC): ' + report.today + '\nQA-CT07: Cachorro / SRD / 2023-01-15 / 12.50\nDose QA: D-20 | reforço: D+365</pre><p>Dados públicos de demonstração. Não há produção, mocks HTTP, Oracle ou Supabase nesta suíte.</p><p>Arquivos: automation/run.mjs, scripts/prepare.sh e .github/workflows/qa.yml.</p></div></div>');
   await pause(15000);
   mark('Log real da compilação e configuração do runner');
   await setScreen('Preparação executada e código utilizado', '<div class="columns"><div><h2>Final do log de preparação</h2><pre>' + escape(prepareLog.split('\n').slice(-19).join('\n')) + '</pre></div><div><h2>Configuração real de scripts/prepare.sh</h2><pre>' + escape(await readFile('scripts/prepare.sh', 'utf8')) + '</pre></div></div>');
