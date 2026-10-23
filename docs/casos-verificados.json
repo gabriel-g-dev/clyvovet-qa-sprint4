@@ -1,6 +1,6 @@
 {
   "date": "2026-10-23",
-  "method": "Releitura da UI nativa após salvar",
+  "method": "Releitura da UI nativa após salvar, comparação da descrição e de cada ação/resultado; CT27 e relação recíproca reconferidos após correção para PBI 22",
   "totalCases": 27,
   "totalSteps": 112,
   "cases": [
@@ -12,7 +12,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT02",
@@ -22,7 +26,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT03",
@@ -32,7 +40,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT04",
@@ -42,7 +54,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT05",
@@ -52,7 +68,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT06",
@@ -62,7 +82,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT07",
@@ -72,7 +96,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT08",
@@ -82,7 +110,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT09",
@@ -92,7 +124,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT10",
@@ -102,7 +138,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT11",
@@ -112,7 +152,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT12",
@@ -122,7 +166,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT13",
@@ -132,7 +180,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT14",
@@ -142,7 +194,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT15",
@@ -152,7 +208,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT16",
@@ -162,7 +222,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT17",
@@ -172,7 +236,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT18",
@@ -182,7 +250,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT19",
@@ -192,7 +264,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT20",
@@ -202,7 +278,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT21",
@@ -212,7 +292,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT22",
@@ -222,7 +306,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT23",
@@ -232,7 +320,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT24",
@@ -242,7 +334,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT25",
@@ -252,7 +348,11 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT26",
@@ -262,17 +362,25 @@
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     },
     {
       "id": "CT27",
       "azureId": 89,
-      "pbi": 14,
+      "pbi": 22,
       "steps": 4,
       "descriptionMatches": true,
       "nativeStepsMatch": true,
       "testsLinkMatches": true,
-      "manualExecution": "Planejado"
+      "manualExecution": "Planejado",
+      "objectivePresent": true,
+      "controlledInputsPresent": true,
+      "expectedOutputPresent": true,
+      "allStepsHaveActionAndExpected": true
     }
   ],
   "differences": []

@@ -1,4 +1,4 @@
-# Inspeção e defeitos — 21/10/2026
+# Inspeção e defeitos — conferência em 23/10/2026
 
 ## Baseline inspecionada
 
@@ -24,6 +24,8 @@ Java: testes de perfil, registro de tutor, preço da consulta e baixa de vacina.
 | QA-MOB01 | Política de INSERT/UPDATE de vacinas confere auth.uid()=user_id, mas não a propriedade do pet_id referenciado. | Risco por inspeção, não exploração confirmada. CT25 inclui tentativa controlada somente em Supabase QA. |
 | QA-MOB02 | Status vacinal é calculado ao criar/editar; não é atualizado diariamente na leitura. | Limitação de implementação; não prometer recálculo automático apenas por abrir o app. |
 | QA-MOB03 | Histórico contém eventos locais e agendamento usa AsyncStorage; não integra Java/.NET nem comprova atendimento clínico real. | Documentado como comportamento local; não incluído como persistência clínica na nuvem. |
+
+CT27 cobre o agendamento local do PBI 22 (Sprint 2), com seleções explícitas e tentativa vazia; não foi executado em Expo. O calendário fixo 26/05 não demonstra uma vaga futura real.
 
 Não foi usado o Supabase compartilhado para criar dados: faltava identificação de ambiente descartável e contas de QA confirmadas. O roteiro manual especifica esses pré-requisitos sem publicar tokens ou credenciais reais.
 

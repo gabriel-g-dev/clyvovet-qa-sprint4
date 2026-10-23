@@ -1,19 +1,29 @@
 # Evidências reais
 
-Execução principal: [39641753093](https://github.com/gabriel-g-dev/clyvovet-qa-sprint4/actions/runs/39641753093) · branch develop · commit de QA d1f4d1f79956101c0729c3388e16647d2a5b9022 · aplicação Java c686580b6ae21c0e828a9057f8d5a5b53c94e254.
+Execução de referência: [39963705016](https://github.com/gabriel-g-dev/clyvovet-qa-sprint4/actions/runs/39963705016) · **23/10/2026** · branch develop · QA `e544daad11bbbb56df92afe0a7900fd5b1cf3cdb` · aplicação Java `c686580b6ae21c0e828a9057f8d5a5b53c94e254`.
 
 | Artefato | Conteúdo |
 |---|---|
-| [demonstracao.mp4](demonstracao.mp4) | Vídeo único com configuração, nove execuções reais da interface e relatório final |
-| [desktop.zip](desktop.zip) | report.html, results.json, nove capturas, vídeos brutos, logs e MP4; extrair tudo e abrir report.html |
-| [mobile.zip](mobile.zip) | Relatório, capturas e vídeos da interface Java em viewport 390 × 844 |
-| [regressao-dotnet.zip](regressao-dotnet.zip) | TRX originais: 131 unitários e 45 de integração aprovados |
-| [desktop-results.json](desktop-results.json) / [mobile-results.json](mobile-results.json) | Resultados por cenário, durações, status HTTP e eventos de console |
-| [desktop-CT15.png](desktop-CT15.png) | Dose aplicada, próximo reforço e score 100 |
-| [mobile-CT06.png](mobile-CT06.png) | Score do Rex e evidência do overflow do cabeçalho |
+| [desktop.zip](desktop.zip) | Artefato original do Actions: desktop normal e desktop-reverse; report.html, JSON, capturas e logs; extrair tudo para abrir HTML |
+| [mobile.zip](mobile.zip) | Artefato original do Actions: painel Java em 390 × 844, HTML/JSON/PNG/logs |
+| [regressao-dotnet.zip](regressao-dotnet.zip) | TRX originais: 131 unitários e 45 integrações SQLite aprovados, zero skips |
+| [desktop-results.json](desktop-results.json), [mobile-results.json](mobile-results.json), [desktop-reverse-results.json](desktop-reverse-results.json) | Resultado individual, duração, status HTTP, eventos do navegador e verificação de isolamento |
+| [desktop-actions.log](desktop-actions.log), [mobile-actions.log](mobile-actions.log), [dotnet-actions.log](dotnet-actions.log) | Logs reais dos três jobs; restauração dos caches, preparação e resultados |
+| [Relatório desktop](desktop-report.png), [mobile](mobile-report.png), [inverso](desktop-reverse-report.png) | Capturas dos HTML gerados com resultados reais dos 19 casos |
+| [Configuração desktop](desktop-configuration.png), [mobile](mobile-configuration.png), [inverso](desktop-reverse-configuration.png) | Capturas da configuração efetivamente executada, versões, commit, viewport e isolamento |
+| [desktop-CT15.png](desktop-CT15.png) | Dose aplicada, reforço e score 100 na execução atual |
+| [mobile-CT06.png](mobile-CT06.png) | Score 85 de Rex e overflow observado do cabeçalho |
+| [Azure: consulta 27 casos](azure-qa.jpg), [CT26/CT27 na consulta](azure-qa-ct26-27.jpg) | Prints reais de 23/10/2026; plano em Design |
+| [CT26: passos](azure-ct26-steps.jpg), [CT27: passos](azure-ct27-steps.jpg), [CT27: vínculo](azure-ct27-link.jpg) | Ações/saídas nativas e relação Tests com PBI 22 |
+| [Professor Basic](azure-professor-basic.jpg), [administrador](azure-professor-admin.jpg) | Acesso já existente, sem alteração de licença/permissão |
+| [GitHub Actions](github-actions.jpg), [repositório](repositorio-qa.jpg) | Estado publicado e execução aprovada |
+| [Proveniência](provenance.json), [SHA-256](sha256.json) | Origem, integridade e escopo das verificações |
+| [Histórico técnico de 21/10/2026](history/39641753093/) | Resultados anteriores preservados, sem confundir com a referência atual |
 
-São 19 cenários distintos, executados em dois tamanhos: **38 execuções**, não 38 cenários. Nenhum dos 176 testes preexistentes .NET foi somado aos 19 novos.
+São **19 cenários distintos**, executados em desktop, mobile e ordem inversa: **57 execuções aprovadas**. Nenhum dos 176 testes preexistentes .NET é somado aos novos cenários. Os três JSON atuais comprovam isolamento aprovado, zero pets de fixture restantes e seed inalterado.
 
-A primeira execução (39639520637) teve 17/19 aprovados: CT15/CT18 usaram o nome de campo de entrada na assertion de saída. A correção passou a conferir data, conforme VacinaResponseDTO, sem mudar o sistema. A execução 39640251920 aprovou 19/19 em ambos os tamanhos; a execução principal acima repetiu os resultados com a gravação completa.
+Os ZIPs atuais são cópias byte a byte dos artefatos da execução de referência; seus SHA-256 foram comparados com os digests retornados pelo GitHub. O histórico preserva assertions/resultados, logs e screenshots; apenas arquivos exclusivos de apresentação e seus campos/links foram retirados. Os resultados anteriores de 17/19 e as correções de contrato continuam no histórico Git/Actions; não são usados como resultado final.
 
-O console registrou o 403 esperado de CT04, sem erros JavaScript, 404 de recursos estáticos ou 5xx. A inspeção visual encontrou QA-VIS01, documentado separadamente. Os arquivos não contêm JWTs ou chaves de produção. As senhas visíveis são somente as públicas do seed de demonstração.
+O 403 em CT04 é esperado. Não houve erro JavaScript, 404 de recurso estático ou 5xx que passe silenciosamente nas assertions. QA-VIS01 continua documentado. Não há JWT ou chave de produção nas evidências. As credenciais de demonstração têm origem pública ou são valores sintéticos exclusivos de QA.
+
+**Vídeo demonstrativo: pendente de gravação e publicação pelo integrante responsável.**

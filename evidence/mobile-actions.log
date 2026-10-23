@@ -1,0 +1,354 @@
+﻿2026-10-23T13:44:26.5012713Z Current runner version: '2.338.0'
+2026-10-23T13:44:26.5040459Z ##[group]Runner Image Provisioner
+2026-10-23T13:44:26.5041362Z Hosted Compute Agent
+2026-10-23T13:44:26.5042032Z Version: 20261012.601
+2026-10-23T13:44:26.5042666Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-23T13:44:26.5043635Z Build Date: 2026-10-12T17:48:21Z
+2026-10-23T13:44:26.5044462Z Worker ID: {e8f2864c-08b8-4fa8-82e3-6c59b4eec9a2}
+2026-10-23T13:44:26.5045183Z Region: centralus
+2026-10-23T13:44:26.5045773Z Cloud: Azure
+2026-10-23T13:44:26.5046328Z ##[endgroup]
+2026-10-23T13:44:26.5047892Z ##[group]Operating System
+2026-10-23T13:44:26.5049054Z Ubuntu
+2026-10-23T13:44:26.5049579Z 24.04.5
+2026-10-23T13:44:26.5050120Z LTS
+2026-10-23T13:44:26.5050639Z ##[endgroup]
+2026-10-23T13:44:26.5051185Z ##[group]Runner Image
+2026-10-23T13:44:26.5051894Z Image: ubuntu-24.04
+2026-10-23T13:44:26.5052464Z Version: 20261012.334.1
+2026-10-23T13:44:26.5054062Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-23T13:44:26.5055663Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-23T13:44:26.5056713Z ##[endgroup]
+2026-10-23T13:44:26.5057970Z ##[group]GITHUB_TOKEN Permissions
+2026-10-23T13:44:26.5060194Z Contents: read
+2026-10-23T13:44:26.5060807Z Metadata: read
+2026-10-23T13:44:26.5061496Z ##[endgroup]
+2026-10-23T13:44:26.5063880Z Secret source: Actions
+2026-10-23T13:44:26.5064797Z Cache mode: write
+2026-10-23T13:44:26.5065846Z Prepare workflow directory
+2026-10-23T13:44:26.5406306Z Prepare all required actions
+2026-10-23T13:44:26.5457933Z Getting action download info
+2026-10-23T13:44:26.8575999Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-23T13:44:26.9624261Z Download action repository 'actions/setup-java@v4' (SHA:cf277c60eb25467037889841efdb72551f06f6c3)
+2026-10-23T13:44:27.7369648Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-23T13:44:27.8245892Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-23T13:44:27.9869103Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-23T13:44:28.3231122Z Complete job name: Java — interface e HTTP (mobile)
+2026-10-23T13:44:28.4187972Z ##[group]Run actions/checkout@v4
+2026-10-23T13:44:28.4189420Z with:
+2026-10-23T13:44:28.4190467Z   repository: gabriel-g-dev/clyvovet-qa-sprint4
+2026-10-23T13:44:28.4199378Z   token: ***
+2026-10-23T13:44:28.4200297Z   ssh-strict: true
+2026-10-23T13:44:28.4201200Z   ssh-user: git
+2026-10-23T13:44:28.4202134Z   persist-credentials: true
+2026-10-23T13:44:28.4203350Z   clean: true
+2026-10-23T13:44:28.4204312Z   sparse-checkout-cone-mode: true
+2026-10-23T13:44:28.4205426Z   fetch-depth: 1
+2026-10-23T13:44:28.4206335Z   fetch-tags: false
+2026-10-23T13:44:28.4207265Z   show-progress: true
+2026-10-23T13:44:28.4208206Z   lfs: false
+2026-10-23T13:44:28.4209118Z   submodules: false
+2026-10-23T13:44:28.4210066Z   set-safe-directory: true
+2026-10-23T13:44:28.4211130Z   allow-unsafe-pr-checkout: false
+2026-10-23T13:44:28.4212517Z ##[endgroup]
+2026-10-23T13:44:28.5281558Z Syncing repository: gabriel-g-dev/clyvovet-qa-sprint4
+2026-10-23T13:44:28.5286146Z ##[group]Getting Git version info
+2026-10-23T13:44:28.5289237Z Working directory is '/home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4'
+2026-10-23T13:44:28.5293221Z [command]/usr/bin/git version
+2026-10-23T13:44:28.5368803Z git version 2.55.0
+2026-10-23T13:44:28.5402577Z ##[endgroup]
+2026-10-23T13:44:28.5426821Z Temporarily overriding HOME='/home/runner/work/_temp/d579be79-30f6-47bb-8b7d-d5239985b612' before making global git config changes
+2026-10-23T13:44:28.5432010Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-23T13:44:28.5437100Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4
+2026-10-23T13:44:28.5561649Z Deleting the contents of '/home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4'
+2026-10-23T13:44:28.5565497Z ##[group]Initializing the repository
+2026-10-23T13:44:28.5567181Z [command]/usr/bin/git init /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4
+2026-10-23T13:44:28.5665275Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-23T13:44:28.5668979Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-23T13:44:28.5672457Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-23T13:44:28.5675520Z hint: call:
+2026-10-23T13:44:28.5677092Z hint:
+2026-10-23T13:44:28.5678864Z hint: 	git config --global init.defaultBranch <name>
+2026-10-23T13:44:28.5681035Z hint:
+2026-10-23T13:44:28.5683394Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-23T13:44:28.5686804Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-23T13:44:28.5689519Z hint:
+2026-10-23T13:44:28.5691059Z hint: 	git branch -m <name>
+2026-10-23T13:44:28.5692780Z hint:
+2026-10-23T13:44:28.5700933Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-23T13:44:28.5705241Z Initialized empty Git repository in /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4/.git/
+2026-10-23T13:44:28.5718118Z [command]/usr/bin/git remote add origin https://github.com/gabriel-g-dev/clyvovet-qa-sprint4
+2026-10-23T13:44:28.5806990Z ##[endgroup]
+2026-10-23T13:44:28.5810718Z ##[group]Disabling automatic garbage collection
+2026-10-23T13:44:28.5821008Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-23T13:44:28.5863229Z ##[endgroup]
+2026-10-23T13:44:28.5866269Z ##[group]Setting up auth
+2026-10-23T13:44:28.5872872Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-23T13:44:28.5911565Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-23T13:44:28.6393620Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-23T13:44:28.6436320Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-23T13:44:28.6661128Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-23T13:44:28.6699416Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-23T13:44:28.6931769Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-23T13:44:28.6975658Z ##[endgroup]
+2026-10-23T13:44:28.6977788Z ##[group]Fetching the repository
+2026-10-23T13:44:28.6986063Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e544daad11bbbb56df92afe0a7900fd5b1cf3cdb:refs/remotes/origin/develop
+2026-10-23T13:44:29.8861705Z From https://github.com/gabriel-g-dev/clyvovet-qa-sprint4
+2026-10-23T13:44:29.8864127Z  * [new ref]         e544daad11bbbb56df92afe0a7900fd5b1cf3cdb -> origin/develop
+2026-10-23T13:44:29.8867189Z ##[endgroup]
+2026-10-23T13:44:29.8867753Z ##[group]Determining the checkout info
+2026-10-23T13:44:29.8869667Z ##[endgroup]
+2026-10-23T13:44:29.8876524Z [command]/usr/bin/git sparse-checkout disable
+2026-10-23T13:44:29.8935519Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-23T13:44:29.8977955Z ##[group]Checking out the ref
+2026-10-23T13:44:29.8978730Z [command]/usr/bin/git checkout --progress --force -B develop refs/remotes/origin/develop
+2026-10-23T13:44:29.9189829Z Switched to a new branch 'develop'
+2026-10-23T13:44:29.9194841Z branch 'develop' set up to track 'origin/develop'.
+2026-10-23T13:44:29.9201880Z ##[endgroup]
+2026-10-23T13:44:29.9250381Z [command]/usr/bin/git log -1 --format=%H
+2026-10-23T13:44:29.9280344Z e544daad11bbbb56df92afe0a7900fd5b1cf3cdb
+2026-10-23T13:44:29.9605677Z ##[group]Run actions/setup-java@v4
+2026-10-23T13:44:29.9606090Z with:
+2026-10-23T13:44:29.9606369Z   distribution: temurin
+2026-10-23T13:44:29.9606651Z   java-version: 17
+2026-10-23T13:44:29.9606915Z   cache: maven
+2026-10-23T13:44:29.9607220Z   cache-dependency-path: scripts/prepare.sh
+2026-10-23T13:44:29.9607571Z   java-package: jdk
+2026-10-23T13:44:29.9607844Z   check-latest: false
+2026-10-23T13:44:29.9608116Z   server-id: github
+2026-10-23T13:44:29.9608394Z   server-username: GITHUB_ACTOR
+2026-10-23T13:44:29.9608716Z   server-password: GITHUB_TOKEN
+2026-10-23T13:44:29.9609042Z   overwrite-settings: true
+2026-10-23T13:44:29.9609332Z   job-status: success
+2026-10-23T13:44:29.9611806Z   token: ***
+2026-10-23T13:44:29.9612080Z ##[endgroup]
+2026-10-23T13:44:30.1343770Z ##[warning]setup-java v4 is deprecated and will no longer receive updates. Please migrate to actions/setup-java@v5.
+2026-10-23T13:44:30.1351213Z ##[group]Installed distributions
+2026-10-23T13:44:30.1535545Z Resolved Java 17.0.20+1 from tool-cache
+2026-10-23T13:44:30.1536129Z Setting Java 17.0.20+1 as the default
+2026-10-23T13:44:30.1546360Z (node:2317) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:44:30.1547281Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:44:30.1550376Z Creating toolchains.xml for JDK version 17 from temurin
+2026-10-23T13:44:30.1629997Z Writing to /home/runner/.m2/toolchains.xml
+2026-10-23T13:44:30.1630489Z 
+2026-10-23T13:44:30.1630686Z Java configuration:
+2026-10-23T13:44:30.1631160Z   Distribution: temurin
+2026-10-23T13:44:30.1631616Z   Version: 17.0.20+1
+2026-10-23T13:44:30.1632334Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:30.1632928Z 
+2026-10-23T13:44:30.1633568Z ##[endgroup]
+2026-10-23T13:44:30.1654247Z Creating settings.xml with server-id: github
+2026-10-23T13:44:30.1679094Z Writing to /home/runner/.m2/settings.xml
+2026-10-23T13:44:30.3301107Z Cache hit for: setup-java-Linux-x64-maven-e5e1fc4838e4631cddc9c4bd3f001d5f1ff4df6bd45c744773b43c2cf80cfa82
+2026-10-23T13:44:30.3407623Z (node:2317) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-23T13:44:31.4925281Z Received 77619409 of 90202321 (86.1%), 73.9 MBs/sec
+2026-10-23T13:44:31.7691162Z Received 90202321 of 90202321 (100.0%), 67.4 MBs/sec
+2026-10-23T13:44:31.7694577Z Cache Size: ~86 MB (90202321 B)
+2026-10-23T13:44:31.7735736Z [command]/usr/bin/tar -xf /home/runner/work/_temp/437a4ecd-a67f-4ba3-8d31-5b70cbdacec9/cache.tzst -P -C /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4 --use-compress-program unzstd
+2026-10-23T13:44:31.9944438Z Cache restored successfully
+2026-10-23T13:44:32.0006731Z Cache restored from key: setup-java-Linux-x64-maven-e5e1fc4838e4631cddc9c4bd3f001d5f1ff4df6bd45c744773b43c2cf80cfa82
+2026-10-23T13:44:32.0247289Z ##[group]Run actions/setup-node@v4
+2026-10-23T13:44:32.0247586Z with:
+2026-10-23T13:44:32.0247779Z   node-version: 22
+2026-10-23T13:44:32.0247990Z   cache: npm
+2026-10-23T13:44:32.0248185Z   always-auth: false
+2026-10-23T13:44:32.0248403Z   check-latest: false
+2026-10-23T13:44:32.0250711Z   token: ***
+2026-10-23T13:44:32.0250909Z env:
+2026-10-23T13:44:32.0251208Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:32.0251700Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:32.0252084Z ##[endgroup]
+2026-10-23T13:44:32.1683411Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+2026-10-23T13:44:32.1686728Z (node:2334) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:44:32.1687544Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:44:32.1689614Z ##[group]Environment details
+2026-10-23T13:44:32.6097601Z node: v22.23.3
+2026-10-23T13:44:32.6099254Z npm: 10.9.9
+2026-10-23T13:44:32.6110060Z yarn: 1.22.22
+2026-10-23T13:44:32.6111245Z ##[endgroup]
+2026-10-23T13:44:32.6133556Z [command]/opt/hostedtoolcache/node/22.23.3/x64/bin/npm config get cache
+2026-10-23T13:44:32.8237119Z /home/runner/.npm
+2026-10-23T13:44:32.9691307Z npm cache is not found
+2026-10-23T13:44:32.9877188Z ##[group]Run actions/cache@v4
+2026-10-23T13:44:32.9877463Z with:
+2026-10-23T13:44:32.9877674Z   path: ~/.cache/ms-playwright
+2026-10-23T13:44:32.9877945Z   key: Linux-playwright-1.62.1
+2026-10-23T13:44:32.9878216Z   enableCrossOsArchive: false
+2026-10-23T13:44:32.9878471Z   fail-on-cache-miss: false
+2026-10-23T13:44:32.9878708Z   lookup-only: false
+2026-10-23T13:44:32.9878928Z   save-always: false
+2026-10-23T13:44:32.9879128Z env:
+2026-10-23T13:44:32.9879433Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:32.9879955Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:32.9880335Z ##[endgroup]
+2026-10-23T13:44:33.0945496Z (node:2377) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:44:33.0947578Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:44:33.2350753Z Cache hit for: Linux-playwright-1.62.1
+2026-10-23T13:44:33.2458103Z (node:2377) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-23T13:44:34.3864687Z Received 96468992 of 282096786 (34.2%), 91.9 MBs/sec
+2026-10-23T13:44:35.3874690Z Received 269513874 of 282096786 (95.5%), 128.4 MBs/sec
+2026-10-23T13:44:35.4486875Z Received 282096786 of 282096786 (100.0%), 130.4 MBs/sec
+2026-10-23T13:44:35.4489305Z Cache Size: ~269 MB (282096786 B)
+2026-10-23T13:44:35.4531987Z [command]/usr/bin/tar -xf /home/runner/work/_temp/44298766-c845-4298-8919-a6a74f2ea013/cache.tzst -P -C /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4 --use-compress-program unzstd
+2026-10-23T13:44:36.5377914Z Cache restored successfully
+2026-10-23T13:44:36.5589989Z Cache restored from key: Linux-playwright-1.62.1
+2026-10-23T13:44:36.5749251Z ##[group]Run npm ci --ignore-scripts
+2026-10-23T13:44:36.5749647Z [36;1mnpm ci --ignore-scripts[0m
+2026-10-23T13:44:36.5749980Z [36;1mnpx playwright install chromium[0m
+2026-10-23T13:44:36.6056759Z shell: /usr/bin/bash -e {0}
+2026-10-23T13:44:36.6057187Z env:
+2026-10-23T13:44:36.6057691Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:36.6058527Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:36.6059153Z ##[endgroup]
+2026-10-23T13:44:37.6256384Z 
+2026-10-23T13:44:37.6257514Z added 2 packages, and audited 3 packages in 959ms
+2026-10-23T13:44:37.6264258Z 
+2026-10-23T13:44:37.6264608Z found 0 vulnerabilities
+2026-10-23T13:44:39.3151831Z ##[group]Run mkdir -p artifacts
+2026-10-23T13:44:39.3152384Z [36;1mmkdir -p artifacts[0m
+2026-10-23T13:44:39.3152829Z [36;1mset -o pipefail[0m
+2026-10-23T13:44:39.3153572Z [36;1mnpm run prepare:app 2>&1 | tee artifacts/prepare.log[0m
+2026-10-23T13:44:39.3242459Z shell: /usr/bin/bash -e {0}
+2026-10-23T13:44:39.3242924Z env:
+2026-10-23T13:44:39.3243717Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:39.3244619Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:39.3245307Z ##[endgroup]
+2026-10-23T13:44:39.4568752Z 
+2026-10-23T13:44:39.4569423Z > clyvovet-qa-sprint4@1.0.0 prepare:app
+2026-10-23T13:44:39.4570141Z > bash scripts/prepare.sh
+2026-10-23T13:44:39.4570464Z 
+2026-10-23T13:44:39.4661456Z Cloning into '.work/java'...
+2026-10-23T13:44:39.8719762Z HEAD is now at c686580 fix: finaliza ajustes da Sprint 3 de Java
+2026-10-23T13:44:43.4514414Z [INFO] Scanning for projects...
+2026-10-23T13:44:43.7267480Z [INFO] 
+2026-10-23T13:44:43.7268989Z [INFO] ------------------------< br.com.fiap:clyvovet >------------------------
+2026-10-23T13:44:43.7284003Z [INFO] Building clyvovet 0.0.1-SNAPSHOT
+2026-10-23T13:44:43.7304026Z [INFO]   from pom.xml
+2026-10-23T13:44:43.7319130Z [INFO] --------------------------------[ jar ]---------------------------------
+2026-10-23T13:44:44.2464598Z [INFO] 
+2026-10-23T13:44:44.2465614Z [INFO] --- resources:3.3.1:resources (default-resources) @ clyvovet ---
+2026-10-23T13:44:44.3828737Z [INFO] Copying 1 resource from src/main/resources to target/classes
+2026-10-23T13:44:44.3971866Z [INFO] Copying 11 resources from src/main/resources to target/classes
+2026-10-23T13:44:44.4017840Z [INFO] 
+2026-10-23T13:44:44.4044528Z [INFO] --- compiler:3.13.0:compile (default-compile) @ clyvovet ---
+2026-10-23T13:44:44.5645824Z [INFO] Recompiling the module because of changed source code.
+2026-10-23T13:44:44.5766339Z [INFO] Compiling 63 source files with javac [debug parameters release 17] to target/classes
+2026-10-23T13:44:46.9068833Z [INFO] 
+2026-10-23T13:44:46.9075898Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ clyvovet ---
+2026-10-23T13:44:46.9122172Z [INFO] skip non existing resourceDirectory /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4/.work/java/src/test/resources
+2026-10-23T13:44:46.9125997Z [INFO] 
+2026-10-23T13:44:46.9127048Z [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ clyvovet ---
+2026-10-23T13:44:46.9222406Z [INFO] Recompiling the module because of changed dependency.
+2026-10-23T13:44:46.9227387Z [INFO] Compiling 5 source files with javac [debug parameters release 17] to target/test-classes
+2026-10-23T13:44:47.2869136Z [INFO] 
+2026-10-23T13:44:47.2870316Z [INFO] --- surefire:3.2.5:test (default-test) @ clyvovet ---
+2026-10-23T13:44:47.4633706Z [INFO] Tests are skipped.
+2026-10-23T13:44:47.4634760Z [INFO] 
+2026-10-23T13:44:47.4636147Z [INFO] --- jar:3.4.2:jar (default-jar) @ clyvovet ---
+2026-10-23T13:44:47.7790276Z [INFO] Building jar: /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4/.work/java/target/clyvovet-0.0.1-SNAPSHOT.jar
+2026-10-23T13:44:47.8534228Z [INFO] 
+2026-10-23T13:44:47.8564338Z [INFO] --- spring-boot:3.3.5:repackage (repackage) @ clyvovet ---
+2026-10-23T13:44:48.2627274Z [INFO] Replacing main artifact /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4/.work/java/target/clyvovet-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+2026-10-23T13:44:48.2633381Z [INFO] The original artifact has been renamed to /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4/.work/java/target/clyvovet-0.0.1-SNAPSHOT.jar.original
+2026-10-23T13:44:48.2637299Z [INFO] ------------------------------------------------------------------------
+2026-10-23T13:44:48.2638275Z [INFO] BUILD SUCCESS
+2026-10-23T13:44:48.2639246Z [INFO] ------------------------------------------------------------------------
+2026-10-23T13:44:48.2652260Z [INFO] Total time:  4.839 s
+2026-10-23T13:44:48.2655586Z [INFO] Finished at: 2026-10-23T13:44:48Z
+2026-10-23T13:44:48.2656661Z [INFO] ------------------------------------------------------------------------
+2026-10-23T13:44:48.3156526Z Aplicação preparada: c686580b6ae21c0e828a9057f8d5a5b53c94e254
+2026-10-23T13:44:48.3260137Z ##[group]Run npm test
+2026-10-23T13:44:48.3260423Z [36;1mnpm test[0m
+2026-10-23T13:44:48.3343505Z shell: /usr/bin/bash -e {0}
+2026-10-23T13:44:48.3343912Z env:
+2026-10-23T13:44:48.3344377Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:48.3344917Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:44:48.3345316Z   QA_VIEWPORT: mobile
+2026-10-23T13:44:48.3345548Z ##[endgroup]
+2026-10-23T13:44:48.4542646Z 
+2026-10-23T13:44:48.4543527Z > clyvovet-qa-sprint4@1.0.0 test
+2026-10-23T13:44:48.4544109Z > node automation/run.mjs
+2026-10-23T13:44:48.4544657Z 
+2026-10-23T13:45:00.7206360Z PASSED CT01 — ADMIN autentica e abre o dashboard (541 ms)
+2026-10-23T13:45:01.1004940Z PASSED CT02 — Senha incorreta não cria sessão (381 ms)
+2026-10-23T13:45:01.5222432Z PASSED CT03 — TUTOR lista somente Rex e suas pendências (421 ms)
+2026-10-23T13:45:01.9345873Z PASSED CT04 — TUTOR recebe acesso negado no cadastro ADMIN (412 ms)
+2026-10-23T13:45:02.3272245Z PASSED CT05 — Dashboard apresenta 2 pets e 3 vacinas pendentes (392 ms)
+2026-10-23T13:45:02.8074333Z PASSED CT06 — Ficha do Rex exibe score 85 e ATENÇÃO (481 ms)
+2026-10-23T13:45:03.5724587Z PASSED CT07 — ADMIN cadastra pet pela interface e dados persistem (764 ms)
+2026-10-23T13:45:04.2209102Z PASSED CT08 — Formulário vazio mostra seis erros e não grava (649 ms)
+2026-10-23T13:45:04.3280347Z PASSED CT09 — JWT identifica o tutor e bloqueia token ausente ou inválido (107 ms)
+2026-10-23T13:45:04.5720438Z PASSED CT10 — Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido (244 ms)
+2026-10-23T13:45:04.6293777Z PASSED CT11 — TUTOR não acessa Mel nem transfere seu pet por tutorId (56 ms)
+2026-10-23T13:45:04.6985079Z PASSED CT12 — Pet percorre criação, filtro, edição e exclusão (70 ms)
+2026-10-23T13:45:04.7661806Z PASSED CT13 — Histórico de Rex e valor da consulta respeitam o perfil (65 ms)
+2026-10-23T13:45:04.8769630Z PASSED CT14 — Score sem histórico é 40 e nunca fica abaixo de zero (112 ms)
+2026-10-23T13:45:05.4580779Z PASSED CT15 — Baixa pela interface cria reforço e atualiza score (580 ms)
+2026-10-23T13:45:05.5258133Z PASSED CT16 — Reaplicação retorna 409 e mantém somente duas doses (69 ms)
+2026-10-23T13:45:05.6073292Z PASSED CT17 — Reforço previamente agendado não é duplicado (82 ms)
+2026-10-23T13:45:05.6685047Z PASSED CT18 — Data futura retorna 400 sem aplicar nem criar reforço (58 ms)
+2026-10-23T13:45:05.6825527Z PASSED CT19 — Erros 404 e data inválida retornam contrato verificável (16 ms)
+2026-10-23T13:45:06.1635667Z RESULTADO: 19/19 aprovados; 0 falhas
+2026-10-23T13:45:10.7381588Z ##[group]Run actions/upload-artifact@v4
+2026-10-23T13:45:10.7381931Z with:
+2026-10-23T13:45:10.7382152Z   name: evidencias-mobile
+2026-10-23T13:45:10.7382516Z   path: artifacts/mobile/
+artifacts/mobile-reverse/
+artifacts/prepare.log
+
+2026-10-23T13:45:10.7382912Z   retention-days: 90
+2026-10-23T13:45:10.7383486Z   if-no-files-found: warn
+2026-10-23T13:45:10.7383739Z   compression-level: 6
+2026-10-23T13:45:10.7383971Z   overwrite: false
+2026-10-23T13:45:10.7384203Z   include-hidden-files: false
+2026-10-23T13:45:10.7384445Z env:
+2026-10-23T13:45:10.7384753Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:45:10.7385252Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-23T13:45:10.7385635Z ##[endgroup]
+2026-10-23T13:45:10.9065276Z (node:2920) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:45:10.9066199Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:45:10.9170190Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-23T13:45:10.9174430Z The least common ancestor is /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4/artifacts. This will be the root directory of the artifact
+2026-10-23T13:45:10.9175602Z With the provided path, there will be 16 files uploaded
+2026-10-23T13:45:10.9180205Z Artifact name is valid!
+2026-10-23T13:45:10.9181007Z Root directory input is valid!
+2026-10-23T13:45:11.1751656Z Beginning upload of artifact content to blob storage
+2026-10-23T13:45:11.2394752Z (node:2920) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-23T13:45:11.5367829Z Uploaded bytes 714997
+2026-10-23T13:45:11.5806779Z Finished uploading artifact content to blob storage!
+2026-10-23T13:45:11.5808124Z SHA256 digest of uploaded artifact zip is f4192b53c788fc1ec83100555a123379dacc7284967ca4ae7e365a3b5393848b
+2026-10-23T13:45:11.5809640Z Finalizing artifact upload
+2026-10-23T13:45:12.1276253Z Artifact evidencias-mobile.zip successfully finalized. Artifact ID 12504968761
+2026-10-23T13:45:12.1278159Z Artifact evidencias-mobile has been successfully uploaded! Final size is 714997 bytes. Artifact ID is 12504968761
+2026-10-23T13:45:12.1285498Z Artifact download URL: https://github.com/gabriel-g-dev/clyvovet-qa-sprint4/actions/runs/39963705016/artifacts/12504968761
+2026-10-23T13:45:12.1468462Z Post job cleanup.
+2026-10-23T13:45:12.2582576Z Cache hit occurred on the primary key Linux-playwright-1.62.1, not saving cache.
+2026-10-23T13:45:12.2585047Z (node:2933) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:45:12.2586738Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:45:12.2706312Z Post job cleanup.
+2026-10-23T13:45:12.4059602Z (node:2941) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:45:12.4060514Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:45:12.4292806Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4 --files-from manifest.txt --use-compress-program zstdmt
+2026-10-23T13:45:12.6074423Z (node:2941) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-23T13:45:13.0549950Z Sent 3968721 of 3968721 (100.0%), 8.3 MBs/sec
+2026-10-23T13:45:13.2689977Z Cache saved with the key: node-cache-Linux-x64-npm-f2f34e8745e31a3abbc1cc31ea74bcdc4162980c185439dc814d2bf2367e9219
+2026-10-23T13:45:13.2887442Z Post job cleanup.
+2026-10-23T13:45:13.4355966Z (node:2961) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T13:45:13.4357875Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T13:45:13.4363730Z Cache hit occurred on the primary key setup-java-Linux-x64-maven-e5e1fc4838e4631cddc9c4bd3f001d5f1ff4df6bd45c744773b43c2cf80cfa82, not saving cache.
+2026-10-23T13:45:13.4580288Z Post job cleanup.
+2026-10-23T13:45:13.5532468Z [command]/usr/bin/git version
+2026-10-23T13:45:13.5582292Z git version 2.55.0
+2026-10-23T13:45:13.5627218Z Temporarily overriding HOME='/home/runner/work/_temp/5be48a28-f51d-4320-9b7b-b69b967d8704' before making global git config changes
+2026-10-23T13:45:13.5629223Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-23T13:45:13.5634913Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/clyvovet-qa-sprint4/clyvovet-qa-sprint4
+2026-10-23T13:45:13.5694772Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-23T13:45:13.5745834Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-23T13:45:13.6075200Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-23T13:45:13.6110364Z http.https://github.com/.extraheader
+2026-10-23T13:45:13.6121596Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-23T13:45:13.6175512Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-23T13:45:13.6498974Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-23T13:45:13.6545687Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-23T13:45:13.7060530Z Cleaning up orphan processes
+2026-10-23T13:45:13.7470924Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-java@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

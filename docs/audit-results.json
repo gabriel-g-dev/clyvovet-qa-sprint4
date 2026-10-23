@@ -1,7 +1,14 @@
 {
+  "date": "2026-10-23",
   "originalItems": 62,
+  "types": {
+    "Epic": 4,
+    "Feature": 8,
+    "Product Backlog Item": 23,
+    "Task": 27
+  },
   "dependencies": 34,
   "hierarchyEdges": 58,
-  "newTestedByLinks": 25,
+  "newTestedByLinks": 27,
   "differences": []
 }

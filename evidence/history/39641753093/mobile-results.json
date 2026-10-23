@@ -1,0 +1,533 @@
+{
+  "tool": "Playwright Chromium + Node assert",
+  "mode": "mobile",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "startedAt": "2026-10-21T17:13:37.048Z",
+  "today": "2026-10-21",
+  "revision": "c686580b6ae21c0e828a9057f8d5a5b53c94e254",
+  "results": [
+    {
+      "id": "CT01",
+      "title": "ADMIN autentica e abre o dashboard",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 2650,
+      "http": [],
+      "browserEvents": []
+    },
+    {
+      "id": "CT02",
+      "title": "Senha incorreta não cria sessão",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 2634,
+      "http": [],
+      "browserEvents": []
+    },
+    {
+      "id": "CT03",
+      "title": "TUTOR lista somente Rex e suas pendências",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 3248,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/pets",
+          "status": 200
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT04",
+      "title": "TUTOR recebe acesso negado no cadastro ADMIN",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 2642,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/vacinas/2/aplicar",
+          "status": 403
+        }
+      ],
+      "browserEvents": [
+        {
+          "type": "http",
+          "status": 403,
+          "path": "/pets/novo"
+        },
+        {
+          "type": "console",
+          "message": "Failed to load resource: the server responded with a status of 403 ()"
+        }
+      ]
+    },
+    {
+      "id": "CT05",
+      "title": "Dashboard apresenta 2 pets e 3 vacinas pendentes",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 2371,
+      "http": [],
+      "browserEvents": []
+    },
+    {
+      "id": "CT06",
+      "title": "Ficha do Rex exibe score 85 e ATENÇÃO",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 2714,
+      "http": [],
+      "browserEvents": []
+    },
+    {
+      "id": "CT07",
+      "title": "ADMIN cadastra pet pela interface e dados persistem",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 4688,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/pets?size=100",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/3",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT08",
+      "title": "Formulário vazio mostra seis erros e não grava",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 2958,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/pets",
+          "status": 200
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT09",
+      "title": "JWT identifica o tutor e bloqueia token ausente ou inválido",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 107,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/pets",
+          "status": 401
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets",
+          "status": 401
+        },
+        {
+          "method": "GET",
+          "route": "/api/auth/me",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "route": "/api/auth/login",
+          "status": 401
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT10",
+      "title": "Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 208,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/auth/register",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/auth/login",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "route": "/api/auth/register",
+          "status": 409
+        },
+        {
+          "method": "GET",
+          "route": "/api/auth/me",
+          "status": 200
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT11",
+      "title": "TUTOR não acessa Mel nem transfere seu pet por tutorId",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 61,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/pets/2",
+          "status": 403
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets/2/inteligencia-preventiva",
+          "status": 403
+        },
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "PUT",
+          "route": "/api/pets/4",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/4",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT12",
+      "title": "Pet percorre criação, filtro, edição e exclusão",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 66,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets/5",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets/especie/cachorro",
+          "status": 200
+        },
+        {
+          "method": "PUT",
+          "route": "/api/pets/5",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/5",
+          "status": 204
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets/5",
+          "status": 404
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT13",
+      "title": "Histórico de Rex e valor da consulta respeitam o perfil",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 66,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/consultas/pet/1",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/consultas",
+          "status": 201
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/6",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT14",
+      "title": "Score sem histórico é 40 e nunca fica abaixo de zero",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 110,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets/7/inteligencia-preventiva",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "GET",
+          "route": "/api/pets/7/inteligencia-preventiva",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/7",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT15",
+      "title": "Baixa pela interface cria reforço e atualiza score",
+      "type": "UI + HTTP",
+      "status": "passed",
+      "durationMs": 3044,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/consultas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/12",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/pet/8",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/8",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT16",
+      "title": "Reaplicação retorna 409 e mantém somente duas doses",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 55,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas/14/aplicar",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas/14/aplicar",
+          "status": 409
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/pet/9",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/9",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT17",
+      "title": "Reforço previamente agendado não é duplicado",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 49,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas/16/aplicar",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/pet/10",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/10",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT18",
+      "title": "Data futura retorna 400 sem aplicar nem criar reforço",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 44,
+      "http": [
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "route": "/api/vacinas/18/aplicar",
+          "status": 400
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/18",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/pet/11",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "route": "/api/pets/11",
+          "status": 204
+        }
+      ],
+      "browserEvents": []
+    },
+    {
+      "id": "CT19",
+      "title": "Erros 404 e data inválida retornam contrato verificável",
+      "type": "HTTP",
+      "status": "passed",
+      "durationMs": 10,
+      "http": [
+        {
+          "method": "GET",
+          "route": "/api/pets/999999",
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "route": "/api/pets",
+          "status": 400
+        }
+      ],
+      "browserEvents": []
+    }
+  ],
+  "finishedAt": "2026-10-21T17:14:13.678Z",
+  "passed": 19,
+  "failed": 0,
+  "total": 19
+}

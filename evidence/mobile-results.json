@@ -1,12 +1,13 @@
 {
   "tool": "Playwright Chromium + Node assert",
   "mode": "mobile",
+  "order": "normal",
   "viewport": {
     "width": 390,
     "height": 844
   },
-  "startedAt": "2026-10-21T17:13:37.048Z",
-  "today": "2026-10-21",
+  "startedAt": "2026-10-23T13:44:48.883Z",
+  "today": "2026-10-23",
   "revision": "c686580b6ae21c0e828a9057f8d5a5b53c94e254",
   "results": [
     {
@@ -14,8 +15,7 @@
       "title": "ADMIN autentica e abre o dashboard",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@bf977570141ffa69c7df1d9acbf42941.webm",
-      "durationMs": 2650,
+      "durationMs": 541,
       "http": [],
       "browserEvents": []
     },
@@ -24,8 +24,7 @@
       "title": "Senha incorreta não cria sessão",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@62706ff5b09bf8197a91078b2530f598.webm",
-      "durationMs": 2634,
+      "durationMs": 381,
       "http": [],
       "browserEvents": []
     },
@@ -34,8 +33,7 @@
       "title": "TUTOR lista somente Rex e suas pendências",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@8d311bc1f54bf8380083218eaaf471bf.webm",
-      "durationMs": 3248,
+      "durationMs": 421,
       "http": [
         {
           "method": "GET",
@@ -50,13 +48,17 @@
       "title": "TUTOR recebe acesso negado no cadastro ADMIN",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@083a9035d2b0f4c11816537b91648c95.webm",
-      "durationMs": 2642,
+      "durationMs": 412,
       "http": [
         {
           "method": "POST",
           "route": "/api/vacinas/2/aplicar",
           "status": 403
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/2",
+          "status": 200
         }
       ],
       "browserEvents": [
@@ -76,8 +78,7 @@
       "title": "Dashboard apresenta 2 pets e 3 vacinas pendentes",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@7a8b4dd159d1fb4554ae60cc85f457ba.webm",
-      "durationMs": 2371,
+      "durationMs": 392,
       "http": [],
       "browserEvents": []
     },
@@ -86,8 +87,7 @@
       "title": "Ficha do Rex exibe score 85 e ATENÇÃO",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@1af8f399768575d6003f0c7aa293a560.webm",
-      "durationMs": 2714,
+      "durationMs": 481,
       "http": [],
       "browserEvents": []
     },
@@ -96,8 +96,7 @@
       "title": "ADMIN cadastra pet pela interface e dados persistem",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@7cc3b1f81059da5393c1bcee1ed03054.webm",
-      "durationMs": 4688,
+      "durationMs": 764,
       "http": [
         {
           "method": "GET",
@@ -117,8 +116,7 @@
       "title": "Formulário vazio mostra seis erros e não grava",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@ff333c9cc2c8e7d0ffe9ca58f9806251.webm",
-      "durationMs": 2958,
+      "durationMs": 649,
       "http": [
         {
           "method": "GET",
@@ -163,7 +161,7 @@
       "title": "Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 208,
+      "durationMs": 244,
       "http": [
         {
           "method": "POST",
@@ -193,7 +191,7 @@
       "title": "TUTOR não acessa Mel nem transfere seu pet por tutorId",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 61,
+      "durationMs": 56,
       "http": [
         {
           "method": "GET",
@@ -228,7 +226,7 @@
       "title": "Pet percorre criação, filtro, edição e exclusão",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 66,
+      "durationMs": 70,
       "http": [
         {
           "method": "POST",
@@ -268,7 +266,7 @@
       "title": "Histórico de Rex e valor da consulta respeitam o perfil",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 66,
+      "durationMs": 65,
       "http": [
         {
           "method": "GET",
@@ -298,7 +296,7 @@
       "title": "Score sem histórico é 40 e nunca fica abaixo de zero",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 110,
+      "durationMs": 112,
       "http": [
         {
           "method": "POST",
@@ -358,8 +356,7 @@
       "title": "Baixa pela interface cria reforço e atualiza score",
       "type": "UI + HTTP",
       "status": "passed",
-      "video": "videos/page@f2c69c036da33b63d2c3cfffa65a2ca6.webm",
-      "durationMs": 3044,
+      "durationMs": 580,
       "http": [
         {
           "method": "POST",
@@ -399,7 +396,7 @@
       "title": "Reaplicação retorna 409 e mantém somente duas doses",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 55,
+      "durationMs": 69,
       "http": [
         {
           "method": "POST",
@@ -439,7 +436,7 @@
       "title": "Reforço previamente agendado não é duplicado",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 49,
+      "durationMs": 82,
       "http": [
         {
           "method": "POST",
@@ -479,7 +476,7 @@
       "title": "Data futura retorna 400 sem aplicar nem criar reforço",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 44,
+      "durationMs": 58,
       "http": [
         {
           "method": "POST",
@@ -519,7 +516,7 @@
       "title": "Erros 404 e data inválida retornam contrato verificável",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 10,
+      "durationMs": 16,
       "http": [
         {
           "method": "GET",
@@ -535,7 +532,32 @@
       "browserEvents": []
     }
   ],
-  "finishedAt": "2026-10-21T17:14:13.678Z",
+  "qaRevision": "e544daad11bbbb56df92afe0a7900fd5b1cf3cdb",
+  "configuration": {
+    "browser": "Chromium",
+    "playwright": "1.62.1",
+    "baseURL": "http://127.0.0.1:18080",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timezone": "UTC",
+    "database": "H2 em memória exclusivo por processo",
+    "order": "normal",
+    "contexts": "Novo contexto de navegador por caso UI",
+    "videoRecording": false
+  },
+  "isolation": {
+    "passed": true,
+    "seedPetIds": [
+      1,
+      2
+    ],
+    "remainingFixturePets": 0,
+    "seedVaccinesUnchanged": true,
+    "databaseDiscardedOnExit": true
+  },
+  "finishedAt": "2026-10-23T13:45:05.785Z",
   "passed": 19,
   "failed": 0,
   "total": 19
