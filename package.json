@@ -7,11 +7,10 @@
   "scripts": {
     "prepare:app": "bash scripts/prepare.sh",
     "test": "node automation/run.mjs",
-    "test:mobile": "QA_VIEWPORT=mobile node automation/run.mjs"
+    "test:mobile": "QA_VIEWPORT=mobile node automation/run.mjs",
+    "test:reverse": "QA_ORDER=reverse node automation/run.mjs"
   },
   "devDependencies": {
-    "ffmpeg-static": "5.2.0",
-    "ffprobe-static": "3.1.0",
     "playwright": "1.62.1"
   },
   "engines": {

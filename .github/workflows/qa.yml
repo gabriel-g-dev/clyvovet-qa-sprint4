@@ -9,7 +9,7 @@ permissions:
 jobs:
   sistema:
     name: Java — interface e HTTP (${{ matrix.viewport }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -41,30 +41,16 @@ jobs:
           mkdir -p artifacts
           set -o pipefail
           npm run prepare:app 2>&1 | tee artifacts/prepare.log
-      - name: Executar desktop com gravação contínua do navegador
-        if: matrix.viewport == 'desktop'
-        env:
-          QA_HEADED: 'true'
-          QA_DEMO: 'true'
-          QA_RECORD: 'true'
-        run: |
-          node node_modules/ffmpeg-static/install.js
-          command -v xvfb-run
-          xvfb-run -a -s '-screen 0 1600x1000x24' npm test
-      - name: Executar no viewport mobile
-        if: matrix.viewport == 'mobile'
+      - name: Executar 19 cenários reais sem captura de vídeo
         env:
           QA_VIEWPORT: ${{ matrix.viewport }}
         run: npm test
-      - name: Verificar vídeo contínuo, codec e duração
-        if: matrix.viewport == 'desktop'
-        run: python3 scripts/make-video.py artifacts/desktop
       - name: Reexecutar os mesmos 19 cenários em ordem inversa e H2 novo
         if: matrix.viewport == 'desktop'
         env:
           QA_ORDER: reverse
         run: npm test
-      - name: Preservar relatório, requisições, capturas e gravações
+      - name: Preservar relatório, requisições, capturas e logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -77,7 +63,7 @@ jobs:
           if-no-files-found: warn
   regressao-dotnet:
     name: Regressão preexistente .NET — unitários e integração SQLite
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4

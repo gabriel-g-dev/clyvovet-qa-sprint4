@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdir, writeFile, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
-import { startDemo } from './demo.mjs';
 
 // O runner inicia a própria aplicação e só envia requisições ao loopback.
 // Nenhuma URL externa pode ser recebida por parâmetro.
@@ -29,12 +28,10 @@ app.stdout.on('data', d => { appLog += d; });
 app.stderr.on('data', d => { appLog += d; });
 let browser;
 let api;
-let demo;
 const results = [];
 const checks = [];
 const report = { tool: 'Playwright Chromium + Node assert', mode, order, viewport, startedAt, today, revision, results };
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-const demoPause = ms => process.env.QA_RECORD === 'true' ? delay(ms) : Promise.resolve();
 const escape = x => String(x).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const petData = name => ({ nome: name, especie: 'Cachorro', raca: 'SRD', dataNascimento: '2023-01-15', peso: 12.5, tutorId: 1 });
 let admin;
@@ -80,7 +77,6 @@ scenario('CT02', 'Senha incorreta não cria sessão', async ({ page }) => {
   await login(page, 'admin', 'incorreta-QA');
   await page.waitForURL('**/login?erro');
   assert.ok(await page.getByText('E-mail ou senha inválidos.', { exact: true }).isVisible());
-  await demoPause(3000);
   await page.goto(baseURL + '/dashboard');
   assert.equal(new URL(page.url()).pathname, '/login');
 });
@@ -210,8 +206,7 @@ scenario('CT15', 'Baixa pela interface cria reforço e atualiza score', async ({
     const v = await vaccine(p.id, 'QA-Antirrabica-CT15', day(-20));
     await login(page); await page.waitForURL('**/dashboard'); await page.goto(baseURL + '/pets/' + p.id);
     assert.equal(await page.locator('.score').innerText(), '85');
-    await demoPause(3000);
-    await page.getByRole('button', { name: 'Registrar aplicação', exact: true }).click();
+      await page.getByRole('button', { name: 'Registrar aplicação', exact: true }).click();
     await page.getByText(/Próxima dose agendada automaticamente/).waitFor();
     assert.equal(await page.locator('.score').innerText(), '100');
     assert.ok((await page.locator('main').innerText()).includes('EXCELENTE'));
@@ -266,23 +261,20 @@ try {
   api = await request.newContext({ baseURL });
   admin = (await json('POST', '/api/auth/login', { email: 'admin@clyvovet.com.br', senha: 'admin123' }, 200, null)).token;
   tutor = (await json('POST', '/api/auth/login', { email: 'gabriel@clyvovet.com.br', senha: 'tutor123' }, 200, null)).token;
-  browser = await chromium.launch({ headless: process.env.QA_HEADED !== 'true', slowMo: process.env.QA_RECORD === 'true' ? 350 : (process.env.QA_DEMO === 'true' ? 220 : 0), args: ['--window-position=0,0'] });
-  demo = await startDemo(browser, out, report);
-  if (mode === 'desktop' && !demo && order === 'normal') {
-    const configuration = await browser.newContext({ viewport, recordVideo: { dir: path.join(out, 'configuration'), size: viewport } });
-    const screen = await configuration.newPage();
-    const source = await readFile('automation/run.mjs', 'utf8');
-    await screen.setContent('<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><style>body{font:24px system-ui;margin:42px;color:#153d38}pre{font:18px monospace;white-space:pre-wrap;background:#eef4f2;padding:22px}</style><h1>ClyvoVet — configuração da automação</h1><p>Playwright 1.62.1 · Chromium · Node assert · Java 17 · H2 descartável</p><p>Commit da aplicação: ' + revision + '</p><pre>npm install --ignore-scripts\nnpx playwright install --with-deps chromium\nnpm run prepare:app\nnpm test\n\nADMIN: admin@clyvovet.com.br / admin123\nTUTOR: gabriel@clyvovet.com.br / tutor123\nD=' + today + '\n\nFixtures QA independentes, excluídas ao final.\nSem mocks HTTP, sem Oracle, sem Supabase, sem produção.</pre><h2>Trecho do arquivo de testes efetivamente executado</h2><pre>' + escape(source.slice(source.indexOf("scenario('CT01'"), source.indexOf("scenario('CT02'"))) + '</pre></html>');
-    await delay(4500); await screen.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await delay(3500);
-    const video = screen.video(); await configuration.close(); report.configurationVideo = path.relative(out, await video.path());
-  }
+  const seedPets = await json('GET', '/api/pets?size=100');
+  const seedVaccines = await Promise.all([1, 2].map(id => json('GET', '/api/vacinas/pet/' + id)));
+  report.qaRevision = spawnSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim();
+  report.configuration = { browser: 'Chromium', playwright: JSON.parse(await readFile('package.json', 'utf8')).devDependencies.playwright,
+    baseURL, viewport, timezone: 'UTC', database: 'H2 em memória exclusivo por processo', order,
+    contexts: 'Novo contexto de navegador por caso UI', videoRecording: false };
+  await writeFile(path.join(out, 'configuration.json'), JSON.stringify(report.configuration, null, 2));
+  browser = await chromium.launch({ headless: process.env.QA_HEADED !== 'true' });
   for (const c of order === 'reverse' ? [...cases].reverse() : cases) {
     const start = Date.now(); const events = []; const startCheck = checks.length;
     let context; let page; let result = { id: c.id, title: c.title, type: c.ui ? 'UI + HTTP' : 'HTTP', status: 'passed' };
     try {
-      await demo?.before(c);
       if (c.ui) {
-        context = await browser.newContext({ viewport, recordVideo: { dir: path.join(out, 'videos'), size: viewport } });
+        context = await browser.newContext({ viewport });
         page = await context.newPage(); page.setDefaultTimeout(12000); await page.bringToFront();
         page.on('pageerror', e => events.push({ type: 'pageerror', message: e.message }));
         page.on('console', m => { if (m.type() === 'error') events.push({ type: 'console', message: m.text() }); });
@@ -290,20 +282,25 @@ try {
       }
       await c.fn({ page });
       if (page) await page.screenshot({ path: path.join(out, c.id + '.png'), fullPage: true });
-      if (page && process.env.QA_DEMO === 'true') await delay(demo ? 6000 : 1100);
       // Erros HTTP 401/403 são esperados nos cenários negativos; 5xx e 404 em recursos estáticos nunca são ignorados.
       assert.equal(events.filter(e => e.type === 'pageerror' || (e.type === 'http' && (e.status >= 500 || (e.status === 404 && /\.(css|js|png|svg|ico)$/.test(e.path))))).length, 0, JSON.stringify(events));
     } catch (e) {
       result.status = 'failed'; result.error = e.stack;
       if (page) await page.screenshot({ path: path.join(out, c.id + '-falha.png'), fullPage: true }).catch(() => {});
     } finally {
-      if (context) { const video = page.video(); await context.close(); result.video = path.relative(out, await video.path()); }
+      await context?.close();
     }
     result.durationMs = Date.now() - start; result.http = checks.slice(startCheck); result.browserEvents = events; results.push(result);
-    await demo?.after(result);
     console.log(result.status.toUpperCase() + ' ' + result.id + ' — ' + result.title + ' (' + result.durationMs + ' ms)');
     if (result.error) console.error(result.error);
   }
+  const finalPets = await json('GET', '/api/pets?size=100');
+  const finalVaccines = await Promise.all([1, 2].map(id => json('GET', '/api/vacinas/pet/' + id)));
+  assert.deepEqual(finalPets, seedPets, 'Pets do seed alterados ou fixtures não removidas');
+  assert.deepEqual(finalVaccines, seedVaccines, 'Vacinas do seed alteradas');
+  report.isolation = { passed: true, seedPetIds: seedPets.content.map(p => p.id),
+    remainingFixturePets: finalPets.content.filter(p => p.nome.startsWith('QA-')).length,
+    seedVaccinesUnchanged: true, databaseDiscardedOnExit: true };
 } catch (e) { report.setupError = e.stack; process.exitCode = 1; }
 finally {
   await api?.dispose();
@@ -314,22 +311,19 @@ finally {
   report.failed = results.filter(x => x.status === 'failed').length; report.total = cases.length;
   await writeFile(path.join(out, 'results.json'), JSON.stringify(report, null, 2));
   await writeFile(path.join(out, 'application.log'), appLog);
-  const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.video ? '<a href="' + r.video + '">Vídeo real</a> · <a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e assertions em results.json') + '</td></tr>').join('');
-  await writeFile(path.join(out, 'report.html'), '<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><title>ClyvoVet — Resultados reais</title><style>body{font:16px system-ui;margin:40px;color:#153d38}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;border-bottom:1px solid #ccc}code{overflow-wrap:anywhere}</style><h1>ClyvoVet — Automação Sprint 4</h1><p>Ferramenta: Playwright Chromium + Node assert. Viewport: ' + mode + '.</p><p>Commit da aplicação: <code>' + revision + '</code></p><p>Início: ' + startedAt + ' · Fim: ' + report.finishedAt + '</p><h2>' + report.passed + '/' + cases.length + ' aprovados · ' + report.failed + ' falhas</h2><p>Dados: usuários de demonstração; D=' + today + '; H2 descartável, recriado a cada processo; fixtures individuais excluídas ao final.</p><table><thead><tr><th>ID</th><th>Cenário</th><th>Camada</th><th>Resultado</th><th>ms</th><th>Evidência</th></tr></thead><tbody>' + rows + '</tbody></table><pre>' + escape(report.setupError ?? '') + '</pre></html>');
-  if (demo) {
-    try { await demo.finish(); }
-    catch (e) { report.recordingError = e.stack; process.exitCode = 1; }
-    await writeFile(path.join(out, 'results.json'), JSON.stringify(report, null, 2));
-  }
+  const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.type === 'UI + HTTP' ? '<a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e assertions em results.json') + '</td></tr>').join('');
+  await writeFile(path.join(out, 'report.html'), '<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><title>ClyvoVet — Resultados reais</title><style>body{font:16px system-ui;margin:40px;color:#153d38}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;border-bottom:1px solid #ccc}code{overflow-wrap:anywhere}</style><h1>ClyvoVet — Automação Sprint 4</h1><p>Ferramenta: Playwright Chromium + Node assert. Viewport: ' + mode + ' · ordem: ' + order + '.</p><p>Commit da aplicação: <code>' + revision + '</code></p><p>Início: ' + startedAt + ' · Fim: ' + report.finishedAt + '</p><h2>' + report.passed + '/' + cases.length + ' aprovados · ' + report.failed + ' falhas</h2><p>Dados: usuários de demonstração; D=' + today + '; H2 descartável, recriado a cada processo; fixtures individuais excluídas ao final.</p><table><thead><tr><th>ID</th><th>Cenário</th><th>Camada</th><th>Resultado</th><th>ms</th><th>Evidência</th></tr></thead><tbody>' + rows + '</tbody></table><pre>' + escape(report.setupError ?? '') + '</pre></html>');
   await browser?.close();
-  if (mode === 'desktop' && !demo && order === 'normal' && results.length === cases.length) {
+  if (results.length === cases.length) {
     const reportBrowser = await chromium.launch();
     try {
-      const context = await reportBrowser.newContext({ viewport, recordVideo: { dir: path.join(out, 'summary'), size: viewport } });
-      const screen = await context.newPage(); await screen.goto('file://' + path.join(out, 'report.html'));
-      await delay(4500); await screen.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await delay(4500);
-      const video = screen.video(); await context.close(); report.summaryVideo = path.relative(out, await video.path());
-      await writeFile(path.join(out, 'results.json'), JSON.stringify(report, null, 2));
+      const context = await reportBrowser.newContext({ viewport: { width: 1440, height: 1000 } });
+      const screen = await context.newPage();
+      await screen.goto('file://' + path.join(out, 'report.html'));
+      await screen.screenshot({ path: path.join(out, 'report.png'), fullPage: true });
+      await screen.setContent('<!doctype html><meta charset="UTF-8"><title>Configuração executada</title><style>body{font:20px system-ui;margin:32px}pre{font:18px monospace;white-space:pre-wrap}</style><h1>Configuração efetivamente executada</h1><p>Início: ' + escape(startedAt) + '</p><p>QA: ' + escape(report.qaRevision) + '</p><p>Java: ' + revision + '</p><pre>' + escape(JSON.stringify(report.configuration, null, 2)) + '</pre>');
+      await screen.screenshot({ path: path.join(out, 'configuration.png'), fullPage: true });
+      await context.close();
     } finally { await reportBrowser.close(); }
   }
   console.log('RESULTADO: ' + report.passed + '/' + cases.length + ' aprovados; ' + report.failed + ' falhas');
