@@ -1,0 +1,1296 @@
+[
+  {
+    "id": 1,
+    "title": "Jornada digital do tutor",
+    "iteration": "ClyvoVet",
+    "description": "Organiza a experiência do tutor no aplicativo, do acesso inicial ao acompanhamento dos próprios pets.",
+    "acceptanceCriteria": "\"- Os PBIs filhos cobrem acesso, navegação e acompanhamento dos pets no aplicativo.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 6
+      },
+      {
+        "type": "Child",
+        "target": 5
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Cuidado preventivo e histórico clínico",
+    "iteration": "ClyvoVet",
+    "description": "Reúne dados clínicos, vacinação e regras preventivas para acompanhar a saúde do pet ao longo do tempo.",
+    "acceptanceCriteria": "\"- Os itens filhos cobrem o modelo clínico, o histórico e os dados preventivos do pet.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 7
+      },
+      {
+        "type": "Child",
+        "target": 8
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Plataformas e operação",
+    "iteration": "ClyvoVet",
+    "description": "Organiza as APIs Java e .NET, a persistência, a execução em contêineres e a observabilidade.",
+    "acceptanceCriteria": "\"- As APIs Java e .NET e o uso do Oracle estão cobertos pelos itens filhos.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 10
+      },
+      {
+        "type": "Child",
+        "target": 9
+      },
+      {
+        "type": "Child",
+        "target": 11
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Qualidade e entrega",
+    "iteration": "ClyvoVet",
+    "description": "Concentra testes, documentação e revisão das evidências das disciplinas do Challenge.",
+    "acceptanceCriteria": "\"- Os itens filhos cobrem contratos, testes automatizados e documentação da entrega.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 12
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Experiência e navegação no aplicativo",
+    "iteration": "ClyvoVet",
+    "description": "Telas e fluxos que permitem ao tutor navegar pelo acompanhamento de saúde do pet.",
+    "acceptanceCriteria": "\"- Os PBIs cobrem a jornada inicial e as telas de saúde, histórico e agendamento.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 14
+      },
+      {
+        "type": "Child",
+        "target": 13
+      },
+      {
+        "type": "Child",
+        "target": 22
+      },
+      {
+        "type": "Parent",
+        "target": 1
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Dados e sessão do tutor no mobile",
+    "iteration": "ClyvoVet",
+    "description": "Autenticação, sessão e persistência isolada dos dados no Supabase.",
+    "acceptanceCriteria": "\"- Os PBIs cobrem autenticação, sessão e proteção das rotas mobile.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 30
+      },
+      {
+        "type": "Child",
+        "target": 31
+      },
+      {
+        "type": "Parent",
+        "target": 1
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Modelo de dados e histórico clínico",
+    "iteration": "ClyvoVet",
+    "description": "Estrutura de tutores, pets, funcionários, consultas, medicamentos e seus relacionamentos.",
+    "acceptanceCriteria": "\"- O modelo Oracle contém as entidades e os relacionamentos clínicos previstos.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 19
+      },
+      {
+        "type": "Child",
+        "target": 15
+      },
+      {
+        "type": "Parent",
+        "target": 2
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Vacinação e inteligência preventiva",
+    "iteration": "ClyvoVet",
+    "description": "Calendário vacinal, aplicação de doses, reforços e avaliação preventiva do pet.",
+    "acceptanceCriteria": "\"- A aplicação de vacina registra a dose e o próximo reforço conforme a regra planejada.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 26
+      },
+      {
+        "type": "Child",
+        "target": 27
+      },
+      {
+        "type": "Parent",
+        "target": 2
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "API Java e painel web",
+    "iteration": "ClyvoVet",
+    "description": "Backend Spring Boot, segurança, persistência versionada e interface web da clínica.",
+    "acceptanceCriteria": "\"- A API Java cobre CRUDs, validações, erros e persistência versionada.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 24
+      },
+      {
+        "type": "Child",
+        "target": 25
+      },
+      {
+        "type": "Child",
+        "target": 17
+      },
+      {
+        "type": "Child",
+        "target": 18
+      },
+      {
+        "type": "Child",
+        "target": 23
+      },
+      {
+        "type": "Parent",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "API .NET e Oracle",
+    "iteration": "ClyvoVet",
+    "description": "Backend ASP.NET Core em camadas, mapeamento Oracle e proteção dos dados clínicos.",
+    "acceptanceCriteria": "\"- A API .NET cobre os CRUDs clínicos e utiliza o schema Oracle planejado.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 32
+      },
+      {
+        "type": "Child",
+        "target": 16
+      },
+      {
+        "type": "Child",
+        "target": 33
+      },
+      {
+        "type": "Parent",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Cloud e observabilidade",
+    "iteration": "ClyvoVet",
+    "description": "Execução em contêineres, ambiente demonstrativo e sinais de saúde da aplicação .NET.",
+    "acceptanceCriteria": "\"- O ambiente demonstrativo da API .NET pode ser executado em contêiner.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 28
+      },
+      {
+        "type": "Child",
+        "target": 20
+      },
+      {
+        "type": "Child",
+        "target": 34
+      },
+      {
+        "type": "Parent",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Testes e documentação",
+    "iteration": "ClyvoVet",
+    "description": "Cobertura automatizada, contratos de API e evidências finais da entrega.",
+    "acceptanceCriteria": "\"- Os contratos e cenários de teste das APIs estão documentados.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 29
+      },
+      {
+        "type": "Child",
+        "target": 21
+      },
+      {
+        "type": "Child",
+        "target": 35
+      },
+      {
+        "type": "Parent",
+        "target": 4
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Mapear a jornada do tutor e o escopo do MVP",
+    "iteration": "ClyvoVet\\Sprint 1",
+    "description": "Como tutor, quero encontrar em um só fluxo meus pets, vacinas e cuidados, para acompanhar a saúde sem depender de anotações separadas.",
+    "acceptanceCriteria": "\"- A jornada cobre acesso, cadastro do pet, vacinação e acompanhamento de saúde. - O escopo diferencia as entregas Mobile, Java, .NET, Database e DevOps. - O planejamento não pressupõe integração entre sistemas que ainda são independentes.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 5
+      },
+      {
+        "type": "Successor",
+        "target": 14
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Criar a navegação e as telas iniciais do aplicativo",
+    "iteration": "ClyvoVet\\Sprint 1",
+    "description": "Como tutor, quero navegar por início, pets, saúde e perfil, para acessar rapidamente as áreas principais do aplicativo.",
+    "acceptanceCriteria": "\"- A navegação usa Expo Router e separa rotas de autenticação e abas do aplicativo. - As telas principais abrem sem quebrar o fluxo de navegação. - O layout é utilizável no celular e trata o teclado nos formulários.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 5
+      },
+      {
+        "type": "Predecessor",
+        "target": 13
+      },
+      {
+        "type": "Successor",
+        "target": 22
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Modelar as sete entidades clínicas no Oracle",
+    "iteration": "ClyvoVet\\Sprint 1",
+    "description": "Criar a base relacional usada pela API .NET para manter tutores, funcionários, pets, consultas, medicamentos, prescrições e vacinas.",
+    "acceptanceCriteria": "\"- O modelo contém DONOS, FUNCIONARIOS, PETS, CONSULTAS, MEDICAMENTOS, CONSULTAS_MEDICAMENTOS e VACINAS. - Chaves primárias e estrangeiras representam os relacionamentos entre as entidades. - Restrições de status e índices de e-mail preservam a integridade dos dados.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 7
+      },
+      {
+        "type": "Successor",
+        "target": 16
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Estruturar a API .NET e os CRUDs clínicos",
+    "iteration": "ClyvoVet\\Sprint 1",
+    "description": "Disponibilizar uma API ASP.NET Core em camadas para consultar e manter os registros clínicos do ClyvoVet.",
+    "acceptanceCriteria": "\"- A solução separa Controllers, Services, Repositories e acesso ao Oracle com EF Core. - Os sete recursos possuem operações de consulta e manutenção coerentes com o domínio. - O mapeamento Fluent API corresponde às tabelas e relacionamentos do Oracle.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 10
+      },
+      {
+        "type": "Predecessor",
+        "target": 15
+      },
+      {
+        "type": "Successor",
+        "target": 32
+      },
+      {
+        "type": "Successor",
+        "target": 20
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Estruturar a API Java e os CRUDs clínicos",
+    "iteration": "ClyvoVet\\Sprint 1",
+    "description": "Disponibilizar uma API Spring Boot para manter tutores, pets, consultas, vacinas, funcionários e medicamentos.",
+    "acceptanceCriteria": "\"- O projeto usa Java 17, Spring Boot, Spring Data JPA e Maven. - Os recursos principais possuem models, repositories e controllers REST. - Listagens suportam paginação, ordenação e filtros previstos no domínio.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 9
+      },
+      {
+        "type": "Successor",
+        "target": 21
+      },
+      {
+        "type": "Successor",
+        "target": 18
+      },
+      {
+        "type": "Successor",
+        "target": 23
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Padronizar DTOs, validações e erros da API Java",
+    "iteration": "ClyvoVet\\Sprint 2",
+    "description": "Melhorar os contratos da API Java para receber dados válidos e devolver respostas claras em situações de erro.",
+    "acceptanceCriteria": "\"- Entradas e saídas usam DTOs em vez de expor diretamente as entidades. - Bean Validation rejeita campos obrigatórios ou formatos inválidos. - O tratamento global traduz recursos ausentes e regras de negócio em respostas HTTP compreensíveis. - Consultas frequentes podem usar cache sem alterar o resultado funcional.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 9
+      },
+      {
+        "type": "Predecessor",
+        "target": 17
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Expor histórico longitudinal e prevenção na API .NET",
+    "iteration": "ClyvoVet\\Sprint 2",
+    "description": "Como equipe da clínica, quero consultar o histórico do pet e sinais preventivos, para identificar cuidados pendentes.",
+    "acceptanceCriteria": "\"- O detalhe do pet reúne consultas e vacinas relacionadas. - O score preventivo varia de 0 a 100 e gera recomendações a partir do histórico. - A rotina de alertas identifica vacinas vencidas ou próximas do vencimento.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 7
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Containerizar e publicar o ambiente demonstrativo da API .NET",
+    "iteration": "ClyvoVet\\Sprint 2",
+    "description": "Preparar a API .NET e o Oracle para execução em contêineres em uma VM Linux usada na demonstração da disciplina de DevOps.",
+    "acceptanceCriteria": "\"- A imagem da API usa build em múltiplos estágios e executa com usuário sem privilégios. - API e Oracle executam em contêineres conectados por uma rede Docker. - O banco usa volume persistente e a API fica disponível na porta 8080. - A documentação da API pode ser acessada pelo endpoint do Scalar.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 11
+      },
+      {
+        "type": "Predecessor",
+        "target": 16
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Documentar contratos e cenários de teste das APIs",
+    "iteration": "ClyvoVet\\Sprint 2",
+    "description": "Registrar como executar e validar as APIs para que a equipe e o professor consigam reproduzir os fluxos principais.",
+    "acceptanceCriteria": "\"- Os READMEs apresentam arquitetura, requisitos de execução e rotas principais. - A documentação OpenAPI permite consultar os contratos HTTP. - A collection de testes cobre os endpoints principais da API Java. - Cronograma e diagramas ficam vinculados à documentação do projeto.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 12
+      },
+      {
+        "type": "Predecessor",
+        "target": 17
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Montar telas mobile de saúde, histórico e agendamento",
+    "iteration": "ClyvoVet\\Sprint 2",
+    "description": "Como tutor, quero visualizar saúde, histórico e opções de agendamento, para entender os cuidados registrados para meu pet.",
+    "acceptanceCriteria": "\"- As telas de saúde, histórico, vacinas e agendamento fazem parte da navegação do app. - Os componentes apresentam os principais dados clínicos de forma legível no celular. - A estrutura das telas permite substituir dados locais pela persistência real da etapa seguinte.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 5
+      },
+      {
+        "type": "Predecessor",
+        "target": 14
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Versionar o schema Java com Flyway",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Controlar a criação e a evolução do banco usado pela aplicação Java para que o ambiente seja reproduzível.",
+    "acceptanceCriteria": "\"- O Flyway cria as tabelas e a massa inicial em ordem versionada. - O Hibernate usa ddl-auto=validate e falha quando entidade e schema divergem. - Uma migration própria adiciona o intervalo de reforço das vacinas.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 38
+      },
+      {
+        "type": "Child",
+        "target": 36
+      },
+      {
+        "type": "Child",
+        "target": 37
+      },
+      {
+        "type": "Parent",
+        "target": 9
+      },
+      {
+        "type": "Predecessor",
+        "target": 17
+      },
+      {
+        "type": "Successor",
+        "target": 24
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "Controlar acesso por perfis ADMIN e TUTOR no Java",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Como usuário do ClyvoVet, quero acessar somente os recursos permitidos ao meu perfil, para proteger dados e ações da clínica.",
+    "acceptanceCriteria": "\"- Login e cadastro usam usuários persistidos, senha BCrypt e token JWT na API. - ADMIN e TUTOR possuem permissões distintas por rota e método. - O tutor só consulta ou altera os próprios pets e consultas. - Perfil enviado pelo cliente e valor de consulta enviado pelo tutor não elevam seus privilégios.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 41
+      },
+      {
+        "type": "Child",
+        "target": 40
+      },
+      {
+        "type": "Child",
+        "target": 39
+      },
+      {
+        "type": "Parent",
+        "target": 9
+      },
+      {
+        "type": "Predecessor",
+        "target": 23
+      },
+      {
+        "type": "Successor",
+        "target": 26
+      },
+      {
+        "type": "Successor",
+        "target": 25
+      },
+      {
+        "type": "Successor",
+        "target": 27
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Entregar o painel web da clínica em Thymeleaf",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Como equipe da clínica, quero acessar um painel web com pets e pendências, para acompanhar a situação preventiva dos animais.",
+    "acceptanceCriteria": "\"- O painel possui login, dashboard, lista e ficha do pet. - A ficha apresenta score preventivo, recomendações e calendário vacinal. - O formulário de cadastro valida campos e mostra feedback na própria tela. - A página de acesso negado aparece quando o perfil não pode abrir um recurso.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 42
+      },
+      {
+        "type": "Child",
+        "target": 43
+      },
+      {
+        "type": "Child",
+        "target": 44
+      },
+      {
+        "type": "Parent",
+        "target": 9
+      },
+      {
+        "type": "Predecessor",
+        "target": 24
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "title": "Calcular score preventivo e recomendações no Java",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Como tutor, quero ver uma avaliação preventiva do meu pet, para perceber vacinas e consultas que precisam de atenção.",
+    "acceptanceCriteria": "\"- O cálculo cruza calendário vacinal e histórico de consultas. - O resultado retorna score de 0 a 100, classificação e recomendações. - Vacina atrasada impede a classificação EXCELENTE mesmo quando o score é alto.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 45
+      },
+      {
+        "type": "Child",
+        "target": 46
+      },
+      {
+        "type": "Parent",
+        "target": 8
+      },
+      {
+        "type": "Predecessor",
+        "target": 24
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Registrar aplicação de vacina e criar o próximo reforço",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Como funcionário da clínica, quero registrar uma dose aplicada e agendar o reforço, para manter o calendário do pet atualizado.",
+    "acceptanceCriteria": "\"- Somente ADMIN pode registrar a aplicação pela API ou pelo painel. - Dose já aplicada gera conflito e data futura é rejeitada. - A aplicação altera o status e cria o reforço conforme o intervalo configurado. - O fluxo não duplica uma dose de reforço já agendada.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 48
+      },
+      {
+        "type": "Child",
+        "target": 49
+      },
+      {
+        "type": "Child",
+        "target": 47
+      },
+      {
+        "type": "Parent",
+        "target": 8
+      },
+      {
+        "type": "Predecessor",
+        "target": 24
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Adicionar health checks, logs e telemetria na API .NET",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Permitir que a equipe acompanhe disponibilidade, falhas e desempenho da API .NET durante a execução.",
+    "acceptanceCriteria": "\"- Liveness verifica o processo e readiness verifica o Oracle com limite de tempo. - Serilog registra logs estruturados sem expor e-mails ou a connection string. - O correlation ID aparece no log, na resposta de erro e no span. - OpenTelemetry produz traces e métricas de requisição sem dados pessoais nas tags.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 51
+      },
+      {
+        "type": "Child",
+        "target": 50
+      },
+      {
+        "type": "Child",
+        "target": 52
+      },
+      {
+        "type": "Parent",
+        "target": 11
+      },
+      {
+        "type": "Successor",
+        "target": 29
+      },
+      {
+        "type": "Successor",
+        "target": 34
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Automatizar testes das regras e integrações das APIs",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Criar testes que comprovem as regras de segurança, negócio, persistência e observabilidade implementadas nas APIs Java e .NET.",
+    "acceptanceCriteria": "\"- A API Java testa perfis, cadastro, valor da consulta e aplicação de vacina. - A API .NET possui testes unitários dos services, autenticação, health check e mascaramento. - WebApplicationFactory testa endpoints, autenticação, erros, health checks e tracing com banco relacional isolado. - Os testes não dependem de um Oracle externo para executar.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 53
+      },
+      {
+        "type": "Child",
+        "target": 54
+      },
+      {
+        "type": "Child",
+        "target": 55
+      },
+      {
+        "type": "Child",
+        "target": 56
+      },
+      {
+        "type": "Parent",
+        "target": 12
+      },
+      {
+        "type": "Predecessor",
+        "target": 28
+      },
+      {
+        "type": "Successor",
+        "target": 35
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "Implementar autenticação e sessão do mobile no Supabase",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Como tutor, quero criar conta e manter minha sessão no aplicativo, para acessar meus dados com segurança.",
+    "acceptanceCriteria": "\"- Cadastro, login e logout usam o Supabase Auth com e-mail e senha. - A sessão é restaurada no dispositivo e protege as rotas autenticadas. - O aplicativo não depende da API Java para autenticar o tutor.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 57
+      },
+      {
+        "type": "Child",
+        "target": 58
+      },
+      {
+        "type": "Child",
+        "target": 59
+      },
+      {
+        "type": "Parent",
+        "target": 6
+      },
+      {
+        "type": "Successor",
+        "target": 31
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "Persistir pets e vacinas do mobile com RLS",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Como tutor autenticado, quero manter meus pets e vacinas na nuvem, para encontrar os mesmos dados ao retornar ao aplicativo.",
+    "acceptanceCriteria": "\"- Pets e vacinas possuem criação, consulta, edição e exclusão pelo aplicativo. - Telas acessam os dados por hooks do TanStack Query e services do Supabase. - Cada vacina pertence a um pet e apresenta situação em dia ou atenção pelo próximo reforço. - Políticas RLS impedem um usuário de consultar ou alterar dados de outro usuário.\"",
+    "relationships": [
+      {
+        "type": "Child",
+        "target": 60
+      },
+      {
+        "type": "Child",
+        "target": 61
+      },
+      {
+        "type": "Child",
+        "target": 62
+      },
+      {
+        "type": "Parent",
+        "target": 6
+      },
+      {
+        "type": "Predecessor",
+        "target": 30
+      },
+      {
+        "type": "Successor",
+        "target": 35
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Alinhar as migrations .NET ao schema Oracle atual",
+    "iteration": "ClyvoVet\\Sprint 4",
+    "description": "Regenerar as migrations da API .NET junto com Database para que elas representem as sete tabelas realmente usadas pelo AppDbContext.",
+    "acceptanceCriteria": "\"- As migrations deixam de referenciar o modelo antigo de tutores, clínicas e veterinários. - O modelo gerado corresponde ao AppDbContext e ao DDL validado com Database. - A aplicação inicia com o Oracle sem divergência de tabela, coluna ou relacionamento.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 10
+      },
+      {
+        "type": "Predecessor",
+        "target": 16
+      },
+      {
+        "type": "Successor",
+        "target": 33
+      },
+      {
+        "type": "Successor",
+        "target": 34
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Proteger leituras sensíveis da API .NET",
+    "iteration": "ClyvoVet\\Sprint 4",
+    "description": "Aplicar autenticação e autorização às consultas que retornam dados pessoais de tutores ou informações clínicas.",
+    "acceptanceCriteria": "\"- Rotas com nome, e-mail, telefone ou histórico clínico exigem autenticação. - Requisição sem token recebe 401 e token sem permissão recebe 403. - Os testes confirmam que dados sensíveis não ficam disponíveis anonimamente.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 10
+      },
+      {
+        "type": "Predecessor",
+        "target": 32
+      },
+      {
+        "type": "Successor",
+        "target": 35
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "Validar Docker e telemetria da .NET em execução",
+    "iteration": "ClyvoVet\\Sprint 4",
+    "description": "Executar o ambiente empacotado e confirmar que API, Oracle, health checks, logs e exportação de telemetria funcionam juntos.",
+    "acceptanceCriteria": "\"- Docker Compose inicia API e Oracle com as variáveis exigidas. - Readiness muda para Unhealthy quando o banco fica indisponível e liveness permanece ativo. - Logs, traces e métricas podem ser observados sem vazamento de segredo ou dado pessoal.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 11
+      },
+      {
+        "type": "Predecessor",
+        "target": 28
+      },
+      {
+        "type": "Predecessor",
+        "target": 32
+      },
+      {
+        "type": "Successor",
+        "target": 35
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Revisar o release e consolidar as evidências finais",
+    "iteration": "ClyvoVet\\Sprint 4",
+    "description": "Revisar as entregas de cada disciplina e organizar evidências coerentes para a apresentação final do Challenge.",
+    "acceptanceCriteria": "\"- As evidências apontam para os repositórios e fluxos que realmente existem. - A documentação mantém Mobile, Java e .NET como frentes independentes onde não há integração implementada. - Testes, limitações conhecidas e instruções de execução estão atualizados. - O release final não depende de credenciais ou recursos pagos mantidos no repositório.\"",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 12
+      },
+      {
+        "type": "Predecessor",
+        "target": 29
+      },
+      {
+        "type": "Predecessor",
+        "target": 31
+      },
+      {
+        "type": "Predecessor",
+        "target": 33
+      },
+      {
+        "type": "Predecessor",
+        "target": 34
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "title": "Criar migrations de tabelas e carga inicial",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Criar V1 com as tabelas e V2 com dados de demonstração coerentes.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 23
+      },
+      {
+        "type": "Successor",
+        "target": 38
+      },
+      {
+        "type": "Successor",
+        "target": 37
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "Validar o schema pelo Flyway na inicialização",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Configurar o Flyway e o ddl-auto=validate para detectar divergências ao subir a aplicação.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 23
+      },
+      {
+        "type": "Predecessor",
+        "target": 36
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "Adicionar intervalo de reforço na migration V3",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Versionar a coluna usada para calcular a próxima dose da vacina.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 23
+      },
+      {
+        "type": "Predecessor",
+        "target": 36
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "Persistir usuários e senhas com BCrypt",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Criar o modelo de usuário e validar credenciais sem senha fixa no código.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 24
+      },
+      {
+        "type": "Successor",
+        "target": 40
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "Configurar sessão web e autenticação JWT",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Separar a filter chain do painel da autenticação stateless usada em /api.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 24
+      },
+      {
+        "type": "Predecessor",
+        "target": 39
+      },
+      {
+        "type": "Successor",
+        "target": 41
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "title": "Aplicar perfis e propriedade dos recursos",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Restringir rotas por perfil e impedir que o tutor acesse pets ou consultas de outro usuário.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 24
+      },
+      {
+        "type": "Predecessor",
+        "target": 40
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "title": "Criar login, dashboard e lista de pets",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Montar as páginas base do painel e carregar apenas os dados permitidos ao perfil autenticado.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 25
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "title": "Montar ficha do pet com situação preventiva",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Exibir score, recomendações, consultas e calendário vacinal do pet selecionado.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 25
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "title": "Validar formulário e feedback visual",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Mostrar erros de campo e a página de acesso negado sem perder os dados válidos do formulário.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 25
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Cruzar vacinas e consultas no cálculo preventivo",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Aplicar as penalidades por vacina atrasada e check-up vencido ou ausente.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 26
+      },
+      {
+        "type": "Successor",
+        "target": 46
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "title": "Testar score, classificação e recomendações",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Cobrir cenários excelente, atenção e crítico, incluindo vacina vencida com score alto.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 26
+      },
+      {
+        "type": "Predecessor",
+        "target": 45
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "title": "Validar data e estado da dose aplicada",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Rejeitar aplicação futura e conflito quando a vacina já estiver aplicada.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 27
+      },
+      {
+        "type": "Successor",
+        "target": 48
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "title": "Atualizar a dose e agendar o reforço",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Marcar a dose como aplicada e criar a próxima vacina conforme o intervalo configurado.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 27
+      },
+      {
+        "type": "Predecessor",
+        "target": 47
+      },
+      {
+        "type": "Successor",
+        "target": 49
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "title": "Testar aplicação, conflito e duplicidade",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Confirmar o fluxo feliz e os erros sem gerar dois reforços para a mesma dose.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 27
+      },
+      {
+        "type": "Predecessor",
+        "target": 48
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "title": "Criar health checks de liveness e readiness",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Separar a saúde do processo da conectividade com o Oracle e aplicar timeout na verificação.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 28
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "title": "Configurar Serilog, correlação e mascaramento",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Registrar logs estruturados com correlation ID e ocultar dados sensíveis.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 28
+      },
+      {
+        "type": "Successor",
+        "target": 52
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "title": "Instrumentar traces e métricas com OpenTelemetry",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Criar spans nas camadas principais e métricas de requisição sem dados pessoais.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 28
+      },
+      {
+        "type": "Predecessor",
+        "target": 51
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "title": "Cobrir services, autenticação e health check da .NET",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Criar testes unitários com xUnit e Moq para regras, erros e casos de configuração.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 29
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "title": "Configurar WebApplicationFactory com SQLite",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Subir a API em Testing com banco relacional isolado e massa resetada por teste.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 29
+      },
+      {
+        "type": "Successor",
+        "target": 55
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "title": "Testar endpoints, autenticação e falhas da .NET",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Validar fluxos HTTP, ProblemDetails, health checks, banco indisponível e tracing.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 29
+      },
+      {
+        "type": "Predecessor",
+        "target": 54
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "title": "Testar perfis e regras de vacina no Java",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Cobrir isolamento entre tutores, cadastro, valor da consulta e baixa de vacina.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 29
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "title": "Configurar Supabase e o contexto de autenticação",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Centralizar o client e o estado de autenticação usado pelas rotas do aplicativo.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 30
+      },
+      {
+        "type": "Successor",
+        "target": 58
+      },
+      {
+        "type": "Successor",
+        "target": 59
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "title": "Implementar cadastro, login e logout",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Conectar os formulários ao Supabase Auth e apresentar erros de autenticação ao usuário.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 30
+      },
+      {
+        "type": "Predecessor",
+        "target": 57
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "title": "Restaurar sessão e proteger rotas mobile",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Persistir a sessão no dispositivo e redirecionar conforme o estado autenticado.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 30
+      },
+      {
+        "type": "Predecessor",
+        "target": 57
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "title": "Criar services e hooks do TanStack Query",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Isolar o acesso ao Supabase e disponibilizar queries e mutations para pets e vacinas.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 31
+      },
+      {
+        "type": "Successor",
+        "target": 61
+      },
+      {
+        "type": "Successor",
+        "target": 62
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "title": "Implementar CRUD de pets nas telas",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Cadastrar, listar, editar e remover pets do usuário autenticado.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 31
+      },
+      {
+        "type": "Predecessor",
+        "target": 60
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "title": "Implementar CRUD e status das vacinas",
+    "iteration": "ClyvoVet\\Sprint 3",
+    "description": "Manter vacinas por pet, calcular a situação do reforço e mostrar falhas de RLS na exclusão.",
+    "acceptanceCriteria": "",
+    "relationships": [
+      {
+        "type": "Parent",
+        "target": 31
+      },
+      {
+        "type": "Predecessor",
+        "target": 60
+      }
+    ]
+  }
+]

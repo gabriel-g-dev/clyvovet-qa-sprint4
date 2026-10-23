@@ -1,0 +1,34 @@
+{
+  "demonstracao.mp4": {
+    "bytes": 1508934,
+    "sha256": "97f1f57e849fb969f79ba863b7e77b02f86f0e950cb4182e4b14b06d7ea63ac0"
+  },
+  "desktop.zip": {
+    "bytes": 6290781,
+    "sha256": "09a11e37a3aa55a25cbc4f571ab3011653e606accf28af48b0681724b96e0d93"
+  },
+  "mobile.zip": {
+    "bytes": 1356063,
+    "sha256": "00e1086e49619c3735f2a59355e890b8a01c969b5d85561df900328e3634e04a"
+  },
+  "regressao-dotnet.zip": {
+    "bytes": 35547,
+    "sha256": "67b1e43cc67e14721c99b49e38cc97099a4256ebff0f2dabf3aea683d79f08e7"
+  },
+  "desktop-results.json": {
+    "bytes": 12733,
+    "sha256": "9dea19b53d6c06c495f2c8585ca2136cd5ab77987d2838965fab0c00dcbc77ba"
+  },
+  "mobile-results.json": {
+    "bytes": 12575,
+    "sha256": "8a1b92db3f1a5d464ea2fc3a4621016a54937212d612db64b8fbefe9f208a1a9"
+  },
+  "desktop-CT15.png": {
+    "bytes": 92931,
+    "sha256": "395fec60022fc5383ab6f25bbbaf99935942022e297f1c246f92c3705ac42ae1"
+  },
+  "mobile-CT06.png": {
+    "bytes": 95025,
+    "sha256": "d8faed29404b81010b04f43c59f17ee4d83d1721e8c18b929453585356d933bb"
+  }
+}

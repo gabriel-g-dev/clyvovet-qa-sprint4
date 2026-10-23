@@ -1,0 +1,852 @@
+[
+  {
+    "id": "CT01",
+    "title": "ADMIN autentica e abre o dashboard",
+    "pbi": 24,
+    "objective": "Confirmar que a credencial ADMIN abre a área autenticada.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "admin@clyvovet.com.br / admin123 (credencial pública de demonstração)",
+    "expected": "Login redireciona a /dashboard; título Dashboard; links Rex e Mel visíveis.",
+    "steps": [
+      {
+        "action": "Abrir /login em sessão nova.",
+        "expected": "Formulário E-mail e Senha visível."
+      },
+      {
+        "action": "Preencher admin@clyvovet.com.br e admin123; clicar Entrar.",
+        "expected": "URL termina em /dashboard."
+      },
+      {
+        "action": "Ler título e pets.",
+        "expected": "Dashboard, Rex e Mel aparecem uma vez cada."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT01",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT01 — ADMIN autentica e abre o dashboard\n\nOBJETIVO: Confirmar que a credencial ADMIN abre a área autenticada.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: admin@clyvovet.com.br / admin123 (credencial pública de demonstração)\n\nSAÍDA ESPERADA: Login redireciona a /dashboard; título Dashboard; links Rex e Mel visíveis.\n\nPASSOS:\n1. Abrir /login em sessão nova.\n   Esperado: Formulário E-mail e Senha visível.\n2. Preencher admin@clyvovet.com.br e admin123; clicar Entrar.\n   Esperado: URL termina em /dashboard.\n3. Ler título e pets.\n   Esperado: Dashboard, Rex e Mel aparecem uma vez cada.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT02",
+    "title": "Senha incorreta não cria sessão",
+    "pbi": 24,
+    "objective": "Impedir autenticação com senha incorreta.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "email=admin@clyvovet.com.br; senha=incorreta-QA",
+    "expected": "/login?erro mostra E-mail ou senha inválidos.; acesso a /dashboard volta a /login.",
+    "steps": [
+      {
+        "action": "Abrir /login sem sessão.",
+        "expected": "Formulário disponível."
+      },
+      {
+        "action": "Enviar e-mail indicado e senha incorreta-QA.",
+        "expected": "/login?erro e mensagem E-mail ou senha inválidos."
+      },
+      {
+        "action": "Digitar /dashboard diretamente.",
+        "expected": "Retorna a /login sem dados clínicos."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT02",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT02 — Senha incorreta não cria sessão\n\nOBJETIVO: Impedir autenticação com senha incorreta.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: email=admin@clyvovet.com.br; senha=incorreta-QA\n\nSAÍDA ESPERADA: /login?erro mostra E-mail ou senha inválidos.; acesso a /dashboard volta a /login.\n\nPASSOS:\n1. Abrir /login sem sessão.\n   Esperado: Formulário disponível.\n2. Enviar e-mail indicado e senha incorreta-QA.\n   Esperado: /login?erro e mensagem E-mail ou senha inválidos.\n3. Digitar /dashboard diretamente.\n   Esperado: Retorna a /login sem dados clínicos.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT03",
+    "title": "TUTOR lista somente Rex e suas pendências",
+    "pbi": 24,
+    "objective": "Verificar filtragem de listagens pelo tutor autenticado.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); seed Rex do tutor 1, Mel da tutora 2",
+    "expected": "Dashboard e /pets exibem Rex e não Mel; GET /api/pets com JWT TUTOR retorna content com somente Rex.",
+    "steps": [
+      {
+        "action": "Entrar como gabriel@clyvovet.com.br com tutor123.",
+        "expected": "/dashboard autenticado."
+      },
+      {
+        "action": "Ler pets no dashboard e abrir /pets.",
+        "expected": "Rex visível; Mel ausente nas duas telas."
+      },
+      {
+        "action": "Obter JWT em POST /api/auth/login e enviar GET /api/pets.",
+        "expected": "HTTP 200; content contém apenas Rex, tutorId=1."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT03",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT03 — TUTOR lista somente Rex e suas pendências\n\nOBJETIVO: Verificar filtragem de listagens pelo tutor autenticado.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); seed Rex do tutor 1, Mel da tutora 2\n\nSAÍDA ESPERADA: Dashboard e /pets exibem Rex e não Mel; GET /api/pets com JWT TUTOR retorna content com somente Rex.\n\nPASSOS:\n1. Entrar como gabriel@clyvovet.com.br com tutor123.\n   Esperado: /dashboard autenticado.\n2. Ler pets no dashboard e abrir /pets.\n   Esperado: Rex visível; Mel ausente nas duas telas.\n3. Obter JWT em POST /api/auth/login e enviar GET /api/pets.\n   Esperado: HTTP 200; content contém apenas Rex, tutorId=1.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT04",
+    "title": "TUTOR recebe acesso negado em operação ADMIN",
+    "pbi": 24,
+    "objective": "Validar autorização de rota na interface e na API.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); GET /pets/novo; POST /api/vacinas/2/aplicar com corpo {}",
+    "expected": "GET /pets/novo retorna 403 com Acesso negado; POST de aplicação com JWT TUTOR retorna 403; vacina 2 permanece P.",
+    "steps": [
+      {
+        "action": "Entrar como TUTOR.",
+        "expected": "Dashboard abre."
+      },
+      {
+        "action": "Abrir diretamente /pets/novo.",
+        "expected": "403 e título Acesso negado; não há formulário de cadastro."
+      },
+      {
+        "action": "Com JWT TUTOR enviar POST /api/vacinas/2/aplicar, {}.",
+        "expected": "403; GET /api/vacinas/2 continua status P."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT04",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT04 — TUTOR recebe acesso negado em operação ADMIN\n\nOBJETIVO: Validar autorização de rota na interface e na API.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); GET /pets/novo; POST /api/vacinas/2/aplicar com corpo {}\n\nSAÍDA ESPERADA: GET /pets/novo retorna 403 com Acesso negado; POST de aplicação com JWT TUTOR retorna 403; vacina 2 permanece P.\n\nPASSOS:\n1. Entrar como TUTOR.\n   Esperado: Dashboard abre.\n2. Abrir diretamente /pets/novo.\n   Esperado: 403 e título Acesso negado; não há formulário de cadastro.\n3. Com JWT TUTOR enviar POST /api/vacinas/2/aplicar, {}.\n   Esperado: 403; GET /api/vacinas/2 continua status P.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT05",
+    "title": "Dashboard apresenta 2 pets e 3 vacinas pendentes",
+    "pbi": 25,
+    "objective": "Conferir totais e calendário da massa inicial.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "admin@clyvovet.com.br / admin123 (credencial pública de demonstração); massa Flyway sem alterações: Rex, Mel; pendentes Antirrabica/Rex, Giardia/Rex, Antirrabica/Mel",
+    "expected": "Cartões: Pets acompanhados=2 e Vacinas pendentes=3; tabela com 2 pets e vacinas correspondentes.",
+    "steps": [
+      {
+        "action": "Reiniciar aplicação para H2 novo e entrar como ADMIN.",
+        "expected": "Carga inicial sem cadastros QA."
+      },
+      {
+        "action": "Ler os dois cartões de /dashboard.",
+        "expected": "Valores exatos 2 e 3."
+      },
+      {
+        "action": "Ler a tabela Calendário vacinal por pet.",
+        "expected": "Duas linhas: Rex e Mel; vacinas pertencem aos pets corretos."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT05",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT05 — Dashboard apresenta 2 pets e 3 vacinas pendentes\n\nOBJETIVO: Conferir totais e calendário da massa inicial.\n\nRASTREABILIDADE: PBI #25 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/25). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: admin@clyvovet.com.br / admin123 (credencial pública de demonstração); massa Flyway sem alterações: Rex, Mel; pendentes Antirrabica/Rex, Giardia/Rex, Antirrabica/Mel\n\nSAÍDA ESPERADA: Cartões: Pets acompanhados=2 e Vacinas pendentes=3; tabela com 2 pets e vacinas correspondentes.\n\nPASSOS:\n1. Reiniciar aplicação para H2 novo e entrar como ADMIN.\n   Esperado: Carga inicial sem cadastros QA.\n2. Ler os dois cartões de /dashboard.\n   Esperado: Valores exatos 2 e 3.\n3. Ler a tabela Calendário vacinal por pet.\n   Esperado: Duas linhas: Rex e Mel; vacinas pertencem aos pets corretos.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT06",
+    "title": "Ficha do Rex exibe score 85 e ATENÇÃO",
+    "pbi": 26,
+    "objective": "Conferir score e recomendação de vacina vencida sem classificar como EXCELENTE.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "admin@clyvovet.com.br / admin123 (credencial pública de demonstração); Rex id=1; Antirrabica pendente em D-20; Giardia em D+5; consulta realizada D-45",
+    "expected": "/pets/1 mostra Rex, score 85, ATENÇÃO, alerta ATRASADA e 3 registros no calendário.",
+    "steps": [
+      {
+        "action": "Entrar como ADMIN no H2 inicial.",
+        "expected": "Dashboard mostra Rex."
+      },
+      {
+        "action": "Clicar Rex.",
+        "expected": "URL /pets/1, tutor Gabriel Oliveira e espécie Cachorro."
+      },
+      {
+        "action": "Ler score, classificação, recomendações e calendário.",
+        "expected": "85, ATENÇÃO, alerta ATRASADA para Antirrabica; 3 vacinas, sem Mel."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT06",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT06 — Ficha do Rex exibe score 85 e ATENÇÃO\n\nOBJETIVO: Conferir score e recomendação de vacina vencida sem classificar como EXCELENTE.\n\nRASTREABILIDADE: PBI #26 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/26). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: admin@clyvovet.com.br / admin123 (credencial pública de demonstração); Rex id=1; Antirrabica pendente em D-20; Giardia em D+5; consulta realizada D-45\n\nSAÍDA ESPERADA: /pets/1 mostra Rex, score 85, ATENÇÃO, alerta ATRASADA e 3 registros no calendário.\n\nPASSOS:\n1. Entrar como ADMIN no H2 inicial.\n   Esperado: Dashboard mostra Rex.\n2. Clicar Rex.\n   Esperado: URL /pets/1, tutor Gabriel Oliveira e espécie Cachorro.\n3. Ler score, classificação, recomendações e calendário.\n   Esperado: 85, ATENÇÃO, alerta ATRASADA para Antirrabica; 3 vacinas, sem Mel.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT07",
+    "title": "ADMIN cadastra pet pela interface e dados persistem",
+    "pbi": 25,
+    "objective": "Criar um pet válido e confirmar persistência após recarregar.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "admin@clyvovet.com.br / admin123 (credencial pública de demonstração); nome=QA-CT07; especie=Cachorro; raca=SRD; dataNascimento=2023-01-15; peso=12.50; tutorId=1 (Gabriel Oliveira)",
+    "expected": "Mensagem Pet 'QA-CT07' cadastrado com sucesso.; pet na lista após reload; API confirma peso 12.5 e tutorId 1.",
+    "steps": [
+      {
+        "action": "Entrar como ADMIN e abrir /pets/novo.",
+        "expected": "Formulário visível."
+      },
+      {
+        "action": "Informar nome QA-CT07, Cachorro, SRD, 2023-01-15, peso 12.50 e Gabriel Oliveira.",
+        "expected": "Campos apresentam os valores informados."
+      },
+      {
+        "action": "Clicar Cadastrar pet.",
+        "expected": "Redireciona /pets e exibe mensagem de sucesso com o nome."
+      },
+      {
+        "action": "Recarregar /pets e consultar o id retornado pela API.",
+        "expected": "QA-CT07 permanece; GET do id retorna dados informados."
+      },
+      {
+        "action": "Excluir somente o pet QA criado pela API ADMIN.",
+        "expected": "204; pet QA ausente; Rex e Mel preservados."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT07",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT07 — ADMIN cadastra pet pela interface e dados persistem\n\nOBJETIVO: Criar um pet válido e confirmar persistência após recarregar.\n\nRASTREABILIDADE: PBI #25 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/25). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: admin@clyvovet.com.br / admin123 (credencial pública de demonstração); nome=QA-CT07; especie=Cachorro; raca=SRD; dataNascimento=2023-01-15; peso=12.50; tutorId=1 (Gabriel Oliveira)\n\nSAÍDA ESPERADA: Mensagem Pet 'QA-CT07' cadastrado com sucesso.; pet na lista após reload; API confirma peso 12.5 e tutorId 1.\n\nPASSOS:\n1. Entrar como ADMIN e abrir /pets/novo.\n   Esperado: Formulário visível.\n2. Informar nome QA-CT07, Cachorro, SRD, 2023-01-15, peso 12.50 e Gabriel Oliveira.\n   Esperado: Campos apresentam os valores informados.\n3. Clicar Cadastrar pet.\n   Esperado: Redireciona /pets e exibe mensagem de sucesso com o nome.\n4. Recarregar /pets e consultar o id retornado pela API.\n   Esperado: QA-CT07 permanece; GET do id retorna dados informados.\n5. Excluir somente o pet QA criado pela API ADMIN.\n   Esperado: 204; pet QA ausente; Rex e Mel preservados.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT08",
+    "title": "Formulário vazio mostra seis erros e não grava",
+    "pbi": 25,
+    "objective": "Verificar validação campo a campo no servidor.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "admin@clyvovet.com.br / admin123 (credencial pública de demonstração); todos os 6 campos do cadastro vazios",
+    "expected": "Permanecer no formulário; seis erros: Nome é obrigatório; Espécie é obrigatória; Raça é obrigatória; Data de nascimento é obrigatória; Peso é obrigatório; Tutor é obrigatório. Total de pets permanece 2.",
+    "steps": [
+      {
+        "action": "Entrar como ADMIN e abrir /pets/novo com todos os campos vazios.",
+        "expected": "Nenhum dado de pet preenchido."
+      },
+      {
+        "action": "Clicar Cadastrar pet.",
+        "expected": "Tela de formulário continua aberta."
+      },
+      {
+        "action": "Ler mensagens ao lado dos seis campos.",
+        "expected": "As seis mensagens especificadas aparecem."
+      },
+      {
+        "action": "Consultar GET /api/pets com JWT ADMIN.",
+        "expected": "totalElements=2; nenhum pet vazio cadastrado."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT08",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT08 — Formulário vazio mostra seis erros e não grava\n\nOBJETIVO: Verificar validação campo a campo no servidor.\n\nRASTREABILIDADE: PBI #25 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/25). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: admin@clyvovet.com.br / admin123 (credencial pública de demonstração); todos os 6 campos do cadastro vazios\n\nSAÍDA ESPERADA: Permanecer no formulário; seis erros: Nome é obrigatório; Espécie é obrigatória; Raça é obrigatória; Data de nascimento é obrigatória; Peso é obrigatório; Tutor é obrigatório. Total de pets permanece 2.\n\nPASSOS:\n1. Entrar como ADMIN e abrir /pets/novo com todos os campos vazios.\n   Esperado: Nenhum dado de pet preenchido.\n2. Clicar Cadastrar pet.\n   Esperado: Tela de formulário continua aberta.\n3. Ler mensagens ao lado dos seis campos.\n   Esperado: As seis mensagens especificadas aparecem.\n4. Consultar GET /api/pets com JWT ADMIN.\n   Esperado: totalElements=2; nenhum pet vazio cadastrado.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT09",
+    "title": "JWT identifica o tutor e bloqueia token ausente ou inválido",
+    "pbi": 24,
+    "objective": "Validar autenticação REST e identidade da sessão.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); Authorization ausente e Bearer token-invalido-QA; login ADMIN com senha incorreta-QA",
+    "expected": "GET /api/pets sem token ou com token inválido=401; /api/auth/me com JWT válido=200, email gabriel@clyvovet.com.br, role ROLE_TUTOR, tutorId 1; login inválido=401.",
+    "steps": [
+      {
+        "action": "Enviar GET /api/pets sem Authorization e repetir com Bearer token-invalido-QA.",
+        "expected": "Ambas 401, sem lista de pets."
+      },
+      {
+        "action": "Enviar POST /api/auth/login com e-mail e senha TUTOR indicados.",
+        "expected": "200 com token não vazio, tipo Bearer e ROLE_TUTOR."
+      },
+      {
+        "action": "Usar o token em GET /api/auth/me.",
+        "expected": "200 com identidade e tutorId 1."
+      },
+      {
+        "action": "Enviar login ADMIN com incorreta-QA.",
+        "expected": "401; nenhum token de acesso válido emitido."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT09",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT09 — JWT identifica o tutor e bloqueia token ausente ou inválido\n\nOBJETIVO: Validar autenticação REST e identidade da sessão.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); Authorization ausente e Bearer token-invalido-QA; login ADMIN com senha incorreta-QA\n\nSAÍDA ESPERADA: GET /api/pets sem token ou com token inválido=401; /api/auth/me com JWT válido=200, email gabriel@clyvovet.com.br, role ROLE_TUTOR, tutorId 1; login inválido=401.\n\nPASSOS:\n1. Enviar GET /api/pets sem Authorization e repetir com Bearer token-invalido-QA.\n   Esperado: Ambas 401, sem lista de pets.\n2. Enviar POST /api/auth/login com e-mail e senha TUTOR indicados.\n   Esperado: 200 com token não vazio, tipo Bearer e ROLE_TUTOR.\n3. Usar o token em GET /api/auth/me.\n   Esperado: 200 com identidade e tutorId 1.\n4. Enviar login ADMIN com incorreta-QA.\n   Esperado: 401; nenhum token de acesso válido emitido.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT10",
+    "title": "Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido",
+    "pbi": 24,
+    "objective": "Impedir elevação de privilégio no cadastro e duplicação de conta.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "POST /api/auth/register: nome=Tutor QA CT10; email=qa.ct10@example.test; telefone=(11) 90000-0010; senha=SenhaQa123; role=ROLE_ADMIN",
+    "expected": "Primeiro cadastro=201; login=200 com ROLE_TUTOR; /me retorna nome correto; repetição do e-mail=409.",
+    "steps": [
+      {
+        "action": "Em H2 novo enviar o JSON de cadastro com role ROLE_ADMIN.",
+        "expected": "201; um tutor criado."
+      },
+      {
+        "action": "Fazer login com qa.ct10@example.test e SenhaQa123.",
+        "expected": "200; role ROLE_TUTOR, apesar do campo enviado."
+      },
+      {
+        "action": "Consultar /api/auth/me com o token retornado.",
+        "expected": "Nome Tutor QA CT10, e-mail exato e tutorId gerado."
+      },
+      {
+        "action": "Reenviar o mesmo cadastro.",
+        "expected": "409; nenhuma conta duplicada."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT10",
+    "notes": "O usuário QA não possui endpoint de exclusão; é eliminado ao descartar o H2. Não repetir o cadastro no mesmo processo sem reiniciar.",
+    "description": "IDENTIFICAÇÃO: CT10 — Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido\n\nOBJETIVO: Impedir elevação de privilégio no cadastro e duplicação de conta.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: POST /api/auth/register: nome=Tutor QA CT10; email=qa.ct10@example.test; telefone=(11) 90000-0010; senha=SenhaQa123; role=ROLE_ADMIN\n\nSAÍDA ESPERADA: Primeiro cadastro=201; login=200 com ROLE_TUTOR; /me retorna nome correto; repetição do e-mail=409.\n\nPASSOS:\n1. Em H2 novo enviar o JSON de cadastro com role ROLE_ADMIN.\n   Esperado: 201; um tutor criado.\n2. Fazer login com qa.ct10@example.test e SenhaQa123.\n   Esperado: 200; role ROLE_TUTOR, apesar do campo enviado.\n3. Consultar /api/auth/me com o token retornado.\n   Esperado: Nome Tutor QA CT10, e-mail exato e tutorId gerado.\n4. Reenviar o mesmo cadastro.\n   Esperado: 409; nenhuma conta duplicada.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\nOBSERVAÇÕES: O usuário QA não possui endpoint de exclusão; é eliminado ao descartar o H2. Não repetir o cadastro no mesmo processo sem reiniciar."
+  },
+  {
+    "id": "CT11",
+    "title": "TUTOR não acessa Mel nem transfere pet por tutorId",
+    "pbi": 24,
+    "objective": "Validar propriedade por ID e impedir manipulação do tutorId.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); Mel id=2; POST/PUT pet QA-CT11 com dados de CT07, mas tutorId=2",
+    "expected": "Leitura de Mel e de sua inteligência preventiva=403; pet QA criado/atualizado pelo TUTOR permanece com tutorId=1.",
+    "steps": [
+      {
+        "action": "Obter JWT TUTOR; GET /api/pets/2 e /api/pets/2/inteligencia-preventiva.",
+        "expected": "403 nas duas respostas, sem dados de Mel."
+      },
+      {
+        "action": "POST /api/pets com nome QA-CT11, Cachorro, SRD, 2023-01-15, peso 12.50, tutorId=2.",
+        "expected": "201; resposta tutorId=1."
+      },
+      {
+        "action": "PUT no id QA retornado mantendo tutorId=2.",
+        "expected": "200; tutorId continua 1."
+      },
+      {
+        "action": "Excluir somente o id QA.",
+        "expected": "204; dados originais preservados."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT11",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT11 — TUTOR não acessa Mel nem transfere pet por tutorId\n\nOBJETIVO: Validar propriedade por ID e impedir manipulação do tutorId.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: gabriel@clyvovet.com.br / tutor123 (credencial pública de demonstração); Mel id=2; POST/PUT pet QA-CT11 com dados de CT07, mas tutorId=2\n\nSAÍDA ESPERADA: Leitura de Mel e de sua inteligência preventiva=403; pet QA criado/atualizado pelo TUTOR permanece com tutorId=1.\n\nPASSOS:\n1. Obter JWT TUTOR; GET /api/pets/2 e /api/pets/2/inteligencia-preventiva.\n   Esperado: 403 nas duas respostas, sem dados de Mel.\n2. POST /api/pets com nome QA-CT11, Cachorro, SRD, 2023-01-15, peso 12.50, tutorId=2.\n   Esperado: 201; resposta tutorId=1.\n3. PUT no id QA retornado mantendo tutorId=2.\n   Esperado: 200; tutorId continua 1.\n4. Excluir somente o id QA.\n   Esperado: 204; dados originais preservados.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT12",
+    "title": "Pet percorre criação, filtro, edição e exclusão",
+    "pbi": 17,
+    "objective": "Exercitar o ciclo de vida de pet na API Java com leitura posterior.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "JWT ADMIN; pet QA-CT12 com Cachorro/SRD/2023-01-15/12.50/tutorId=1; edição nome QA-CT12-editado e peso 13.25",
+    "expected": "POST=201; GET confirma dados; filtro especie/cachorro inclui id; PUT=200 atualiza nome/peso; DELETE=204; GET posterior=404.",
+    "steps": [
+      {
+        "action": "POST /api/pets com o JSON indicado e guardar idQA.",
+        "expected": "201 com idQA numérico."
+      },
+      {
+        "action": "GET /api/pets/{idQA} e GET /api/pets/especie/cachorro.",
+        "expected": "200; nome QA-CT12; filtro inclui idQA."
+      },
+      {
+        "action": "PUT /api/pets/{idQA} com nome QA-CT12-editado e peso 13.25, demais dados iguais.",
+        "expected": "200 com novo nome/peso."
+      },
+      {
+        "action": "DELETE /api/pets/{idQA} e repetir GET do id.",
+        "expected": "204 seguido de 404; somente QA excluído."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 1",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT12",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT12 — Pet percorre criação, filtro, edição e exclusão\n\nOBJETIVO: Exercitar o ciclo de vida de pet na API Java com leitura posterior.\n\nRASTREABILIDADE: PBI #17 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/17). Funcionalidade planejada na Sprint 1; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: JWT ADMIN; pet QA-CT12 com Cachorro/SRD/2023-01-15/12.50/tutorId=1; edição nome QA-CT12-editado e peso 13.25\n\nSAÍDA ESPERADA: POST=201; GET confirma dados; filtro especie/cachorro inclui id; PUT=200 atualiza nome/peso; DELETE=204; GET posterior=404.\n\nPASSOS:\n1. POST /api/pets com o JSON indicado e guardar idQA.\n   Esperado: 201 com idQA numérico.\n2. GET /api/pets/{idQA} e GET /api/pets/especie/cachorro.\n   Esperado: 200; nome QA-CT12; filtro inclui idQA.\n3. PUT /api/pets/{idQA} com nome QA-CT12-editado e peso 13.25, demais dados iguais.\n   Esperado: 200 com novo nome/peso.\n4. DELETE /api/pets/{idQA} e repetir GET do id.\n   Esperado: 204 seguido de 404; somente QA excluído.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT13",
+    "title": "Histórico e preço da consulta respeitam o perfil TUTOR",
+    "pbi": 24,
+    "objective": "Conferir histórico real e impedir que o TUTOR defina o preço da consulta.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "JWT TUTOR; GET /api/consultas/pet/1; fixture pet QA-CT13 do tutor 1; consulta data=D+10T10:30:00,tipo=Rotina,descricao=Check-up QA CT13,status=A,valor=999,funcionarioId=1",
+    "expected": "Histórico Rex contém Rotina valor 180 e Retorno valor 90; nova consulta QA=201 com valor 0, nunca 999.",
+    "steps": [
+      {
+        "action": "Obter JWT TUTOR e consultar /api/consultas/pet/1.",
+        "expected": "200 com 2 consultas; Rotina=180 e Retorno=90."
+      },
+      {
+        "action": "Com ADMIN criar pet QA-CT13 conforme massa de cadastro e guardar idQA.",
+        "expected": "201; tutorId 1."
+      },
+      {
+        "action": "Com TUTOR cadastrar a consulta informada para idQA.",
+        "expected": "201; valor 0 e demais dados preservados."
+      },
+      {
+        "action": "Com ADMIN excluir somente o pet QA-CT13.",
+        "expected": "204; massa inicial permanece."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT13",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT13 — Histórico e preço da consulta respeitam o perfil TUTOR\n\nOBJETIVO: Conferir histórico real e impedir que o TUTOR defina o preço da consulta.\n\nRASTREABILIDADE: PBI #24 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/24). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: JWT TUTOR; GET /api/consultas/pet/1; fixture pet QA-CT13 do tutor 1; consulta data=D+10T10:30:00,tipo=Rotina,descricao=Check-up QA CT13,status=A,valor=999,funcionarioId=1\n\nSAÍDA ESPERADA: Histórico Rex contém Rotina valor 180 e Retorno valor 90; nova consulta QA=201 com valor 0, nunca 999.\n\nPASSOS:\n1. Obter JWT TUTOR e consultar /api/consultas/pet/1.\n   Esperado: 200 com 2 consultas; Rotina=180 e Retorno=90.\n2. Com ADMIN criar pet QA-CT13 conforme massa de cadastro e guardar idQA.\n   Esperado: 201; tutorId 1.\n3. Com TUTOR cadastrar a consulta informada para idQA.\n   Esperado: 201; valor 0 e demais dados preservados.\n4. Com ADMIN excluir somente o pet QA-CT13.\n   Esperado: 204; massa inicial permanece.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT14",
+    "title": "Score sem histórico é 40 e nunca fica abaixo de zero",
+    "pbi": 26,
+    "objective": "Verificar penalidades de ausência de histórico e limite inferior do score.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "Pet novo QA-CT14 (dados de CT07); seis vacinas P, QA-CT14-dose-1 a 6, data=D-20, intervalo=365; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.",
+    "expected": "Pet sem histórico: score 40, CRÍTICO. Após seis vacinas vencidas e sem consultas: score 0, CRÍTICO; nunca negativo.",
+    "steps": [
+      {
+        "action": "Com ADMIN criar QA-CT14, sem consultas nem vacinas.",
+        "expected": "201 com idQA."
+      },
+      {
+        "action": "GET /api/pets/{idQA}/inteligencia-preventiva.",
+        "expected": "200; scoreSaude=40 e statusEngajamento=CRÍTICO."
+      },
+      {
+        "action": "Criar seis vacinas P com os nomes e datas definidos para idQA.",
+        "expected": "Seis respostas 201."
+      },
+      {
+        "action": "Reconsultar inteligência preventiva.",
+        "expected": "scoreSaude=0, CRÍTICO; recomendações de atraso."
+      },
+      {
+        "action": "Excluir pet QA.",
+        "expected": "204 e suas vacinas removidas."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT14",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT14 — Score sem histórico é 40 e nunca fica abaixo de zero\n\nOBJETIVO: Verificar penalidades de ausência de histórico e limite inferior do score.\n\nRASTREABILIDADE: PBI #26 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/26). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: Pet novo QA-CT14 (dados de CT07); seis vacinas P, QA-CT14-dose-1 a 6, data=D-20, intervalo=365; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.\n\nSAÍDA ESPERADA: Pet sem histórico: score 40, CRÍTICO. Após seis vacinas vencidas e sem consultas: score 0, CRÍTICO; nunca negativo.\n\nPASSOS:\n1. Com ADMIN criar QA-CT14, sem consultas nem vacinas.\n   Esperado: 201 com idQA.\n2. GET /api/pets/{idQA}/inteligencia-preventiva.\n   Esperado: 200; scoreSaude=40 e statusEngajamento=CRÍTICO.\n3. Criar seis vacinas P com os nomes e datas definidos para idQA.\n   Esperado: Seis respostas 201.\n4. Reconsultar inteligência preventiva.\n   Esperado: scoreSaude=0, CRÍTICO; recomendações de atraso.\n5. Excluir pet QA.\n   Esperado: 204 e suas vacinas removidas.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT15",
+    "title": "Baixa pela interface cria reforço e atualiza score",
+    "pbi": 27,
+    "objective": "Conferir aplicação real pela interface, persistência e atualização preventiva.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "Pet QA-CT15 do tutor 1; consulta R em D-45T10:30:00,Rotina,180,funcionarioId=1; vacina QA-Antirrabica-CT15 P em D-20,intervalo=365; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.",
+    "expected": "Antes: score 85. Após clicar Registrar aplicação: dose A em D; exatamente um reforço P em D+365; mensagem de agendamento; score 100 e EXCELENTE.",
+    "steps": [
+      {
+        "action": "Preparar pet QA, consulta e vacina pelas APIs ADMIN; guardar idPet e idVacina.",
+        "expected": "201 nas criações; GET de inteligência tem score 85."
+      },
+      {
+        "action": "Entrar como ADMIN e abrir /pets/{idPet}.",
+        "expected": "Ficha QA com 85 e uma vacina pendente."
+      },
+      {
+        "action": "Clicar Registrar aplicação da dose QA.",
+        "expected": "Mensagem informa aplicação e próxima dose agendada automaticamente."
+      },
+      {
+        "action": "Conferir ficha e GET /api/vacinas/pet/{idPet}.",
+        "expected": "Score 100/EXCELENTE; duas doses: A em D e P em D+365."
+      },
+      {
+        "action": "Excluir pet QA.",
+        "expected": "204; apenas fixture removida."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT15",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT15 — Baixa pela interface cria reforço e atualiza score\n\nOBJETIVO: Conferir aplicação real pela interface, persistência e atualização preventiva.\n\nRASTREABILIDADE: PBI #27 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/27). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: Pet QA-CT15 do tutor 1; consulta R em D-45T10:30:00,Rotina,180,funcionarioId=1; vacina QA-Antirrabica-CT15 P em D-20,intervalo=365; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.\n\nSAÍDA ESPERADA: Antes: score 85. Após clicar Registrar aplicação: dose A em D; exatamente um reforço P em D+365; mensagem de agendamento; score 100 e EXCELENTE.\n\nPASSOS:\n1. Preparar pet QA, consulta e vacina pelas APIs ADMIN; guardar idPet e idVacina.\n   Esperado: 201 nas criações; GET de inteligência tem score 85.\n2. Entrar como ADMIN e abrir /pets/{idPet}.\n   Esperado: Ficha QA com 85 e uma vacina pendente.\n3. Clicar Registrar aplicação da dose QA.\n   Esperado: Mensagem informa aplicação e próxima dose agendada automaticamente.\n4. Conferir ficha e GET /api/vacinas/pet/{idPet}.\n   Esperado: Score 100/EXCELENTE; duas doses: A em D e P em D+365.\n5. Excluir pet QA.\n   Esperado: 204; apenas fixture removida.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT16",
+    "title": "Reaplicação retorna 409 sem criar nova dose",
+    "pbi": 27,
+    "objective": "Evitar dupla aplicação da mesma vacina.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "Pet QA-CT16; vacina QA-CT16-dose P em D-20,intervalo=365; duas chamadas POST /api/vacinas/{id}/aplicar com {}; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.",
+    "expected": "Primeira aplicação=200; segunda=409; uma dose A e uma dose P, total 2, sem alteração da data aplicada.",
+    "steps": [
+      {
+        "action": "Criar pet QA e vacina informada com JWT ADMIN.",
+        "expected": "201; guardar ids."
+      },
+      {
+        "action": "Aplicar com POST /api/vacinas/{id}/aplicar, {}.",
+        "expected": "200; dose A em D, reforço P em D+365."
+      },
+      {
+        "action": "Repetir a mesma chamada.",
+        "expected": "409 com mensagem de dose já aplicada."
+      },
+      {
+        "action": "Listar vacinas do pet QA.",
+        "expected": "Exatamente duas doses, uma A e uma P; datas preservadas."
+      },
+      {
+        "action": "Excluir pet QA.",
+        "expected": "204."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT16",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT16 — Reaplicação retorna 409 sem criar nova dose\n\nOBJETIVO: Evitar dupla aplicação da mesma vacina.\n\nRASTREABILIDADE: PBI #27 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/27). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: Pet QA-CT16; vacina QA-CT16-dose P em D-20,intervalo=365; duas chamadas POST /api/vacinas/{id}/aplicar com {}; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.\n\nSAÍDA ESPERADA: Primeira aplicação=200; segunda=409; uma dose A e uma dose P, total 2, sem alteração da data aplicada.\n\nPASSOS:\n1. Criar pet QA e vacina informada com JWT ADMIN.\n   Esperado: 201; guardar ids.\n2. Aplicar com POST /api/vacinas/{id}/aplicar, {}.\n   Esperado: 200; dose A em D, reforço P em D+365.\n3. Repetir a mesma chamada.\n   Esperado: 409 com mensagem de dose já aplicada.\n4. Listar vacinas do pet QA.\n   Esperado: Exatamente duas doses, uma A e uma P; datas preservadas.\n5. Excluir pet QA.\n   Esperado: 204.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT17",
+    "title": "Reforço previamente agendado não é duplicado",
+    "pbi": 27,
+    "objective": "Impedir duplicação quando já existe reforço idêntico.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "Pet QA-CT17; vacina QA-CT17-dose P em D-20 e outra P em D+365; mesmo pet,nome,intervalo=365; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.",
+    "expected": "Aplicação=200; mensagem contém já estava agendada; proximaDose=null; listagem tem exatamente 2 doses, mantendo o id original do reforço.",
+    "steps": [
+      {
+        "action": "Criar pet e as duas vacinas indicadas; guardar idDose e idReforco.",
+        "expected": "201; duas doses P com datas distintas."
+      },
+      {
+        "action": "Aplicar a dose em D-20 usando corpo {}.",
+        "expected": "200; mensagem informa reforço já agendado; proximaDose null."
+      },
+      {
+        "action": "GET /api/vacinas/pet/{idPet}.",
+        "expected": "Exatamente 2 doses: primeira A e reforço P com idReforco inalterado."
+      },
+      {
+        "action": "Excluir pet QA.",
+        "expected": "204."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT17",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT17 — Reforço previamente agendado não é duplicado\n\nOBJETIVO: Impedir duplicação quando já existe reforço idêntico.\n\nRASTREABILIDADE: PBI #27 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/27). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: Pet QA-CT17; vacina QA-CT17-dose P em D-20 e outra P em D+365; mesmo pet,nome,intervalo=365; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.\n\nSAÍDA ESPERADA: Aplicação=200; mensagem contém já estava agendada; proximaDose=null; listagem tem exatamente 2 doses, mantendo o id original do reforço.\n\nPASSOS:\n1. Criar pet e as duas vacinas indicadas; guardar idDose e idReforco.\n   Esperado: 201; duas doses P com datas distintas.\n2. Aplicar a dose em D-20 usando corpo {}.\n   Esperado: 200; mensagem informa reforço já agendado; proximaDose null.\n3. GET /api/vacinas/pet/{idPet}.\n   Esperado: Exatamente 2 doses: primeira A e reforço P com idReforco inalterado.\n4. Excluir pet QA.\n   Esperado: 204.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT18",
+    "title": "Data futura retorna 400 sem aplicar nem criar reforço",
+    "pbi": 27,
+    "objective": "Validar rejeição da data futura antes de alterar estado.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "Pet QA-CT18; vacina QA-CT18-dose P em D-20,intervalo=365; aplicação com dataAplicacao=D+1; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.",
+    "expected": "400 com indicação de futuro; vacina permanece P em D-20; somente uma dose no pet.",
+    "steps": [
+      {
+        "action": "Criar pet QA e vacina informada com ADMIN.",
+        "expected": "201; guardar ids."
+      },
+      {
+        "action": "POST /api/vacinas/{id}/aplicar com dataAplicacao=D+1.",
+        "expected": "400; mensagem de validação menciona futuro."
+      },
+      {
+        "action": "Consultar vacina e lista do pet.",
+        "expected": "status=P; data original D-20; lista contém uma dose."
+      },
+      {
+        "action": "Excluir pet QA.",
+        "expected": "204."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT18",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT18 — Data futura retorna 400 sem aplicar nem criar reforço\n\nOBJETIVO: Validar rejeição da data futura antes de alterar estado.\n\nRASTREABILIDADE: PBI #27 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/27). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: Pet QA-CT18; vacina QA-CT18-dose P em D-20,intervalo=365; aplicação com dataAplicacao=D+1; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.\n\nSAÍDA ESPERADA: 400 com indicação de futuro; vacina permanece P em D-20; somente uma dose no pet.\n\nPASSOS:\n1. Criar pet QA e vacina informada com ADMIN.\n   Esperado: 201; guardar ids.\n2. POST /api/vacinas/{id}/aplicar com dataAplicacao=D+1.\n   Esperado: 400; mensagem de validação menciona futuro.\n3. Consultar vacina e lista do pet.\n   Esperado: status=P; data original D-20; lista contém uma dose.\n4. Excluir pet QA.\n   Esperado: 204.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT19",
+    "title": "Erros 404 e data inválida mantêm contrato claro",
+    "pbi": 18,
+    "objective": "Conferir recurso ausente e rejeição de formato inválido.",
+    "preconditions": "Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.",
+    "inputs": "JWT ADMIN; GET /api/pets/999999; POST /api/pets com dados de CT07, nome QA-CT19 e dataNascimento=31/99/2026",
+    "expected": "GET=404 com mensagem nomeando 999999; POST=400 com referência ao formato ISO; nenhum pet QA-CT19 criado.",
+    "steps": [
+      {
+        "action": "Enviar GET /api/pets/999999.",
+        "expected": "404; mensagem identifica o ID inexistente."
+      },
+      {
+        "action": "Enviar POST /api/pets com a data textual inválida indicada.",
+        "expected": "400; mensagem refere formato ISO."
+      },
+      {
+        "action": "Consultar lista de pets.",
+        "expected": "QA-CT19 ausente; Rex e Mel preservados."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 2",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": "CT19",
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT19 — Erros 404 e data inválida mantêm contrato claro\n\nOBJETIVO: Conferir recurso ausente e rejeição de formato inválido.\n\nRASTREABILIDADE: PBI #18 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/18). Funcionalidade planejada na Sprint 2; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: Java no commit c686580, H2 novo criado pelo Flyway; URL http://127.0.0.1:18080; navegador sem sessão. Não usar ambiente de produção.\n\nENTRADAS CONTROLADAS: JWT ADMIN; GET /api/pets/999999; POST /api/pets com dados de CT07, nome QA-CT19 e dataNascimento=31/99/2026\n\nSAÍDA ESPERADA: GET=404 com mensagem nomeando 999999; POST=400 com referência ao formato ISO; nenhum pet QA-CT19 criado.\n\nPASSOS:\n1. Enviar GET /api/pets/999999.\n   Esperado: 404; mensagem identifica o ID inexistente.\n2. Enviar POST /api/pets com a data textual inválida indicada.\n   Esperado: 400; mensagem refere formato ISO.\n3. Consultar lista de pets.\n   Esperado: QA-CT19 ausente; Rex e Mel preservados.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Descartar o H2 ao encerrar o processo. Não apagar dados fora do ambiente de QA.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT20",
+    "title": ".NET autentica escrita e mantém histórico do pet",
+    "pbi": 16,
+    "objective": "Verificar contrato HTTP de manutenção e leitura do registro clínico.",
+    "preconditions": ".NET no commit 83b6dd7, SDK 9 e Oracle de QA vazio com script_bd.sql aplicado; API http://localhost:5109. Configurar Auth__Username=qa-admin, Auth__Password=QaLocal123!, Auth__SigningKey com chave exclusiva de teste de pelo menos 32 caracteres; connection string somente no ambiente. Nunca usar Oracle de produção.",
+    "inputs": "Login username=qa-admin,password=QaLocal123!; tutor nome=Tutor QA20,email=qa20@example.test,telefone=(11)90000-0020; pet QA-NET20,Cachorro,SRD,2023-01-15T00:00:00,peso=12.5,tutorId=idTutor; nome editado QA-NET20-editado",
+    "expected": "Login=200 token Bearer; POST sem token=401; POST tutor e pet autenticados=201 com Location; GET do pet com consultas/vacinas vazias; PUT=200; DELETE=204; GET posterior=404 ProblemDetails.",
+    "steps": [
+      {
+        "action": "POST /api/auth/login com credenciais indicadas; guardar token.",
+        "expected": "200 com token não vazio."
+      },
+      {
+        "action": "POST /api/pets com corpo válido, mas sem token.",
+        "expected": "401; nenhuma escrita realizada."
+      },
+      {
+        "action": "Com token criar tutor em /api/tutores e pet em /api/pets usando idTutor retornado.",
+        "expected": "201 em ambas; Location do pet resolve para o id criado."
+      },
+      {
+        "action": "GET do pet e PUT nome QA-NET20-editado, demais campos iguais.",
+        "expected": "GET 200 com histórico vazio; PUT 200 e GET posterior confirma novo nome."
+      },
+      {
+        "action": "DELETE pet, depois tutor; GET do pet excluído.",
+        "expected": "204 nas exclusões; GET 404 com status=404 no ProblemDetails."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 1",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": null,
+    "notes": "A configuração de autenticação .NET é própria e não possui os perfis ADMIN/TUTOR do Java. Não pressupor JWT compartilhado entre backends.",
+    "description": "IDENTIFICAÇÃO: CT20 — .NET autentica escrita e mantém histórico do pet\n\nOBJETIVO: Verificar contrato HTTP de manutenção e leitura do registro clínico.\n\nRASTREABILIDADE: PBI #16 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/16). Funcionalidade planejada na Sprint 1; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: .NET no commit 83b6dd7, SDK 9 e Oracle de QA vazio com script_bd.sql aplicado; API http://localhost:5109. Configurar Auth__Username=qa-admin, Auth__Password=QaLocal123!, Auth__SigningKey com chave exclusiva de teste de pelo menos 32 caracteres; connection string somente no ambiente. Nunca usar Oracle de produção.\n\nENTRADAS CONTROLADAS: Login username=qa-admin,password=QaLocal123!; tutor nome=Tutor QA20,email=qa20@example.test,telefone=(11)90000-0020; pet QA-NET20,Cachorro,SRD,2023-01-15T00:00:00,peso=12.5,tutorId=idTutor; nome editado QA-NET20-editado\n\nSAÍDA ESPERADA: Login=200 token Bearer; POST sem token=401; POST tutor e pet autenticados=201 com Location; GET do pet com consultas/vacinas vazias; PUT=200; DELETE=204; GET posterior=404 ProblemDetails.\n\nPASSOS:\n1. POST /api/auth/login com credenciais indicadas; guardar token.\n   Esperado: 200 com token não vazio.\n2. POST /api/pets com corpo válido, mas sem token.\n   Esperado: 401; nenhuma escrita realizada.\n3. Com token criar tutor em /api/tutores e pet em /api/pets usando idTutor retornado.\n   Esperado: 201 em ambas; Location do pet resolve para o id criado.\n4. GET do pet e PUT nome QA-NET20-editado, demais campos iguais.\n   Esperado: GET 200 com histórico vazio; PUT 200 e GET posterior confirma novo nome.\n5. DELETE pet, depois tutor; GET do pet excluído.\n   Esperado: 204 nas exclusões; GET 404 com status=404 no ProblemDetails.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Remover apenas os registros QA criados no ambiente de teste; restaurar os serviços interrompidos.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\nOBSERVAÇÕES: A configuração de autenticação .NET é própria e não possui os perfis ADMIN/TUTOR do Java. Não pressupor JWT compartilhado entre backends."
+  },
+  {
+    "id": "CT21",
+    "title": ".NET protege leitura sensível sem token (aceite Sprint 4)",
+    "pbi": 33,
+    "objective": "Verificar o requisito de proteção de dados previsto no PBI 33.",
+    "preconditions": ".NET no commit 83b6dd7, SDK 9 e Oracle de QA vazio com script_bd.sql aplicado; API http://localhost:5109. Configurar Auth__Username=qa-admin, Auth__Password=QaLocal123!, Auth__SigningKey com chave exclusiva de teste de pelo menos 32 caracteres; connection string somente no ambiente. Nunca usar Oracle de produção.",
+    "inputs": "Tutor sintético QA21 criado no Oracle QA: nome=Tutor QA21,email=qa21@example.test,telefone=(11)90000-0021; chamadas GET /api/tutores e /api/pets sem Authorization",
+    "expected": "Critério do PBI 33: ambas as rotas exigem autenticação e retornam 401 sem expor nome/e-mail/telefone ou histórico. Qualquer 200 com dados reprova o caso.",
+    "steps": [
+      {
+        "action": "Com token QA criar tutor QA21 e pet QA-NET21 conforme CT20.",
+        "expected": "201; guardar ids e evidência apenas sintética."
+      },
+      {
+        "action": "Em cliente sem cookies nem Authorization consultar GET /api/tutores e /api/pets.",
+        "expected": "Esperado do PBI: 401 em ambas, sem dados sensíveis."
+      },
+      {
+        "action": "Repetir com token válido.",
+        "expected": "200 com os dados sintéticos autorizados."
+      },
+      {
+        "action": "Excluir somente pet e tutor QA21 com token.",
+        "expected": "204; Oracle QA restaurado."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 4",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": null,
+    "notes": "LACUNA CONFIRMADA POR INSPEÇÃO: os GETs do commit 83b6dd7 não têm Authorize; README reconhece leitura pública. Resultado observado ainda não registrado, pois este caso não foi executado. Não marcar aprovado com base no código.",
+    "description": "IDENTIFICAÇÃO: CT21 — .NET protege leitura sensível sem token (aceite Sprint 4)\n\nOBJETIVO: Verificar o requisito de proteção de dados previsto no PBI 33.\n\nRASTREABILIDADE: PBI #33 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/33). Funcionalidade planejada na Sprint 4; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: .NET no commit 83b6dd7, SDK 9 e Oracle de QA vazio com script_bd.sql aplicado; API http://localhost:5109. Configurar Auth__Username=qa-admin, Auth__Password=QaLocal123!, Auth__SigningKey com chave exclusiva de teste de pelo menos 32 caracteres; connection string somente no ambiente. Nunca usar Oracle de produção.\n\nENTRADAS CONTROLADAS: Tutor sintético QA21 criado no Oracle QA: nome=Tutor QA21,email=qa21@example.test,telefone=(11)90000-0021; chamadas GET /api/tutores e /api/pets sem Authorization\n\nSAÍDA ESPERADA: Critério do PBI 33: ambas as rotas exigem autenticação e retornam 401 sem expor nome/e-mail/telefone ou histórico. Qualquer 200 com dados reprova o caso.\n\nPASSOS:\n1. Com token QA criar tutor QA21 e pet QA-NET21 conforme CT20.\n   Esperado: 201; guardar ids e evidência apenas sintética.\n2. Em cliente sem cookies nem Authorization consultar GET /api/tutores e /api/pets.\n   Esperado: Esperado do PBI: 401 em ambas, sem dados sensíveis.\n3. Repetir com token válido.\n   Esperado: 200 com os dados sintéticos autorizados.\n4. Excluir somente pet e tutor QA21 com token.\n   Esperado: 204; Oracle QA restaurado.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Remover apenas os registros QA criados no ambiente de teste; restaurar os serviços interrompidos.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\nOBSERVAÇÕES: LACUNA CONFIRMADA POR INSPEÇÃO: os GETs do commit 83b6dd7 não têm Authorize; README reconhece leitura pública. Resultado observado ainda não registrado, pois este caso não foi executado. Não marcar aprovado com base no código."
+  },
+  {
+    "id": "CT22",
+    "title": ".NET separa liveness e readiness na indisponibilidade do Oracle",
+    "pbi": 28,
+    "objective": "Verificar health checks reais sem derrubar ambiente compartilhado.",
+    "preconditions": ".NET no commit 83b6dd7, SDK 9 e Oracle de QA vazio com script_bd.sql aplicado; API http://localhost:5109. Configurar Auth__Username=qa-admin, Auth__Password=QaLocal123!, Auth__SigningKey com chave exclusiva de teste de pelo menos 32 caracteres; connection string somente no ambiente. Nunca usar Oracle de produção. A interrupção só pode ocorrer em container descartável de propriedade do executor.",
+    "inputs": "Oracle de QA em container próprio; GET /health/live e /health/ready; X-Correlation-Id: QA-CT22; interrupção e restauração apenas desse Oracle",
+    "expected": "Com banco disponível: live=200 Healthy e ready=200 Healthy; banco parado: live=200 e ready=503 Unhealthy sem connection string/stack trace; após restaurar banco: ready=200.",
+    "steps": [
+      {
+        "action": "Com Oracle QA saudável chamar /health/live e /health/ready com X-Correlation-Id QA-CT22.",
+        "expected": "200 Healthy em ambas; JSON de readiness inclui check oracle e duração."
+      },
+      {
+        "action": "Parar somente o container Oracle de QA; repetir as duas requisições.",
+        "expected": "Liveness 200; readiness 503 Unhealthy, retorno sem credenciais nem stack trace."
+      },
+      {
+        "action": "Conferir headers e corpo.",
+        "expected": "Correlation ID QA-CT22 presente; durações não negativas; descrição genérica."
+      },
+      {
+        "action": "Reiniciar o Oracle QA e aguardar conectividade; repetir readiness.",
+        "expected": "200 Healthy; serviço restaurado."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": null,
+    "notes": "Relacionado também ao PBI 34 da Sprint 4. Testes de integração existentes usam SQLite, o que não comprova execução Docker/Oracle.",
+    "description": "IDENTIFICAÇÃO: CT22 — .NET separa liveness e readiness na indisponibilidade do Oracle\n\nOBJETIVO: Verificar health checks reais sem derrubar ambiente compartilhado.\n\nRASTREABILIDADE: PBI #28 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/28). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: .NET no commit 83b6dd7, SDK 9 e Oracle de QA vazio com script_bd.sql aplicado; API http://localhost:5109. Configurar Auth__Username=qa-admin, Auth__Password=QaLocal123!, Auth__SigningKey com chave exclusiva de teste de pelo menos 32 caracteres; connection string somente no ambiente. Nunca usar Oracle de produção. A interrupção só pode ocorrer em container descartável de propriedade do executor.\n\nENTRADAS CONTROLADAS: Oracle de QA em container próprio; GET /health/live e /health/ready; X-Correlation-Id: QA-CT22; interrupção e restauração apenas desse Oracle\n\nSAÍDA ESPERADA: Com banco disponível: live=200 Healthy e ready=200 Healthy; banco parado: live=200 e ready=503 Unhealthy sem connection string/stack trace; após restaurar banco: ready=200.\n\nPASSOS:\n1. Com Oracle QA saudável chamar /health/live e /health/ready com X-Correlation-Id QA-CT22.\n   Esperado: 200 Healthy em ambas; JSON de readiness inclui check oracle e duração.\n2. Parar somente o container Oracle de QA; repetir as duas requisições.\n   Esperado: Liveness 200; readiness 503 Unhealthy, retorno sem credenciais nem stack trace.\n3. Conferir headers e corpo.\n   Esperado: Correlation ID QA-CT22 presente; durações não negativas; descrição genérica.\n4. Reiniciar o Oracle QA e aguardar conectividade; repetir readiness.\n   Esperado: 200 Healthy; serviço restaurado.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Remover apenas os registros QA criados no ambiente de teste; restaurar os serviços interrompidos.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\nOBSERVAÇÕES: Relacionado também ao PBI 34 da Sprint 4. Testes de integração existentes usam SQLite, o que não comprova execução Docker/Oracle."
+  },
+  {
+    "id": "CT23",
+    "title": "Mobile autentica, restaura sessão e protege logout",
+    "pbi": 30,
+    "objective": "Validar autenticação Supabase e proteção de rotas no dispositivo.",
+    "preconditions": "App no commit bef537c, Expo Go e projeto Supabase exclusivo de QA com schema.sql aplicado uma vez. Duas contas confirmadas: qa.a@example.test e qa.b@example.test, senha pública de teste QaMobile123!; cadastrar por Auth local ou confirmação desabilitada somente no projeto QA. Nunca usar a URL compartilhada do README para criar dados sem confirmar que é ambiente descartável. UUIDs são capturados das respostas, não adivinhados.",
+    "inputs": "Conta QA A qa.a@example.test/QaMobile123!; tentativa inválida com senha Incorreta-QA",
+    "expected": "Senha inválida exibe Erro ao entrar; login válido abre home; fechar e reabrir restaura sessão; logout volta a login e reabrir mantém deslogado.",
+    "steps": [
+      {
+        "action": "Abrir app sem sessão e informar QA A com senha Incorreta-QA.",
+        "expected": "Alerta Erro ao entrar e permanência no login."
+      },
+      {
+        "action": "Informar QA A com QaMobile123! e tocar Entrar.",
+        "expected": "Abre home autenticada."
+      },
+      {
+        "action": "Encerrar processo do app e reabrir sem apagar armazenamento.",
+        "expected": "Sessão restaurada; home disponível sem novo login."
+      },
+      {
+        "action": "Em Perfil tocar Sair; tentar abrir rota /pets e reiniciar app.",
+        "expected": "Redireciona ao login; nenhum pet fica disponível sem autenticação."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": null,
+    "notes": "",
+    "description": "IDENTIFICAÇÃO: CT23 — Mobile autentica, restaura sessão e protege logout\n\nOBJETIVO: Validar autenticação Supabase e proteção de rotas no dispositivo.\n\nRASTREABILIDADE: PBI #30 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/30). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: App no commit bef537c, Expo Go e projeto Supabase exclusivo de QA com schema.sql aplicado uma vez. Duas contas confirmadas: qa.a@example.test e qa.b@example.test, senha pública de teste QaMobile123!; cadastrar por Auth local ou confirmação desabilitada somente no projeto QA. Nunca usar a URL compartilhada do README para criar dados sem confirmar que é ambiente descartável. UUIDs são capturados das respostas, não adivinhados.\n\nENTRADAS CONTROLADAS: Conta QA A qa.a@example.test/QaMobile123!; tentativa inválida com senha Incorreta-QA\n\nSAÍDA ESPERADA: Senha inválida exibe Erro ao entrar; login válido abre home; fechar e reabrir restaura sessão; logout volta a login e reabrir mantém deslogado.\n\nPASSOS:\n1. Abrir app sem sessão e informar QA A com senha Incorreta-QA.\n   Esperado: Alerta Erro ao entrar e permanência no login.\n2. Informar QA A com QaMobile123! e tocar Entrar.\n   Esperado: Abre home autenticada.\n3. Encerrar processo do app e reabrir sem apagar armazenamento.\n   Esperado: Sessão restaurada; home disponível sem novo login.\n4. Em Perfil tocar Sair; tentar abrir rota /pets e reiniciar app.\n   Esperado: Redireciona ao login; nenhum pet fica disponível sem autenticação.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Remover apenas os registros QA criados no ambiente de teste; restaurar os serviços interrompidos.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\n"
+  },
+  {
+    "id": "CT24",
+    "title": "Mobile mantém pets e isola dados entre duas contas",
+    "pbi": 31,
+    "objective": "Verificar CRUD persistente e RLS de pets.",
+    "preconditions": "App no commit bef537c, Expo Go e projeto Supabase exclusivo de QA com schema.sql aplicado uma vez. Duas contas confirmadas: qa.a@example.test e qa.b@example.test, senha pública de teste QaMobile123!; cadastrar por Auth local ou confirmação desabilitada somente no projeto QA. Nunca usar a URL compartilhada do README para criar dados sem confirmar que é ambiente descartável. UUIDs são capturados das respostas, não adivinhados.",
+    "inputs": "QA A e QA B; pet nome=QA-MOB24,especie=Cachorro,raca=SRD,idade=3; edição nome=QA-MOB24-editado,idade=4; peso e dataNascimento não são campos do app",
+    "expected": "A cria, consulta e edita seu pet após reload; B não vê nem altera o UUID de A; exclusão por A remove somente seu pet.",
+    "steps": [
+      {
+        "action": "Entrar com QA A e cadastrar QA-MOB24, Cachorro, SRD, idade 3.",
+        "expected": "Pet aparece em Pets; capturar UUID_A no Supabase QA."
+      },
+      {
+        "action": "Editar nome para QA-MOB24-editado e idade para 4; fechar e reabrir app.",
+        "expected": "Nome/idade persistem sem novo cadastro."
+      },
+      {
+        "action": "Sair, entrar como QA B e abrir Pets.",
+        "expected": "Pet de A ausente."
+      },
+      {
+        "action": "Com JWT de B, no Supabase QA, consultar /rest/v1/pets?id=eq.UUID_A e tentar PATCH nome=INDEVIDO.",
+        "expected": "Consulta retorna []; alteração não modifica o pet de A (representação vazia ou erro de RLS)."
+      },
+      {
+        "action": "Voltar como A, conferir nome e excluir o pet QA.",
+        "expected": "Nome permanece QA-MOB24-editado; exclusão remove a linha e persiste após reload."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": null,
+    "notes": "O token deve ser usado apenas no cliente local; não colar JWT em Boards, GitHub nem gravações. Não confundir RLS com filtro na interface.",
+    "description": "IDENTIFICAÇÃO: CT24 — Mobile mantém pets e isola dados entre duas contas\n\nOBJETIVO: Verificar CRUD persistente e RLS de pets.\n\nRASTREABILIDADE: PBI #31 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/31). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: App no commit bef537c, Expo Go e projeto Supabase exclusivo de QA com schema.sql aplicado uma vez. Duas contas confirmadas: qa.a@example.test e qa.b@example.test, senha pública de teste QaMobile123!; cadastrar por Auth local ou confirmação desabilitada somente no projeto QA. Nunca usar a URL compartilhada do README para criar dados sem confirmar que é ambiente descartável. UUIDs são capturados das respostas, não adivinhados.\n\nENTRADAS CONTROLADAS: QA A e QA B; pet nome=QA-MOB24,especie=Cachorro,raca=SRD,idade=3; edição nome=QA-MOB24-editado,idade=4; peso e dataNascimento não são campos do app\n\nSAÍDA ESPERADA: A cria, consulta e edita seu pet após reload; B não vê nem altera o UUID de A; exclusão por A remove somente seu pet.\n\nPASSOS:\n1. Entrar com QA A e cadastrar QA-MOB24, Cachorro, SRD, idade 3.\n   Esperado: Pet aparece em Pets; capturar UUID_A no Supabase QA.\n2. Editar nome para QA-MOB24-editado e idade para 4; fechar e reabrir app.\n   Esperado: Nome/idade persistem sem novo cadastro.\n3. Sair, entrar como QA B e abrir Pets.\n   Esperado: Pet de A ausente.\n4. Com JWT de B, no Supabase QA, consultar /rest/v1/pets?id=eq.UUID_A e tentar PATCH nome=INDEVIDO.\n   Esperado: Consulta retorna []; alteração não modifica o pet de A (representação vazia ou erro de RLS).\n5. Voltar como A, conferir nome e excluir o pet QA.\n   Esperado: Nome permanece QA-MOB24-editado; exclusão remove a linha e persiste após reload.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Remover apenas os registros QA criados no ambiente de teste; restaurar os serviços interrompidos.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\nOBSERVAÇÕES: O token deve ser usado apenas no cliente local; não colar JWT em Boards, GitHub nem gravações. Não confundir RLS com filtro na interface."
+  },
+  {
+    "id": "CT25",
+    "title": "Mobile mantém vacinas, calcula alerta e valida propriedade do pet",
+    "pbi": 31,
+    "objective": "Verificar persistência vacinal, situação pelo reforço e vínculo seguro com o pet.",
+    "preconditions": "App no commit bef537c, Expo Go e projeto Supabase exclusivo de QA com schema.sql aplicado uma vez. Duas contas confirmadas: qa.a@example.test e qa.b@example.test, senha pública de teste QaMobile123!; cadastrar por Auth local ou confirmação desabilitada somente no projeto QA. Nunca usar a URL compartilhada do README para criar dados sem confirmar que é ambiente descartável. UUIDs são capturados das respostas, não adivinhados.",
+    "inputs": "QA A com pet QA-MOB25-A e QA B com pet QA-MOB25-B; vacina QA-VAC25,dataAplicacao=D-1,proximoReforco=D+60,veterinario=Dra QA,lote=QA25; edição reforco=D+10; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.",
+    "expected": "Vacina aparece apenas no pet de A; D+60=Em dia, D+10=Atenção após edição e reabertura. B não consulta/edita vacina de A. B não deve conseguir criar vacina com user_id=B vinculada ao pet de A.",
+    "steps": [
+      {
+        "action": "Com A cadastrar pet e vacina com os dados indicados em Gerenciar vacinas.",
+        "expected": "Vacina do pet A persistida; situação Em dia (reforço a mais de 30 dias)."
+      },
+      {
+        "action": "Editar reforço para D+10 e reabrir a tela/app.",
+        "expected": "Situação Atenção; data e lote persistem."
+      },
+      {
+        "action": "Com B consultar e tentar alterar o UUID da vacina A via cliente Supabase QA.",
+        "expected": "Nenhum registro de A retornado/alterado por RLS."
+      },
+      {
+        "action": "Com B tentar criar QA-INV25,user_id=B,pet_id=UUID do pet A,dataAplicacao=D-1,proximoReforco=D+60.",
+        "expected": "Operação rejeitada por propriedade do pet; se aceitar, reprovar e registrar falha de integridade/RLS."
+      },
+      {
+        "action": "Como A excluir vacina e pet QA; como B remover somente as fixtures QA B e eventual QA-INV25.",
+        "expected": "Dados QA removidos; outros dados preservados."
+      }
+    ],
+    "approval": "Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.",
+    "testIteration": "ClyvoVet\\Sprint 4",
+    "featureIteration": "Sprint 3",
+    "execution": "Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.",
+    "automation": null,
+    "notes": "Risco por inspeção: a política de vacinas confere user_id, mas não confere que pet_id pertence ao mesmo usuário. É hipótese de falha até execução real. O status é recalculado na criação/edição, não diariamente ao abrir a tela.",
+    "description": "IDENTIFICAÇÃO: CT25 — Mobile mantém vacinas, calcula alerta e valida propriedade do pet\n\nOBJETIVO: Verificar persistência vacinal, situação pelo reforço e vínculo seguro com o pet.\n\nRASTREABILIDADE: PBI #31 (https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_workitems/edit/31). Funcionalidade planejada na Sprint 3; regressão/validação no release Sprint 4, entrega 04/11/2026.\n\nPRÉ-CONDIÇÕES: App no commit bef537c, Expo Go e projeto Supabase exclusivo de QA com schema.sql aplicado uma vez. Duas contas confirmadas: qa.a@example.test e qa.b@example.test, senha pública de teste QaMobile123!; cadastrar por Auth local ou confirmação desabilitada somente no projeto QA. Nunca usar a URL compartilhada do README para criar dados sem confirmar que é ambiente descartável. UUIDs são capturados das respostas, não adivinhados.\n\nENTRADAS CONTROLADAS: QA A com pet QA-MOB25-A e QA B com pet QA-MOB25-B; vacina QA-VAC25,dataAplicacao=D-1,proximoReforco=D+60,veterinario=Dra QA,lote=QA25; edição reforco=D+10; D=data UTC do início registrada no relatório; D-20, D+1 e D+365 calculados uma vez. Exemplo em 21/10/2026: 01/10/2026, 22/10/2026 e 21/10/2027.\n\nSAÍDA ESPERADA: Vacina aparece apenas no pet de A; D+60=Em dia, D+10=Atenção após edição e reabertura. B não consulta/edita vacina de A. B não deve conseguir criar vacina com user_id=B vinculada ao pet de A.\n\nPASSOS:\n1. Com A cadastrar pet e vacina com os dados indicados em Gerenciar vacinas.\n   Esperado: Vacina do pet A persistida; situação Em dia (reforço a mais de 30 dias).\n2. Editar reforço para D+10 e reabrir a tela/app.\n   Esperado: Situação Atenção; data e lote persistem.\n3. Com B consultar e tentar alterar o UUID da vacina A via cliente Supabase QA.\n   Esperado: Nenhum registro de A retornado/alterado por RLS.\n4. Com B tentar criar QA-INV25,user_id=B,pet_id=UUID do pet A,dataAplicacao=D-1,proximoReforco=D+60.\n   Esperado: Operação rejeitada por propriedade do pet; se aceitar, reprovar e registrar falha de integridade/RLS.\n5. Como A excluir vacina e pet QA; como B remover somente as fixtures QA B e eventual QA-INV25.\n   Esperado: Dados QA removidos; outros dados preservados.\n\nCRITÉRIO DE APROVAÇÃO: Aprovar somente se todos os resultados de cada passo forem observados; qualquer divergência reprova o caso.\n\nRESTAURAÇÃO: Remover apenas os registros QA criados no ambiente de teste; restaurar os serviços interrompidos.\n\nEXECUÇÃO: Planejado. Execução manual não realizada. Resultados da automação, quando disponíveis, são evidências separadas.\n\nOBSERVAÇÕES: Risco por inspeção: a política de vacinas confere user_id, mas não confere que pet_id pertence ao mesmo usuário. É hipótese de falha até execução real. O status é recalculado na criação/edição, não diariamente ao abrir a tela."
+  }
+]
