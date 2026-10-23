@@ -22,7 +22,7 @@ export async function startDemo(browser, out, report) {
   };
   await setScreen('ClyvoVet — preparação da execução', '<p>Iniciando gravação contínua do navegador.</p>');
   let log = '';
-  const recording = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'warning', '-y', '-f', 'x11grab', '-framerate', '20', '-video_size', '1600x1000', '-i', process.env.DISPLAY, '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', path.join(out, 'demonstracao.mp4')], { stdio: ['ignore', 'ignore', 'pipe'] });
+  const recording = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'warning', '-y', '-f', 'x11grab', '-framerate', '20', '-video_size', '1600x1000', '-i', process.env.DISPLAY, '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', path.join(out, 'demonstracao.mp4')], { stdio: ['pipe', 'ignore', 'pipe'] });
   const recordingExit = new Promise(resolve => recording.once('exit', resolve));
   recording.stderr.on('data', d => { log += d; });
   const began = Date.now();
@@ -58,7 +58,7 @@ export async function startDemo(browser, out, report) {
       await page.goto('file://' + path.join(out, 'report.html')); await page.bringToFront(); await pause(11000);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await pause(9000);
       mark('Fim da gravação contínua');
-      recording.kill('SIGINT');
+      recording.stdin.write('q\n');
       const code = await recordingExit;
       await writeFile(path.join(out, 'recording.log'), log);
       await writeFile(path.join(out, 'timeline.json'), JSON.stringify(timeline, null, 2));
