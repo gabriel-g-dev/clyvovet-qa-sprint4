@@ -26,26 +26,45 @@ jobs:
           node-version: '22'
       - name: Instalar ferramenta e navegador
         run: |
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
           npx playwright install --with-deps chromium
       - name: Preparar aplicação real no commit fixado
-        run: npm run prepare:app
-      - name: Executar cenários reais com assertions e vídeo
+        run: |
+          mkdir -p artifacts
+          set -o pipefail
+          npm run prepare:app 2>&1 | tee artifacts/prepare.log
+      - name: Executar desktop com gravação contínua do navegador
+        if: matrix.viewport == 'desktop'
+        env:
+          QA_HEADED: 'true'
+          QA_DEMO: 'true'
+          QA_RECORD: 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg xvfb xauth
+          xvfb-run -a -s '-screen 0 1600x1000x24' npm test
+      - name: Executar no viewport mobile
+        if: matrix.viewport == 'mobile'
         env:
           QA_VIEWPORT: ${{ matrix.viewport }}
-          QA_DEMO: 'true'
         run: npm test
-      - name: Montar demonstração com configuração, execução e resultados reais
+      - name: Verificar vídeo contínuo, codec e duração
         if: matrix.viewport == 'desktop'
-        run: |
-          command -v ffmpeg || sudo apt-get install -y ffmpeg
-          python3 scripts/make-video.py artifacts/desktop
+        run: python3 scripts/make-video.py artifacts/desktop
+      - name: Reexecutar os mesmos 19 cenários em ordem inversa e H2 novo
+        if: matrix.viewport == 'desktop'
+        env:
+          QA_ORDER: reverse
+        run: npm test
       - name: Preservar relatório, requisições, capturas e gravações
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: evidencias-${{ matrix.viewport }}
-          path: artifacts/${{ matrix.viewport }}/
+          path: |
+            artifacts/${{ matrix.viewport }}/
+            artifacts/${{ matrix.viewport }}-reverse/
+            artifacts/prepare.log
           retention-days: 90
           if-no-files-found: warn
   regressao-dotnet:
