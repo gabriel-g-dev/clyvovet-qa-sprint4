@@ -34,9 +34,12 @@ jobs:
           key: ${{ runner.os }}-playwright-1.62.1
       - name: Instalar ferramenta e navegador
         run: |
-          npm ci --ignore-scripts
-          npx playwright install chromium
+          mkdir -p artifacts
+          set -o pipefail
+          npm ci --ignore-scripts 2>&1 | tee artifacts/npm-install.log
+          npx playwright install --with-deps --only-shell chromium 2>&1 | tee artifacts/chromium-install.log
       - name: Preparar aplicação real no commit fixado
+        id: prepare
         run: |
           mkdir -p artifacts
           set -o pipefail
@@ -44,12 +47,16 @@ jobs:
       - name: Executar 19 cenários reais sem captura de vídeo
         env:
           QA_VIEWPORT: ${{ matrix.viewport }}
-        run: npm test
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee artifacts/${{ matrix.viewport }}-execution.log
       - name: Reexecutar os mesmos 19 cenários em ordem inversa e H2 novo
-        if: matrix.viewport == 'desktop'
+        if: ${{ !cancelled() && matrix.viewport == 'desktop' && steps.prepare.outcome == 'success' }}
         env:
           QA_ORDER: reverse
-        run: npm test
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee artifacts/desktop-reverse-execution.log
       - name: Preservar relatório, requisições, capturas e logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -59,6 +66,8 @@ jobs:
             artifacts/${{ matrix.viewport }}/
             artifacts/${{ matrix.viewport }}-reverse/
             artifacts/prepare.log
+            artifacts/*-install.log
+            artifacts/*-execution.log
           retention-days: 90
           if-no-files-found: warn
   regressao-dotnet:
@@ -70,14 +79,29 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-e80bfc0
       - name: Obter fonte sem modificar o repositório da disciplina
+        id: source
         run: |
           git clone https://github.com/gabriel-g-dev/ClyvoVetApi.git .work/dotnet
-          git -C .work/dotnet checkout --detach 83b6dd76b55e471d5f5344f60a80f3617f3f9928
-      - name: Executar suítes existentes (não contam como novos testes de sistema)
+          git -C .work/dotnet checkout --detach e80bfc05e203944054c4ab3f43eb4e6f5a098426
+          test "$(git -C .work/dotnet rev-parse HEAD)" = e80bfc05e203944054c4ab3f43eb4e6f5a098426
+      - name: Executar unitários existentes
+        working-directory: .work/dotnet
         run: |
-          dotnet test .work/dotnet/ClyvoVetApi.Tests.Unit --logger trx --results-directory artifacts/dotnet/unit
-          dotnet test .work/dotnet/ClyvoVetApi.Tests.Integration --logger trx --results-directory artifacts/dotnet/integration
+          mkdir -p "$GITHUB_WORKSPACE/artifacts/dotnet"
+          set -o pipefail
+          dotnet test ClyvoVetApi.Tests.Unit --logger 'trx;LogFileName=unit.trx' --results-directory "$GITHUB_WORKSPACE/artifacts/dotnet/unit" 2>&1 | tee "$GITHUB_WORKSPACE/artifacts/dotnet/unit.log"
+      - name: Executar integração SQLite e repositório documental em memória
+        if: ${{ !cancelled() && steps.source.outcome == 'success' }}
+        working-directory: .work/dotnet
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/artifacts/dotnet"
+          set -o pipefail
+          dotnet test ClyvoVetApi.Tests.Integration --logger 'trx;LogFileName=integration.trx' --results-directory "$GITHUB_WORKSPACE/artifacts/dotnet/integration" 2>&1 | tee "$GITHUB_WORKSPACE/artifacts/dotnet/integration.log"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

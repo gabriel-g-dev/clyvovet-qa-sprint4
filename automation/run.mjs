@@ -10,13 +10,13 @@ const baseURL = 'http://127.0.0.1:18080';
 const mode = process.env.QA_VIEWPORT === 'mobile' ? 'mobile' : 'desktop';
 const viewport = mode === 'mobile' ? { width: 390, height: 844 } : { width: 1440, height: 900 };
 const order = process.env.QA_ORDER === 'reverse' ? 'reverse' : 'normal';
-const out = path.resolve('artifacts', mode + (order === 'reverse' ? '-reverse' : ''));
+const out = path.resolve(process.env.QA_OUTPUT_DIR || path.join('artifacts', mode + (order === 'reverse' ? '-reverse' : '')));
 await mkdir(out, { recursive: true });
 const startedAt = new Date().toISOString();
 const day = (offset = 0) => new Date(Date.parse(startedAt) + offset * 86400000).toISOString().slice(0, 10);
 const today = day();
 const revision = spawnSync('git', ['-C', '.work/java', 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim();
-assert.equal(revision, 'c686580b6ae21c0e828a9057f8d5a5b53c94e254', 'Commit da aplicação difere da baseline');
+assert.equal(revision, '8e1245351b5a6a6406d7de09edbcbdfbb288234d', 'Commit da aplicação difere da baseline');
 const jar = (await readdir('.work/java/target')).find(x => x.endsWith('.jar'));
 assert.ok(jar, 'Execute npm run prepare:app antes dos testes');
 const app = spawn('java', ['-Duser.timezone=UTC', '-jar', '.work/java/target/' + jar,
@@ -69,14 +69,14 @@ function scenario(id, title, fn, ui = true) { cases.push({ id, title, fn, ui });
 scenario('CT01', 'ADMIN autentica e abre o dashboard', async ({ page }) => {
   await login(page);
   await page.waitForURL('**/dashboard');
-  assert.equal(await page.getByRole('heading', { name: 'Dashboard', exact: true }).count(), 1);
+  assert.equal(await page.getByRole('heading', { name: 'Painel de cuidados', exact: true }).count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Rex', exact: true }).count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Mel', exact: true }).count(), 1);
 });
 scenario('CT02', 'Senha incorreta não cria sessão', async ({ page }) => {
   await login(page, 'admin', 'incorreta-QA');
   await page.waitForURL('**/login?erro');
-  assert.ok(await page.getByText('E-mail ou senha inválidos.', { exact: true }).isVisible());
+  assert.ok(await page.getByText('E-mail ou senha inválidos. Confira os dados e tente novamente.', { exact: true }).isVisible());
   await page.goto(baseURL + '/dashboard');
   assert.equal(new URL(page.url()).pathname, '/login');
 });
@@ -100,8 +100,14 @@ scenario('CT04', 'TUTOR recebe acesso negado no cadastro ADMIN', async ({ page }
 });
 scenario('CT05', 'Dashboard apresenta 2 pets e 3 vacinas pendentes', async ({ page }) => {
   await login(page); await page.waitForURL('**/dashboard');
-  assert.deepEqual(await page.locator('.cartao .numero').allTextContents(), ['2', '3']);
-  assert.equal(await page.locator('tbody tr').count(), 2);
+  // A baseline 8e12453 acrescentou o cartão de atrasadas. Os totais anteriores
+  // continuam exatos e cada valor é verificado no cartão identificado pelo rótulo.
+  for (const [label, value] of [['Pets acompanhados', '2'], ['Doses pendentes', '3'], ['Doses atrasadas', '1']]) {
+    const card = page.locator('.cartao').filter({ has: page.getByText(label, { exact: true }) });
+    assert.equal(await card.count(), 1);
+    assert.equal(await card.locator('.numero').innerText(), value);
+  }
+  assert.equal(await page.getByRole('table', { name: 'Calendário vacinal por pet', exact: true }).locator('tbody tr').count(), 2);
 });
 scenario('CT06', 'Ficha do Rex exibe score 85 e ATENÇÃO', async ({ page }) => {
   await login(page); await page.waitForURL('**/dashboard');
@@ -110,7 +116,9 @@ scenario('CT06', 'Ficha do Rex exibe score 85 e ATENÇÃO', async ({ page }) => 
   assert.equal(await page.locator('.score').innerText(), '85');
   assert.ok((await page.locator('main').innerText()).includes('ATENÇÃO'));
   assert.ok((await page.locator('.recomendacoes').innerText()).includes('ATRASADA'));
-  assert.equal(await page.locator('tbody tr').count(), 3);
+  // A ficha agora inclui outra tabela, de consultas; continuam sendo 3 vacinas.
+  assert.equal(await page.getByRole('table', { name: 'Calendário vacinal do pet', exact: true }).locator('tbody tr').count(), 3);
+  assert.equal(await page.getByRole('table', { name: 'Consultas do pet', exact: true }).locator('tbody tr').count(), 2);
 });
 scenario('CT07', 'ADMIN cadastra pet pela interface e dados persistem', async ({ page }) => {
   let created;
@@ -123,10 +131,16 @@ scenario('CT07', 'ADMIN cadastra pet pela interface e dados persistem', async ({
     await page.getByLabel('Peso (kg)', { exact: true }).fill('12.50');
     await page.getByLabel('Tutor responsável', { exact: true }).selectOption('1');
     await page.getByRole('button', { name: 'Cadastrar pet', exact: true }).click();
-    await page.waitForURL('**/pets');
-    assert.ok(await page.getByText("Pet 'QA-CT07' cadastrado com sucesso.", { exact: true }).isVisible());
+    // O cadastro em 8e12453 abre a ficha criada, antes de voltar à listagem.
+    await page.waitForURL(/\/pets\/\d+$/);
+    assert.ok(await page.getByText("Pet 'QA-CT07' cadastrado. Agende a primeira vacina para iniciar o acompanhamento.", { exact: true }).isVisible());
     created = (await json('GET', '/api/pets?size=100')).content.find(p => p.nome === 'QA-CT07');
     assert.ok(created); assert.equal(created.peso, 12.5); assert.equal(created.tutorId, 1);
+    assert.equal(new URL(page.url()).pathname, '/pets/' + created.id);
+    assert.equal(await page.getByRole('heading', { name: 'QA-CT07', exact: true }).count(), 1);
+    await page.reload();
+    assert.equal(await page.getByRole('heading', { name: 'QA-CT07', exact: true }).count(), 1);
+    await page.goto(baseURL + '/pets');
     await page.reload(); assert.equal(await page.getByRole('link', { name: 'QA-CT07', exact: true }).count(), 1);
   } finally {
     created ??= (await json('GET', '/api/pets?size=100')).content.find(p => p.nome === 'QA-CT07');
@@ -150,7 +164,10 @@ scenario('CT09', 'JWT identifica o tutor e bloqueia token ausente ou inválido',
   assert.equal((await call('POST', '/api/auth/login', { email: 'admin@clyvovet.com.br', senha: 'incorreta-QA' }, null)).status, 401);
 }, false);
 scenario('CT10', 'Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido', async () => {
-  const data = { nome: 'Tutor QA CT10', email: 'qa.ct10@example.test', telefone: '(11) 90000-0010', senha: 'SenhaQa123', role: 'ROLE_ADMIN' };
+  const data = { nome: 'Tutor QA CT10', email: 'qa.ct10@example.test', telefone: '(11) 90000-0010', senha: 'SenhaQa123456!', role: 'ROLE_ADMIN' };
+  const shortPassword = await call('POST', '/api/auth/register', { ...data, senha: 'SenhaQa123' }, null);
+  assert.equal(shortPassword.status, 400);
+  assert.ok(shortPassword.body.campos.senha.includes('12'));
   const r = await json('POST', '/api/auth/register', data, 201, null);
   const session = await json('POST', '/api/auth/login', { email: data.email, senha: data.senha }, 200, null);
   assert.equal(session.role, 'ROLE_TUTOR');
@@ -206,7 +223,7 @@ scenario('CT15', 'Baixa pela interface cria reforço e atualiza score', async ({
     const v = await vaccine(p.id, 'QA-Antirrabica-CT15', day(-20));
     await login(page); await page.waitForURL('**/dashboard'); await page.goto(baseURL + '/pets/' + p.id);
     assert.equal(await page.locator('.score').innerText(), '85');
-      await page.getByRole('button', { name: 'Registrar aplicação', exact: true }).click();
+    await page.getByRole('button', { name: 'Registrar aplicação de QA-Antirrabica-CT15 hoje', exact: true }).click();
     await page.getByText(/Próxima dose agendada automaticamente/).waitFor();
     assert.equal(await page.locator('.score').innerText(), '100');
     assert.ok((await page.locator('main').innerText()).includes('EXCELENTE'));
@@ -229,7 +246,11 @@ scenario('CT17', 'Reforço previamente agendado não é duplicado', async () => 
     const first = await vaccine(p.id, 'QA-CT17-dose', day(-20));
     const next = await vaccine(p.id, 'QA-CT17-dose', day(365));
     const r = await json('POST', '/api/vacinas/' + first.id + '/aplicar', {});
-    assert.ok(r.mensagem.includes('já estava agendada')); assert.equal(r.proximaDose, null);
+    assert.ok(r.mensagem.includes('já estava agendada'));
+    assert.equal(r.proximaDose.id, next.id);
+    assert.equal(r.proximaDose.petId, p.id);
+    assert.equal(r.proximaDose.data, day(365));
+    assert.equal(r.proximaDose.status, 'P');
     const doses = await json('GET', '/api/vacinas/pet/' + p.id);
     assert.equal(doses.length, 2); assert.equal(doses.filter(x => x.status === 'P').length, 1);
     assert.equal(doses.find(x => x.status === 'P').id, next.id);
@@ -265,11 +286,25 @@ try {
   const seedVaccines = await Promise.all([1, 2].map(id => json('GET', '/api/vacinas/pet/' + id)));
   report.qaRevision = spawnSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim();
   report.configuration = { browser: 'Chromium', playwright: JSON.parse(await readFile('package.json', 'utf8')).devDependencies.playwright,
+    browserExecutable: process.env.QA_CHROMIUM_EXECUTABLE || 'Playwright bundled default', headless: process.env.QA_HEADED !== 'true',
     baseURL, viewport, timezone: 'UTC', database: 'H2 em memória exclusivo por processo', order,
     contexts: 'Novo contexto de navegador por caso UI', videoRecording: false };
   await writeFile(path.join(out, 'configuration.json'), JSON.stringify(report.configuration, null, 2));
-  browser = await chromium.launch({ headless: process.env.QA_HEADED !== 'true' });
+  try {
+    browser = await chromium.launch({ headless: process.env.QA_HEADED !== 'true',
+      executablePath: process.env.QA_CHROMIUM_EXECUTABLE || undefined, timeout: 15000 });
+    report.browserVersion = browser.version();
+  } catch (e) {
+    report.browserSetupError = e.stack;
+    console.error('Chromium indisponível; casos UI serão registrados como BLOCKED. HTTP será executado.\n' + e.stack);
+  }
   for (const c of order === 'reverse' ? [...cases].reverse() : cases) {
+    if (c.ui && !browser) {
+      results.push({ id: c.id, title: c.title, type: 'UI + HTTP', status: 'blocked',
+        error: report.browserSetupError, durationMs: 0, http: [], browserEvents: [] });
+      console.log('BLOCKED ' + c.id + ' — ' + c.title + ' (Chromium não iniciou; cenário não executado)');
+      continue;
+    }
     const start = Date.now(); const events = []; const startCheck = checks.length;
     let context; let page; let result = { id: c.id, title: c.title, type: c.ui ? 'UI + HTTP' : 'HTTP', status: 'passed' };
     try {
@@ -309,23 +344,22 @@ finally {
   if (app.exitCode === null) app.kill('SIGKILL');
   report.finishedAt = new Date().toISOString(); report.passed = results.filter(x => x.status === 'passed').length;
   report.failed = results.filter(x => x.status === 'failed').length; report.total = cases.length;
+  report.blocked = results.filter(x => x.status === 'blocked').length;
   await writeFile(path.join(out, 'results.json'), JSON.stringify(report, null, 2));
   await writeFile(path.join(out, 'application.log'), appLog);
-  const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.type === 'UI + HTTP' ? '<a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e assertions em results.json') + '</td></tr>').join('');
-  await writeFile(path.join(out, 'report.html'), '<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><title>ClyvoVet — Resultados reais</title><style>body{font:16px system-ui;margin:40px;color:#153d38}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;border-bottom:1px solid #ccc}code{overflow-wrap:anywhere}</style><h1>ClyvoVet — Automação Sprint 4</h1><p>Ferramenta: Playwright Chromium + Node assert. Viewport: ' + mode + ' · ordem: ' + order + '.</p><p>Commit da aplicação: <code>' + revision + '</code></p><p>Início: ' + startedAt + ' · Fim: ' + report.finishedAt + '</p><h2>' + report.passed + '/' + cases.length + ' aprovados · ' + report.failed + ' falhas</h2><p>Dados: usuários de demonstração; D=' + today + '; H2 descartável, recriado a cada processo; fixtures individuais excluídas ao final.</p><table><thead><tr><th>ID</th><th>Cenário</th><th>Camada</th><th>Resultado</th><th>ms</th><th>Evidência</th></tr></thead><tbody>' + rows + '</tbody></table><pre>' + escape(report.setupError ?? '') + '</pre></html>');
-  await browser?.close();
-  if (results.length === cases.length) {
-    const reportBrowser = await chromium.launch();
+  const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.status === 'blocked' ? 'Não executado: Chromium indisponível' : r.type === 'UI + HTTP' ? '<a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e assertions em results.json') + '</td></tr>').join('');
+  await writeFile(path.join(out, 'report.html'), '<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><title>ClyvoVet — Resultados reais</title><style>body{font:16px system-ui;margin:40px;color:#153d38}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;border-bottom:1px solid #ccc}code{overflow-wrap:anywhere}</style><h1>ClyvoVet — Automação Sprint 4</h1><p>Ferramenta: Playwright Chromium + Node assert. Viewport: ' + mode + ' · ordem: ' + order + '.</p><p>Commit da aplicação: <code>' + revision + '</code></p><p>Início: ' + startedAt + ' · Fim: ' + report.finishedAt + '</p><h2>' + report.passed + '/' + cases.length + ' aprovados · ' + report.failed + ' falhas · ' + report.blocked + ' bloqueados</h2><p>Dados: usuários de demonstração; D=' + today + '; H2 descartável, recriado a cada processo; fixtures individuais excluídas ao final.</p><table><thead><tr><th>ID</th><th>Cenário</th><th>Camada</th><th>Resultado</th><th>ms</th><th>Evidência</th></tr></thead><tbody>' + rows + '</tbody></table><pre>' + escape(report.setupError ?? '') + '</pre></html>');
+  if (browser) {
     try {
-      const context = await reportBrowser.newContext({ viewport: { width: 1440, height: 1000 } });
+      const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
       const screen = await context.newPage();
       await screen.goto('file://' + path.join(out, 'report.html'));
       await screen.screenshot({ path: path.join(out, 'report.png'), fullPage: true });
       await screen.setContent('<!doctype html><meta charset="UTF-8"><title>Configuração executada</title><style>body{font:20px system-ui;margin:32px}pre{font:18px monospace;white-space:pre-wrap}</style><h1>Configuração efetivamente executada</h1><p>Início: ' + escape(startedAt) + '</p><p>QA: ' + escape(report.qaRevision) + '</p><p>Java: ' + revision + '</p><pre>' + escape(JSON.stringify(report.configuration, null, 2)) + '</pre>');
       await screen.screenshot({ path: path.join(out, 'configuration.png'), fullPage: true });
       await context.close();
-    } finally { await reportBrowser.close(); }
+    } finally { await browser.close(); }
   }
-  console.log('RESULTADO: ' + report.passed + '/' + cases.length + ' aprovados; ' + report.failed + ' falhas');
-  if (report.failed || results.length !== cases.length) process.exitCode = 1;
+  console.log('RESULTADO: ' + report.passed + '/' + cases.length + ' aprovados; ' + report.failed + ' falhas; ' + report.blocked + ' bloqueados');
+  if (report.failed || report.blocked || results.length !== cases.length) process.exitCode = 1;
 }

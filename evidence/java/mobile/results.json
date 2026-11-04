@@ -1,20 +1,21 @@
 {
   "tool": "Playwright Chromium + Node assert",
   "mode": "mobile",
+  "order": "normal",
   "viewport": {
     "width": 390,
     "height": 844
   },
-  "startedAt": "2026-10-21T17:13:37.048Z",
-  "today": "2026-10-21",
-  "revision": "c686580b6ae21c0e828a9057f8d5a5b53c94e254",
+  "startedAt": "2026-11-04T13:07:14.066Z",
+  "today": "2026-11-04",
+  "revision": "8e1245351b5a6a6406d7de09edbcbdfbb288234d",
   "results": [
     {
       "id": "CT01",
       "title": "ADMIN autentica e abre o dashboard",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 2650,
+      "durationMs": 474,
       "http": [],
       "browserEvents": []
     },
@@ -23,7 +24,7 @@
       "title": "Senha incorreta não cria sessão",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 2634,
+      "durationMs": 322,
       "http": [],
       "browserEvents": []
     },
@@ -32,7 +33,7 @@
       "title": "TUTOR lista somente Rex e suas pendências",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 3248,
+      "durationMs": 434,
       "http": [
         {
           "method": "GET",
@@ -47,12 +48,17 @@
       "title": "TUTOR recebe acesso negado no cadastro ADMIN",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 2642,
+      "durationMs": 382,
       "http": [
         {
           "method": "POST",
           "route": "/api/vacinas/2/aplicar",
           "status": 403
+        },
+        {
+          "method": "GET",
+          "route": "/api/vacinas/2",
+          "status": 200
         }
       ],
       "browserEvents": [
@@ -72,7 +78,7 @@
       "title": "Dashboard apresenta 2 pets e 3 vacinas pendentes",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 2371,
+      "durationMs": 362,
       "http": [],
       "browserEvents": []
     },
@@ -81,7 +87,7 @@
       "title": "Ficha do Rex exibe score 85 e ATENÇÃO",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 2714,
+      "durationMs": 550,
       "http": [],
       "browserEvents": []
     },
@@ -90,7 +96,7 @@
       "title": "ADMIN cadastra pet pela interface e dados persistem",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 4688,
+      "durationMs": 872,
       "http": [
         {
           "method": "GET",
@@ -110,7 +116,7 @@
       "title": "Formulário vazio mostra seis erros e não grava",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 2958,
+      "durationMs": 495,
       "http": [
         {
           "method": "GET",
@@ -125,7 +131,7 @@
       "title": "JWT identifica o tutor e bloqueia token ausente ou inválido",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 107,
+      "durationMs": 106,
       "http": [
         {
           "method": "GET",
@@ -155,8 +161,13 @@
       "title": "Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 208,
+      "durationMs": 219,
       "http": [
+        {
+          "method": "POST",
+          "route": "/api/auth/register",
+          "status": 400
+        },
         {
           "method": "POST",
           "route": "/api/auth/register",
@@ -185,7 +196,7 @@
       "title": "TUTOR não acessa Mel nem transfere seu pet por tutorId",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 61,
+      "durationMs": 52,
       "http": [
         {
           "method": "GET",
@@ -220,7 +231,7 @@
       "title": "Pet percorre criação, filtro, edição e exclusão",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 66,
+      "durationMs": 54,
       "http": [
         {
           "method": "POST",
@@ -260,7 +271,7 @@
       "title": "Histórico de Rex e valor da consulta respeitam o perfil",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 66,
+      "durationMs": 46,
       "http": [
         {
           "method": "GET",
@@ -290,7 +301,7 @@
       "title": "Score sem histórico é 40 e nunca fica abaixo de zero",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 110,
+      "durationMs": 92,
       "http": [
         {
           "method": "POST",
@@ -350,7 +361,7 @@
       "title": "Baixa pela interface cria reforço e atualiza score",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 3044,
+      "durationMs": 571,
       "http": [
         {
           "method": "POST",
@@ -390,7 +401,7 @@
       "title": "Reaplicação retorna 409 e mantém somente duas doses",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 55,
+      "durationMs": 71,
       "http": [
         {
           "method": "POST",
@@ -470,7 +481,7 @@
       "title": "Data futura retorna 400 sem aplicar nem criar reforço",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 44,
+      "durationMs": 41,
       "http": [
         {
           "method": "POST",
@@ -510,7 +521,7 @@
       "title": "Erros 404 e data inválida retornam contrato verificável",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 10,
+      "durationMs": 12,
       "http": [
         {
           "method": "GET",
@@ -526,8 +537,37 @@
       "browserEvents": []
     }
   ],
-  "finishedAt": "2026-10-21T17:14:13.678Z",
+  "qaRevision": "3420e75f1c5382e4939878ac3dffd5471741f494",
+  "configuration": {
+    "browser": "Chromium",
+    "playwright": "1.62.1",
+    "browserExecutable": "/workspace/scratch/8cb0357df1ae/clyvovet-qa-sprint4/.work/chromium-headless-shell/chrome-headless-shell-linux64/chrome-headless-shell",
+    "headless": true,
+    "baseURL": "http://127.0.0.1:18080",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timezone": "UTC",
+    "database": "H2 em memória exclusivo por processo",
+    "order": "normal",
+    "contexts": "Novo contexto de navegador por caso UI",
+    "videoRecording": false
+  },
+  "browserVersion": "151.0.7922.34",
+  "isolation": {
+    "passed": true,
+    "seedPetIds": [
+      1,
+      2
+    ],
+    "remainingFixturePets": 0,
+    "seedVaccinesUnchanged": true,
+    "databaseDiscardedOnExit": true
+  },
+  "finishedAt": "2026-11-04T13:07:28.528Z",
   "passed": 19,
   "failed": 0,
-  "total": 19
+  "total": 19,
+  "blocked": 0
 }

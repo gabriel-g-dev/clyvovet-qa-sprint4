@@ -6,16 +6,16 @@
     "width": 1440,
     "height": 900
   },
-  "startedAt": "2026-10-23T13:45:02.840Z",
-  "today": "2026-10-23",
-  "revision": "c686580b6ae21c0e828a9057f8d5a5b53c94e254",
+  "startedAt": "2026-11-04T13:07:34.710Z",
+  "today": "2026-11-04",
+  "revision": "8e1245351b5a6a6406d7de09edbcbdfbb288234d",
   "results": [
     {
       "id": "CT19",
       "title": "Erros 404 e data inválida retornam contrato verificável",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 45,
+      "durationMs": 51,
       "http": [
         {
           "method": "GET",
@@ -35,7 +35,7 @@
       "title": "Data futura retorna 400 sem aplicar nem criar reforço",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 129,
+      "durationMs": 142,
       "http": [
         {
           "method": "POST",
@@ -75,7 +75,7 @@
       "title": "Reforço previamente agendado não é duplicado",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 67,
+      "durationMs": 101,
       "http": [
         {
           "method": "POST",
@@ -115,7 +115,7 @@
       "title": "Reaplicação retorna 409 e mantém somente duas doses",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 60,
+      "durationMs": 75,
       "http": [
         {
           "method": "POST",
@@ -155,7 +155,7 @@
       "title": "Baixa pela interface cria reforço e atualiza score",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 613,
+      "durationMs": 867,
       "http": [
         {
           "method": "POST",
@@ -195,7 +195,7 @@
       "title": "Score sem histórico é 40 e nunca fica abaixo de zero",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 64,
+      "durationMs": 90,
       "http": [
         {
           "method": "POST",
@@ -255,7 +255,7 @@
       "title": "Histórico de Rex e valor da consulta respeitam o perfil",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 26,
+      "durationMs": 32,
       "http": [
         {
           "method": "GET",
@@ -285,7 +285,7 @@
       "title": "Pet percorre criação, filtro, edição e exclusão",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 39,
+      "durationMs": 51,
       "http": [
         {
           "method": "POST",
@@ -325,7 +325,7 @@
       "title": "TUTOR não acessa Mel nem transfere seu pet por tutorId",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 31,
+      "durationMs": 40,
       "http": [
         {
           "method": "GET",
@@ -360,8 +360,13 @@
       "title": "Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 130,
+      "durationMs": 215,
       "http": [
+        {
+          "method": "POST",
+          "route": "/api/auth/register",
+          "status": 400
+        },
         {
           "method": "POST",
           "route": "/api/auth/register",
@@ -390,7 +395,7 @@
       "title": "JWT identifica o tutor e bloqueia token ausente ou inválido",
       "type": "HTTP",
       "status": "passed",
-      "durationMs": 62,
+      "durationMs": 103,
       "http": [
         {
           "method": "GET",
@@ -420,7 +425,7 @@
       "title": "Formulário vazio mostra seis erros e não grava",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 425,
+      "durationMs": 620,
       "http": [
         {
           "method": "GET",
@@ -435,7 +440,7 @@
       "title": "ADMIN cadastra pet pela interface e dados persistem",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 449,
+      "durationMs": 658,
       "http": [
         {
           "method": "GET",
@@ -455,7 +460,7 @@
       "title": "Ficha do Rex exibe score 85 e ATENÇÃO",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 373,
+      "durationMs": 565,
       "http": [],
       "browserEvents": []
     },
@@ -464,7 +469,7 @@
       "title": "Dashboard apresenta 2 pets e 3 vacinas pendentes",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 262,
+      "durationMs": 369,
       "http": [],
       "browserEvents": []
     },
@@ -473,7 +478,7 @@
       "title": "TUTOR recebe acesso negado no cadastro ADMIN",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 282,
+      "durationMs": 411,
       "http": [
         {
           "method": "POST",
@@ -503,7 +508,7 @@
       "title": "TUTOR lista somente Rex e suas pendências",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 317,
+      "durationMs": 422,
       "http": [
         {
           "method": "GET",
@@ -518,7 +523,7 @@
       "title": "Senha incorreta não cria sessão",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 266,
+      "durationMs": 344,
       "http": [],
       "browserEvents": []
     },
@@ -527,15 +532,17 @@
       "title": "ADMIN autentica e abre o dashboard",
       "type": "UI + HTTP",
       "status": "passed",
-      "durationMs": 254,
+      "durationMs": 343,
       "http": [],
       "browserEvents": []
     }
   ],
-  "qaRevision": "e544daad11bbbb56df92afe0a7900fd5b1cf3cdb",
+  "qaRevision": "3420e75f1c5382e4939878ac3dffd5471741f494",
   "configuration": {
     "browser": "Chromium",
     "playwright": "1.62.1",
+    "browserExecutable": "/workspace/scratch/8cb0357df1ae/clyvovet-qa-sprint4/.work/chromium-headless-shell/chrome-headless-shell-linux64/chrome-headless-shell",
+    "headless": true,
     "baseURL": "http://127.0.0.1:18080",
     "viewport": {
       "width": 1440,
@@ -547,6 +554,7 @@
     "contexts": "Novo contexto de navegador por caso UI",
     "videoRecording": false
   },
+  "browserVersion": "151.0.7922.34",
   "isolation": {
     "passed": true,
     "seedPetIds": [
@@ -557,8 +565,9 @@
     "seedVaccinesUnchanged": true,
     "databaseDiscardedOnExit": true
   },
-  "finishedAt": "2026-10-23T13:45:12.699Z",
+  "finishedAt": "2026-11-04T13:07:47.501Z",
   "passed": 19,
   "failed": 0,
-  "total": 19
+  "total": 19,
+  "blocked": 0
 }
