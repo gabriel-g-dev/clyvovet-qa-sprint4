@@ -1,16 +1,16 @@
 # Plano de testes manuais
 
-**27 casos, 112 passos, IDs Azure 63–89**, na Sprint 4 de QA. Cada roteiro contém objetivo, dados controlados de entrada e saída, ações reproduzíveis, aprovação, restauração e PBI/sprint de origem.
+**27 casos, 112 passos, IDs Azure 63–89**, na Sprint 4 de QA. Cada roteiro contém objetivo, dados de entrada, resultados esperados, procedimento, critérios de aprovação, restauração e vínculo com o PBI e a sprint de origem.
 
 [Plano no Azure Boards](https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_queries/query/8d652d1f-57a9-4c0b-a195-c3f47655fa9e/).
 
-Os roteiros locais refletem os contratos finais e ainda precisam de aprovação e atualização no Azure, mantendo os IDs e as relações existentes. Nenhuma execução manual é declarada aprovada. CT01–CT19 foram automatizados no Java; os demais permanecem planejados. Os resultados estão no [README](../README.md).
+A execução manual e a atualização dos Test Cases no Azure estão pendentes. CT01–CT19 têm automação Java. Os [resultados e demais pendências](../README.md) estão no README do projeto.
 
 ## Preparação
 
-- Java: preparar com `npm run prepare:app`. Para executar os roteiros à mão, iniciar a própria instância com o comando abaixo, usar H2 novo por caso e encerrar com Ctrl+C. Não executar simultaneamente com a automação na porta 18080.
-- .NET: usar o [README de e80bfc0](https://github.com/gabriel-g-dev/ClyvoVetApi/blob/e80bfc05e203944054c4ab3f43eb4e6f5a098426/README.md), schema Oracle exclusivo e MongoDB descartável. A migration ativa é OracleBaseline; scripts legados não são aplicados em conjunto. Os casos informam corpos e respostas da API atual.
-- Mobile: usar a [versão 77b05a3](https://github.com/Vitor-Augusto-olv/clyvo-ve/tree/77b05a31a1d5cc55b46ce84269d08346aeadff8a), instalação QA com notificações e Supabase próprio, preparado pelos scripts indicados nos casos. Não escrever no projeto compartilhado. Contas e valores dos roteiros são sintéticos e precisam existir somente no QA.
+- Java: prepare com `npm run prepare:app`. Para executar os casos manualmente, inicie a aplicação com o comando abaixo, use H2 novo por caso e encerre com Ctrl+C. Não execute a automação ao mesmo tempo na porta 18080.
+- .NET: os roteiros usam `e80bfc0`; a versão publicada está no [README de e0efef1](https://github.com/gabriel-g-dev/ClyvoVetApi/blob/e0efef1/README.md). Use schema Oracle exclusivo, MongoDB descartável e a migration OracleBaseline, sem aplicar os scripts legados em conjunto.
+- Mobile: use a [versão 77b05a3](https://github.com/Vitor-Augusto-olv/clyvo-ve/tree/77b05a31a1d5cc55b46ce84269d08346aeadff8a), uma instalação de QA com notificações habilitadas e Supabase exclusivo, preparado pelos scripts dos casos. Mantenha as contas e os dados sintéticos somente no QA, sem alterar o projeto compartilhado.
 
 ```bash
 java -Duser.timezone=UTC -jar .work/java/target/clyvovet-0.0.1-SNAPSHOT.jar \
@@ -18,7 +18,9 @@ java -Duser.timezone=UTC -jar .work/java/target/clyvovet-0.0.1-SNAPSHOT.jar \
   '--spring.datasource.url=jdbc:h2:mem:qa_manual;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
 ```
 
-D representa a data UTC registrada antes de cada caso Java/.NET. No Mobile, registrar H e D em America/Sao_Paulo. Calcular e anotar as datas derivadas antes de enviar qualquer entrada. Guardar IDs retornados no cliente de teste; nunca presumir UUIDs nem publicar tokens. Nos modelos de corpo JSON, substituir as strings UUID_A, UUID_B, UUID_PET_A, UUID_PET_B, D-1, D+10, D+60, A UUID_CURTO, UUID_MED_A, UUID_VACINA_A e os horários derivados pelos valores já capturados/calculados antes do envio; as demais strings são dados literais do caso.
+`D` é a data UTC de início de cada caso Java/.NET. No Mobile, registre o horário `H` e a data `D` no fuso `America/Sao_Paulo`. Calcule e anote as datas derivadas antes de começar.
+
+Guarde os IDs retornados no cliente de teste. Nos modelos JSON, substitua os marcadores de UUID, data e horário pelos valores capturados ou calculados; os demais textos são literais. Não publique tokens nas evidências.
 
 ## Casos
 
