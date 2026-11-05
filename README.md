@@ -4,7 +4,7 @@ Testes de sistema do Challenge FIAP 2026 — Compliance, Quality Assurance & Tes
 
 [Azure Boards — plano de testes](https://dev.azure.com/clyvovet-fiap-2026-rm563298/ClyvoVet/_queries/query/8d652d1f-57a9-4c0b-a195-c3f47655fa9e/) · [27 roteiros manuais / 112 passos](manual/README.md) · [GitHub público — develop](https://github.com/gabriel-g-dev/clyvovet-qa-sprint4/tree/develop).
 
-**Vídeo demonstrativo: gravação e publicação pendentes.**
+Vídeo demonstrativo: https://youtu.be/Dgs7mdhh5Us
 
 ## Execução
 
