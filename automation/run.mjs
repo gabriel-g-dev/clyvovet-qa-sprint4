@@ -2,6 +2,7 @@ import { chromium, request } from 'playwright';
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdir, writeFile, readFile, readdir } from 'node:fs/promises';
+import { createServer } from 'node:net';
 import path from 'node:path';
 
 // O runner inicia a própria aplicação e só envia requisições ao loopback.
@@ -19,6 +20,11 @@ const revision = spawnSync('git', ['-C', '.work/java', 'rev-parse', 'HEAD'], { e
 assert.equal(revision, '8e1245351b5a6a6406d7de09edbcbdfbb288234d', 'Commit da aplicação difere da baseline');
 const jar = (await readdir('.work/java/target')).find(x => x.endsWith('.jar'));
 assert.ok(jar, 'Execute npm run prepare:app antes dos testes');
+await new Promise((resolve, reject) => {
+  const probe = createServer();
+  probe.once('error', error => reject(new Error('Porta 18080 indisponível; libere-a antes de executar a suíte.', { cause: error })));
+  probe.listen(18080, '127.0.0.1', () => probe.close(error => error ? reject(error) : resolve()));
+});
 const app = spawn('java', ['-Duser.timezone=UTC', '-jar', '.work/java/target/' + jar,
   '--server.address=127.0.0.1', '--server.port=18080', '--spring.jpa.show-sql=false',
   '--spring.datasource.url=jdbc:h2:mem:qa_' + process.pid + ';DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'],
@@ -135,7 +141,8 @@ scenario('CT07', 'ADMIN cadastra pet pela interface e dados persistem', async ({
     await page.waitForURL(/\/pets\/\d+$/);
     assert.ok(await page.getByText("Pet 'QA-CT07' cadastrado. Agende a primeira vacina para iniciar o acompanhamento.", { exact: true }).isVisible());
     created = (await json('GET', '/api/pets?size=100')).content.find(p => p.nome === 'QA-CT07');
-    assert.ok(created); assert.equal(created.peso, 12.5); assert.equal(created.tutorId, 1);
+    assert.ok(created);
+    for (const [field, expected] of Object.entries(petData('QA-CT07'))) assert.equal(created[field], expected, field);
     assert.equal(new URL(page.url()).pathname, '/pets/' + created.id);
     assert.equal(await page.getByRole('heading', { name: 'QA-CT07', exact: true }).count(), 1);
     await page.reload();
@@ -173,7 +180,8 @@ scenario('CT10', 'Cadastro público fixa ROLE_TUTOR e rejeita e-mail repetido', 
   assert.equal(session.role, 'ROLE_TUTOR');
   assert.equal((await call('POST', '/api/auth/register', data, null)).status, 409);
   const me = await json('GET', '/api/auth/me', undefined, 200, session.token);
-  assert.equal(me.nome, data.nome); assert.ok(r);
+  assert.equal(me.nome, data.nome); assert.equal(me.email, data.email);
+  assert.equal(me.role, 'ROLE_TUTOR'); assert.ok(Number.isInteger(me.tutorId) && me.tutorId > 0); assert.ok(r);
   // Usuário sem endpoint de exclusão: eliminado com o H2 ao encerrar o processo.
 }, false);
 scenario('CT11', 'TUTOR não acessa Mel nem transfere seu pet por tutorId', async () => {
@@ -236,9 +244,13 @@ scenario('CT16', 'Reaplicação retorna 409 e mantém somente duas doses', async
   await fixture('QA-CT16', async p => {
     const v = await vaccine(p.id, 'QA-CT16-dose', day(-20));
     await json('POST', '/api/vacinas/' + v.id + '/aplicar', {});
+    const before = await json('GET', '/api/vacinas/pet/' + p.id);
+    assert.equal(before.find(x => x.status === 'A').data, today);
+    assert.equal(before.find(x => x.status === 'P').data, day(365));
     assert.equal((await call('POST', '/api/vacinas/' + v.id + '/aplicar', {})).status, 409);
     const doses = await json('GET', '/api/vacinas/pet/' + p.id);
     assert.equal(doses.length, 2); assert.equal(doses.filter(x => x.status === 'A').length, 1);
+    assert.deepEqual(doses, before, 'Reaplicação rejeitada alterou as doses');
   });
 }, false);
 scenario('CT17', 'Reforço previamente agendado não é duplicado', async () => {
@@ -275,6 +287,7 @@ try {
   let ready = false;
   for (let i = 0; i < 120; i++) {
     if (app.exitCode !== null) throw new Error('Aplicação encerrou durante a inicialização');
+    if (!appLog.includes('Tomcat started on port 18080')) { await delay(500); continue; }
     try { const r = await fetch(baseURL + '/login'); if (r.ok) { ready = true; break; } } catch {}
     await delay(500);
   }
@@ -347,7 +360,7 @@ finally {
   report.blocked = results.filter(x => x.status === 'blocked').length;
   await writeFile(path.join(out, 'results.json'), JSON.stringify(report, null, 2));
   await writeFile(path.join(out, 'application.log'), appLog);
-  const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.status === 'blocked' ? 'Não executado: Chromium indisponível' : r.type === 'UI + HTTP' ? '<a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e assertions em results.json') + '</td></tr>').join('');
+  const rows = results.map(r => '<tr><td>' + r.id + '</td><td>' + escape(r.title) + '</td><td>' + r.type + '</td><td>' + r.status + '</td><td>' + r.durationMs + '</td><td>' + (r.status === 'blocked' ? 'Não executado: Chromium indisponível' : r.type === 'UI + HTTP' ? '<a href="' + r.id + (r.status === 'passed' ? '.png' : '-falha.png') + '">Captura</a>' : 'Requisições e resultados em results.json') + '</td></tr>').join('');
   await writeFile(path.join(out, 'report.html'), '<!doctype html><html lang="pt-BR"><meta charset="UTF-8"><title>ClyvoVet — Resultados reais</title><style>body{font:16px system-ui;margin:40px;color:#153d38}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;border-bottom:1px solid #ccc}code{overflow-wrap:anywhere}</style><h1>ClyvoVet — Automação Sprint 4</h1><p>Ferramenta: Playwright Chromium + Node assert. Viewport: ' + mode + ' · ordem: ' + order + '.</p><p>Commit da aplicação: <code>' + revision + '</code></p><p>Início: ' + startedAt + ' · Fim: ' + report.finishedAt + '</p><h2>' + report.passed + '/' + cases.length + ' aprovados · ' + report.failed + ' falhas · ' + report.blocked + ' bloqueados</h2><p>Dados: usuários de demonstração; D=' + today + '; H2 descartável, recriado a cada processo; fixtures individuais excluídas ao final.</p><table><thead><tr><th>ID</th><th>Cenário</th><th>Camada</th><th>Resultado</th><th>ms</th><th>Evidência</th></tr></thead><tbody>' + rows + '</tbody></table><pre>' + escape(report.setupError ?? '') + '</pre></html>');
   if (browser) {
     try {
